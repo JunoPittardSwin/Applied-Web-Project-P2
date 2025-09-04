@@ -1,0 +1,108 @@
+/**
+ * Main shared styling for site pages.
+ * 
+ * NOTE: For page-specific styling, individual CSS files should be used per-page.
+ */
+
+:root {
+	/* Site Theme Colours */
+	--col-text-main: #111;
+	--col-text-title: #444;
+	--col-text-card: #ddd;
+	--col-text-card-title: #fff;
+	--col-background-card: #888;
+	--col-background-nav: #fafafb;
+}
+
+body {
+	margin: 0;
+
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
+	font-family: sans-serif;
+	color: var(--col-text-main);
+}
+
+#navigation {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	padding: 1em;
+
+	/* box-shadow: ; */
+	background-color: var(--col-background-nav);
+}
+
+#navigation > h2 {
+	margin: 0;
+
+	font-weight: 600;
+	color: var(--col-text-title);
+}
+
+#navigation > nav {
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+}
+
+#navigation a {
+	text-decoration: none;
+	color: var(--col-text-title);
+}
+
+#navigation a:hover {
+	text-decoration: underline;
+}
+
+#hero-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	min-height: 60vh;
+	padding: 1em;
+	box-sizing: border-box;
+	
+	background-color: #445;
+}
+
+#hero {
+	padding: 1em;
+	border-radius: 0.5em;
+
+	background-color: var(--col-background-card);
+	box-shadow: 0.25em 0.25em 4px rgba(100, 100, 100, 0.5);
+	
+	color: var(--col-text-card);
+}
+
+#hero h1 {
+	text-decoration: underline;
+	color: var(--col-text-card-title);
+}
+
+main {
+	padding: 1em 10vw;
+	box-sizing: border-box;
+	flex-grow: 1;
+
+	color: var(--col-text-main);
+}
+
+footer {
+	display: flex;
+	padding: 1em;
+	box-sizing: border-box;
+
+	background-color: var(--col-background-nav);
+}
+
+footer .copyright-notice {
+	color: var(--col-text-title);
+	font-style: italic;
+}
