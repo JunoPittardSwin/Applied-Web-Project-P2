@@ -1,4 +1,10 @@
+/**
+ * Settings shared across all developers' IDEs, to help reduce merge conflicts and keep things
+ * consistent.
+ */
 {
+	// Use tabs rather than spaces.
 	"editor.insertSpaces": false,
+	// We'd like indentation to visually appear as 4 characters.
 	"editor.indentSize": 4
 }
