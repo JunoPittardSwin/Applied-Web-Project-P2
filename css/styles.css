@@ -95,11 +95,18 @@ main {
 }
 
 footer {
-	display: flex;
 	padding: 1em;
 	box-sizing: border-box;
 
 	background-color: var(--col-background-nav);
+}
+
+footer > nav {
+	line-height: 2;
+}
+
+footer > nav a {
+	color: var(--col-text-title);
 }
 
 footer .copyright-notice {
