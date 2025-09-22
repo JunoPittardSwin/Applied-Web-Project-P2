@@ -123,14 +123,27 @@ body {
 }
 
 main {
-	padding: 1em 10vw;
+	padding: 2em 1em;
 	box-sizing: border-box;
 	flex-grow: 1;
+	display: flex;
+	justify-content: center;
 
 	box-shadow: 0 -2vh 2vh var(--col-element-shadow);
 	
 	color: var(--col-text-primary);
 	line-height: 1.5;
+}
+
+main article {
+	width: min(120ch, 70vw);
+}
+
+@media screen and (max-width: 600px) {
+	/* On small screens, don't have any padding on the main content. */
+	main article {
+		width: 100%;
+	}
 }
 
 footer {
