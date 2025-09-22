@@ -19,8 +19,9 @@ NOTE: For page-specific styling, individual CSS files should be used per-page.
 	--col-text-title: #444;
 	--col-text-card: #ddd;
 	--col-text-card-title: #fff;
-	--col-background-card: #888;
+	--col-background-card: #7069b4;
 	--col-background-nav: #fafafb;
+	--col-element-shadow: rgba(0, 0, 0, 0.25);
 }
 
 /***********************************************/
@@ -43,12 +44,18 @@ body {
 }
 
 #navigation {
+	position: sticky;
+	top: 0;
+	width: 100%;
+	box-sizing: border-box;
+
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	padding: 1em;
 
+	box-shadow: 0 2vh 2vh var(--col-element-shadow);
 	background-color: var(--col-background-nav);
 }
 
@@ -76,6 +83,7 @@ body {
 
 #navigation > nav a:hover {
 	text-decoration: underline;
+	text-shadow: 1px 1px var(--col-text-title);
 }
 
 @media screen and (max-width: 600px) {
@@ -94,21 +102,20 @@ body {
 	padding: 1em;
 	box-sizing: border-box;
 	
-	background-color: #445;
+	background-color: rgb(41, 48, 92);
 }
 
 #hero {
-	padding: 1em;
-	border-radius: 0.5em;
+	min-width: 70vw;
+	padding: 2em;
+	border-radius: 1em;
 
 	background-color: var(--col-background-card);
-	box-shadow: 0.25em 0.25em 4px rgba(100, 100, 100, 0.5);
-	
 	color: var(--col-text-card);
 }
 
 #hero h1 {
-	text-decoration: underline;
+	font-weight: lighter;
 	color: var(--col-text-card-title);
 }
 
@@ -117,6 +124,8 @@ main {
 	box-sizing: border-box;
 	flex-grow: 1;
 
+	box-shadow: 0 -2vh 2vh var(--col-element-shadow);
+	
 	color: var(--col-text-primary);
 	line-height: 1.5;
 }
