@@ -59,7 +59,7 @@ body {
 	align-items: center;
 	padding: 1em;
 
-	box-shadow: 0 2vh 2vh var(--col-element-shadow);
+	box-shadow: 0 1vh 2vh var(--col-element-shadow);
 	background-color: var(--col-background-nav);
 }
 
@@ -135,7 +135,7 @@ main {
 	display: flex;
 	justify-content: center;
 
-	box-shadow: 0 -2vh 2vh var(--col-element-shadow);
+	box-shadow: 0 -1vh 2vh var(--col-element-shadow);
 	
 	color: var(--col-text-primary);
 	line-height: 1.5;
