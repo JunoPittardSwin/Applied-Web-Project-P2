@@ -1,0 +1,73 @@
+/*
+filename: apply.css
+author: Ashlyn Randall
+created: 22/09/2025
+last modified: 22/09/2025
+description: Style for the Job Application page (/apply.html)
+*/
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25em;
+}
+
+input, select, textarea, fieldset {
+	border: 2px solid var(--col-text-overlay);
+	border-radius: 0.25em;
+}
+
+form div.row {
+	display: flex;
+	justify-content: space-between;
+	line-height: 2;
+}
+
+form .row > label, form legend {
+	color: var(--col-text-secondary);
+}
+
+form .row > label {
+	flex-basis: 40%;
+}
+
+form .row > :not(label) {
+	flex-grow: 1;
+}
+
+form > .row:last-child {
+	display: flex;
+	flex-direction: row-reverse;
+
+	margin-top: 1em;
+	padding-top: 1em;
+	border-top: 1px solid var(--col-text-overlay);
+}
+
+form .skills {
+	display: flex;
+	flex-direction: column;
+}
+
+form > .row:last-child button {
+	flex-basis: initial;
+	flex-grow: 0;
+}
+
+/**
+ * FIXME: replace this with an ID selector rather than fishing for it - we are avoiding editing HTML
+ * until the final document is provided.
+ */
+form > .row:last-child button[type="submit"] {
+	background-color: var(--col-background-card);
+	color: var(--col-text-card);
+}
+
+/**
+ * FIXME: replace this with an ID selector rather than fishing for it - we are avoiding editing HTML
+ * until the final document is provided.
+ */
+form > .row:last-child button[type="reset"] {
+	background-color: rgb(194, 85, 85);
+	color: var(--col-text-card);
+}
