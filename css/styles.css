@@ -83,7 +83,6 @@ body {
 
 #navigation > nav a:hover {
 	text-decoration: underline;
-	text-shadow: 1px 1px var(--col-text-title);
 }
 
 @media screen and (max-width: 600px) {
