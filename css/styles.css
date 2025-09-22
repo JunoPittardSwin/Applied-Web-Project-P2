@@ -127,6 +127,11 @@ body {
 	animation-duration: 0.4s;
 }
 
+#hero > img {
+	float: left;
+	margin-right: 1em;
+}
+
 @keyframes hero-fade-in {
 	0% {
 		opacity: 0.5;
