@@ -14,7 +14,8 @@ NOTE: For page-specific styling, individual CSS files should be used per-page.
 
 :root {
 	/* Site Theme Colours */
-	--col-text-main: #111;
+	--col-text-primary: #111;
+	--col-text-secondary: #555;
 	--col-text-title: #444;
 	--col-text-card: #ddd;
 	--col-text-card-title: #fff;
@@ -38,7 +39,7 @@ body {
 	min-height: 100vh;
 
 	font-family: sans-serif;
-	color: var(--col-text-main);
+	color: var(--col-text-primary);
 }
 
 #navigation {
@@ -107,7 +108,7 @@ main {
 	box-sizing: border-box;
 	flex-grow: 1;
 
-	color: var(--col-text-main);
+	color: var(--col-text-primary);
 	line-height: 1.5;
 }
 
@@ -139,7 +140,19 @@ footer .copyright-notice {
 /* #region Page Content (text and whatnot)     */
 /***********************************************/
 
-/* Todo! */
+table {
+	border-collapse: collapse;
+}
+
+table > caption {
+	font-style: italic;
+	color: var(--col-text-title);
+}
+
+td, th {
+	border: 1px solid var(--col-text-secondary);
+	padding: 0.5em;
+}
 
 /***********************************************/
 /* #endregion Page Content (text and whatnot)  */
