@@ -12,6 +12,8 @@ NOTE: For page-specific styling, individual CSS files should be used per-page.
 /* #region Theming                             */
 /***********************************************/
 
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 :root {
 	/* Site Theme Colours */
 	--col-text-primary: #111;
@@ -41,7 +43,7 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 
-	font-family: sans-serif;
+	font-family: 'Hanken Grotesk', sans-serif;
 	color: var(--col-text-primary);
 }
 
@@ -123,7 +125,6 @@ body {
 }
 
 #hero h1 {
-	font-weight: lighter;
 	color: var(--col-text-card-title);
 }
 
