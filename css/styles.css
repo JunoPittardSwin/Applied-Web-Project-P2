@@ -121,6 +121,29 @@ body {
 
 	background-color: var(--col-background-card-translucent);
 	color: var(--col-text-card);
+
+	animation-name: hero-fade-in;
+	animation-play-state: running;
+	animation-duration: 0.4s;
+}
+
+@keyframes hero-fade-in {
+	0% {
+		opacity: 0.5;
+		translate: 0 1vh;
+		transform: scale(0.99);
+	}
+	
+	100% {
+		opacity: 1;
+	}
+}
+
+/* Disable our fly-in animation for readers who prefer reduced motion :) */
+@media (prefers-reduced-motion: reduce) {
+	#hero {
+		animation: none;
+	}
 }
 
 #hero h1 {
