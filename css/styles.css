@@ -8,6 +8,10 @@ description: Main shared styling for site pages.
 NOTE: For page-specific styling, individual CSS files should be used per-page.
 */
 
+/***********************************************/
+/* #region Theming                             */
+/***********************************************/
+
 :root {
 	/* Site Theme Colours */
 	--col-text-main: #111;
@@ -17,6 +21,14 @@ NOTE: For page-specific styling, individual CSS files should be used per-page.
 	--col-background-card: #888;
 	--col-background-nav: #fafafb;
 }
+
+/***********************************************/
+/* #endregion Theming                          */
+/***********************************************/
+
+/***********************************************/
+/* #region Page Layout                         */
+/***********************************************/
 
 body {
 	margin: 0;
@@ -118,3 +130,17 @@ footer .copyright-notice {
 	color: var(--col-text-title);
 	font-style: italic;
 }
+
+/***********************************************/
+/* #endregion Page Layout                      */
+/***********************************************/
+
+/***********************************************/
+/* #region Page Content (text and whatnot)     */
+/***********************************************/
+
+/* Todo! */
+
+/***********************************************/
+/* #endregion Page Content (text and whatnot)  */
+/***********************************************/
