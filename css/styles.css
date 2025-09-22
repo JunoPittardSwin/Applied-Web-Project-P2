@@ -16,10 +16,11 @@ NOTE: For page-specific styling, individual CSS files should be used per-page.
 	/* Site Theme Colours */
 	--col-text-primary: #111;
 	--col-text-secondary: #555;
+	--col-text-overlay: #ddd;
 	--col-text-title: #444;
-	--col-text-card: #ddd;
+	--col-text-card: #efefef;
 	--col-text-card-title: #fff;
-	--col-background-card: #7069b4;
+	--col-background-card: #605a9c;
 	--col-background-nav: #fafafb;
 	--col-element-shadow: rgba(0, 0, 0, 0.25);
 }
@@ -76,13 +77,16 @@ body {
 	gap: 1em;
 }
 
-#navigation a {
+#navigation a, footer a {
 	text-decoration: none;
-	color: var(--col-text-title);
 }
 
-#navigation > nav a:hover {
+#navigation > nav a:hover, footer a:hover {
 	text-decoration: underline;
+}
+
+#navigation a {
+	color: var(--col-text-title);
 }
 
 @media screen and (max-width: 600px) {
@@ -133,20 +137,24 @@ footer {
 	padding: 1em;
 	box-sizing: border-box;
 
-	background-color: var(--col-background-nav);
-}
-
-footer > nav {
+	background-color: var(--col-background-card);
 	line-height: 2;
 }
 
+footer > nav {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 2em;
+}
+
 footer > nav a {
-	color: var(--col-text-title);
+	font-weight: bold;
+	color: var(--col-text-card-title);
 }
 
 footer .copyright-notice {
-	color: var(--col-text-title);
 	font-style: italic;
+	color: var(--col-text-card);
 }
 
 /***********************************************/
