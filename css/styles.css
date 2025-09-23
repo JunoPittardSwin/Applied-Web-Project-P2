@@ -225,6 +225,31 @@ td, th {
 	padding: 0.5em;
 }
 
+button {
+	padding: 0.6em;
+	border: none;
+	border-radius: 1em;
+	transition: 0.1s ease;
+	transition-property: transform;
+}
+
+button:hover {
+	/* Enlarge the button when hovered. */
+	transform: scale(1.1);
+}
+
+button:active {
+	/* Make the button click down smaller. */
+	transform: scale(0.95);
+}
+
+/* Don't smoothly animate buttons for people who prefer less motion. */
+@media screen and (prefers-reduced-motion: reduce) {
+	button {
+		transition: none;
+	}
+}
+
 /***********************************************/
 /* #endregion Page Content (text and whatnot)  */
 /***********************************************/
