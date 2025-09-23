@@ -52,6 +52,12 @@ dd {
 }
 
 figure {
-	border: 1px solid var(--col-text-overlay);
+	/*
+	The below SHOULD be using var(), but we've mysteriously been forced to use hex colour codes on
+	this page!!
+	*/
+	border: 1px solid #ddd;
+	/* border: 1px solid var(--col-text-overlay); */
+
 	padding: 2em;
 }
