@@ -13,3 +13,22 @@ description: Style for the About page (/about.html)
 main article img {
 	width: 100%;
 }
+
+#team-list {
+	list-style: none;
+	padding: 0;
+}
+
+dl {
+	display: grid;
+	line-height: 2;
+}
+
+dt::after {
+	content: ':';
+}
+
+dd {
+	margin: 0;
+	grid-column-start: 2;
+}
