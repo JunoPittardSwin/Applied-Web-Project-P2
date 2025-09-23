@@ -80,14 +80,6 @@ body {
 	gap: 1em;
 }
 
-#navigation a, footer a {
-	text-decoration: none;
-}
-
-#navigation > nav a:hover, footer a:hover {
-	text-decoration: underline;
-}
-
 #navigation a {
 	color: var(--col-text-title);
 }
@@ -152,6 +144,10 @@ body {
 }
 
 #hero h1 {
+	color: var(--col-text-card-title);
+}
+
+#hero a {
 	color: var(--col-text-card-title);
 }
 
@@ -234,6 +230,14 @@ td, th {
 	td, th {
 		padding: 0.25em;
 	}
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
 }
 
 button, .button {
