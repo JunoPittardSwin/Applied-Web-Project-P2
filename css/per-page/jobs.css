@@ -6,3 +6,6 @@ last modified: 23/09/2025
 description: Style for the Jobs page (/jobs.html)
 */
 
+#hero-container {
+	background-image: url('/images/backgrounds/pexels-fauxels-3184416.jpg');
+}

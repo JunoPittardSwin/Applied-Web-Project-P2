@@ -6,6 +6,10 @@ last modified: 23/09/2025
 description: Style for the About page (/about.html)
 */
 
+#hero-container {
+	background-image: url('/images/backgrounds/pexels-shkrabaanthony-5466233.jpg');
+}
+
 main article img {
 	width: 100%;
 }
