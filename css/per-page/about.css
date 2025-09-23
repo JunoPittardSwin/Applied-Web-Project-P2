@@ -23,6 +23,18 @@ main article img {
 	list-style: none;
 }
 
+#team-list .student-id {
+	float: right;
+}
+
+#team-list .student-id::before {
+	content: '(ID: ';
+}
+
+#team-list .student-id::after {
+	content: ')';
+}
+
 dl {
 	display: grid;
 	grid-template-columns: minmax(30%, max-content);
