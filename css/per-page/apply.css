@@ -17,6 +17,10 @@ input, select, textarea, fieldset {
 	border-radius: 0.25em;
 }
 
+textarea {
+	font-family: inherit;
+}
+
 form div.row {
 	display: flex;
 	justify-content: space-between;
