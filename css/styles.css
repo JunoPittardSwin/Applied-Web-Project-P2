@@ -113,6 +113,7 @@ body {
 	border-radius: 1em;
 
 	background-color: var(--col-background-card-translucent);
+	backdrop-filter: blur(4px);
 	color: var(--col-text-card);
 
 	animation-name: hero-fade-in;
