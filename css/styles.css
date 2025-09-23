@@ -59,6 +59,8 @@ body {
 	align-items: center;
 	padding: 1em;
 
+	z-index: 1;
+
 	box-shadow: 0 1vh 2vh var(--col-element-shadow);
 	background-color: var(--col-background-nav);
 }
