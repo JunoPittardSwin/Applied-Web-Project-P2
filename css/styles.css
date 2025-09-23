@@ -61,7 +61,7 @@ body {
 
 	z-index: 1;
 
-	box-shadow: 0 1vh 2vh var(--col-element-shadow);
+	box-shadow: 0 0.25vh 2vh var(--col-element-shadow);
 	background-color: var(--col-background-nav);
 }
 
