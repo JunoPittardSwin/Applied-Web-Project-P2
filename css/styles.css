@@ -82,6 +82,7 @@ body {
 
 #navigation a {
 	color: var(--col-text-title);
+	font-weight: normal;
 }
 
 @media screen and (max-width: 600px) {
@@ -147,7 +148,7 @@ body {
 	color: var(--col-text-card-title);
 }
 
-#hero a {
+#hero a, footer a {
 	color: var(--col-text-card-title);
 }
 
@@ -234,6 +235,7 @@ td, th {
 
 a {
 	text-decoration: none;
+	font-weight: bold;
 }
 
 a:hover {
@@ -249,7 +251,10 @@ button, .button {
 	background-color: var(--col-background-card);
 	
 	color: var(--col-text-card);
-	text-decoration: none;
+	font-weight: bold;
+
+	/* Don't inherit the underline behaviour when a hyperlink is a button. */
+	text-decoration: none !important;
 	
 	transition: 0.1s ease;
 	transition-property: transform;
