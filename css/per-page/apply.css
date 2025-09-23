@@ -13,6 +13,8 @@ form {
 }
 
 input, select, textarea, fieldset {
+	box-sizing: border-box;
+
 	border: 2px solid var(--col-text-overlay);
 	border-radius: 0.25em;
 }
@@ -51,6 +53,14 @@ form > .row:last-child {
 form .skills {
 	display: flex;
 	flex-direction: column;
+}
+
+form .row:has(> #otherSkills) {
+	flex-direction: column;
+}
+
+#otherSkills {
+	width: 100%;
 }
 
 form > .row:last-child button {
