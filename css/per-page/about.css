@@ -50,3 +50,8 @@ dd {
 	margin: 0;
 	grid-column-start: 2;
 }
+
+figure {
+	border: 1px solid var(--col-text-overlay);
+	padding: 2em;
+}
