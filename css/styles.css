@@ -258,6 +258,8 @@ button, .button {
 	
 	transition: 0.1s ease;
 	transition-property: transform;
+
+	cursor: pointer;
 }
 
 button:hover, .button:hover {
