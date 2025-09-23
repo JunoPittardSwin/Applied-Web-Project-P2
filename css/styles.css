@@ -227,6 +227,13 @@ td, th {
 	padding: 0.5em;
 }
 
+@media screen and (max-width: 600px) {
+	/* Compact table display on small screens. */
+	td, th {
+		padding: 0.25em;
+	}
+}
+
 button, .button {
 	display: inline-block;
 	padding: 0.6em;
