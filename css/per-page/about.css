@@ -6,3 +6,6 @@ last modified: 23/09/2025
 description: Style for the About page (/about.html)
 */
 
+main article img {
+	width: 100%;
+}
