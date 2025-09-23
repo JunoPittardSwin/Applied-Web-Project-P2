@@ -25,6 +25,8 @@ main article img {
 
 dl {
 	display: grid;
+	grid-template-columns: minmax(30%, max-content);
+	column-gap: 1em;
 	line-height: 2;
 }
 
