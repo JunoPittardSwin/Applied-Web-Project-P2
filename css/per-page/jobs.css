@@ -9,3 +9,14 @@ description: Style for the Jobs page (/jobs.html)
 #hero-container {
 	background-image: url('/images/backgrounds/pexels-fauxels-3184416.jpg');
 }
+
+aside {
+	width: 25%;
+	float: right;
+	margin-left: 1em;
+	padding: 0.5em 1em;
+
+	border: 1px solid var(--col-text-secondary);
+	border-radius: 1em;
+}
+
