@@ -19,6 +19,11 @@ input, select, textarea, fieldset {
 	border-radius: 0.25em;
 }
 
+fieldset {
+	margin: 0;
+	margin-bottom: 0.5em;
+}
+
 textarea {
 	font-family: inherit;
 }
