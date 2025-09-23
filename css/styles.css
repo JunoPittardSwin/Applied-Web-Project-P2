@@ -184,7 +184,8 @@ footer {
 	box-sizing: border-box;
 
 	background-color: var(--col-background-card);
-	line-height: 2;
+	color: var(--col-text-card);
+	line-height: 1.5;
 }
 
 footer > nav {
@@ -193,14 +194,15 @@ footer > nav {
 	column-gap: 2em;
 }
 
-footer > nav a {
+footer a {
 	font-weight: bold;
 	color: var(--col-text-card-title);
 }
 
 footer .copyright-notice {
+	margin-top: 0.5em;
 	font-style: italic;
-	color: var(--col-text-card);
+	font-size: small;
 }
 
 /***********************************************/
