@@ -9,6 +9,23 @@
 	<title>About Us | Watertight CyberSec</title>
 	<link rel="stylesheet" href="./css/styles.css">
 	<link rel="stylesheet" href="./css/per-page/about.css">
+	<style>
+		/*
+		We have to include a "embedded CSS example". I'm going to assume <style> is what is meant there. Here's part of
+		about.css, moved here, for no reason other than that requirement :)
+		*/
+		#team-list .student-id {
+			float: right;
+		}
+
+		#team-list .student-id::before {
+			content: '(ID: ';
+		}
+
+		#team-list .student-id::after {
+			content: ')';
+		}
+	</style>
 </head>
 <body>
 <!-- Navigation bar, standard on all pages. -->
