@@ -14,18 +14,43 @@ NOTE: For page-specific styling, individual CSS files should be used per-page.
 
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+/* Site Theme Colours */
 :root {
-	/* Site Theme Colours */
+	/* Standard text content. */
 	--col-text-primary: #111;
+
+	/* Supporting text content, or inline non-text content, e.g. item borders. */
 	--col-text-secondary: #555;
+
+	/* A lighter content colour for dividing page content and separating sections. */
 	--col-text-overlay: #ddd;
+
+	/* Main content headings. */
 	--col-text-title: #444;
+
+	/* Standard text content within cards (terminology borrowed from Material Design.) */
 	--col-text-card: #efefef;
+
+	/* Headings within cards. */
 	--col-text-card-title: #fff;
+
+	/* Background colour for cards. */
 	--col-background-card: #605a9c;
+
+	/* Background colour for cards that should be lightly translucent. */
 	--col-background-card-translucent: #605a9cf0;
+
+	/* Background colour for the navigation bar. */
+	/*
+	Ashlyn, 24/09/2025:
+	TODO: Replace this with a more general variable where it might be useful elsewhere.
+	*/
 	--col-background-nav: #fafafb;
+
+	/* Shadows cast from "closer" elements to the viewer onto elements behind them. */
 	--col-element-shadow: rgba(0, 0, 0, 0.25);
+
+	/* Items of high importance that should draw the viewer's attention. */
 	--col-attention: rgb(189, 67, 67);
 }
 
