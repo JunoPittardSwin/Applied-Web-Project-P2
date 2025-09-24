@@ -48,6 +48,10 @@ body {
 	color: var(--col-text-primary);
 }
 
+/*
+The global navigation bar. Always shows at the top of the page, and is identical across all site
+pages.
+*/
 #navigation {
 	position: sticky;
 	top: 0;
@@ -77,6 +81,9 @@ body {
 	vertical-align: middle;
 }
 
+/*
+The list of pages in the global navbar.
+*/
 #navigation > nav {
 	display: flex;
 	flex-direction: row;
@@ -110,6 +117,10 @@ body {
 	background-attachment: fixed;
 }
 
+/*
+The hero element is an *optional* element on each page which introduces the content briefly,
+summarising the purpose of the page.
+*/
 #hero {
 	min-width: 70vw;
 	padding: 2em;
@@ -129,6 +140,9 @@ body {
 	margin-right: 1em;
 }
 
+/*
+Fly-in animation for the hero element when the page opens.
+*/
 @keyframes hero-fade-in {
 	0% {
 		opacity: 0.5;
@@ -156,6 +170,9 @@ body {
 	color: var(--col-text-card-title);
 }
 
+/*
+Wrapper for the main content of the page.
+*/
 main {
 	padding: 2em 1em;
 	box-sizing: border-box;
@@ -169,6 +186,10 @@ main {
 	line-height: 1.5;
 }
 
+/*
+The important page content. This may be an <article>, or something else such as a <form> if that
+constitutes what the page provides/does.
+*/
 #content {
 	width: min(120ch, 70vw);
 }
@@ -180,6 +201,10 @@ main {
 	}
 }
 
+/*
+Global page footer shared across all pages, much like the navigation bar. Used for external links
+off-site and some miscellaneous information.
+*/
 footer {
 	padding: 1em;
 	box-sizing: border-box;
