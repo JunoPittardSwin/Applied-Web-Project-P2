@@ -66,10 +66,6 @@ form p:has(> #otherSkills) {
 	flex-direction: column;
 }
 
-#otherSkills {
-	width: 100%;
-}
-
 form .action-buttons button {
 	flex-basis: initial;
 	flex-grow: 0;
