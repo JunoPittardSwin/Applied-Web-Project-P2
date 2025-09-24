@@ -72,6 +72,11 @@ form p:has(> #otherSkills) {
 	flex-direction: column;
 }
 
+#other-hint {
+	line-height: 1.5;
+	margin-top: 0.5em;
+}
+
 form .action-buttons button {
 	flex-basis: initial;
 	flex-grow: 0;
