@@ -13,7 +13,7 @@ description: Style for the Job Application page (/apply.html)
 form {
 	display: flex;
 	flex-direction: column;
-	gap: 0.25em;
+	row-gap: 0.5em;
 }
 
 /* Buttons for submitting or resetting the form, side-by-side. */
