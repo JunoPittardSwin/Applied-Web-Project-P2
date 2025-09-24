@@ -20,6 +20,6 @@ aside {
 	margin-left: 1em;
 	padding: 0.5em 1em;
 
-	border: 1px solid var(--col-text-secondary);
+	border: 1px solid var(--col-text-overlay);
 	border-radius: 1em;
 }
