@@ -23,3 +23,12 @@ aside {
 	border: 1px solid var(--col-text-overlay);
 	border-radius: 1em;
 }
+
+/*
+Separate each job listing so the apply buttons don't get visually jumbled together.
+*/
+#content {
+	display: flex;
+	flex-direction: column;
+	row-gap: 2em;
+}
