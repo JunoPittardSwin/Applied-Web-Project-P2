@@ -12,6 +12,7 @@ NOTE: For page-specific styling, individual CSS files should be used per-page.
 /* #region Theming                             */
 /***********************************************/
 
+/* The site uses the Hanken Grotesk for all content. */
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
 /* Site Theme Colours */
