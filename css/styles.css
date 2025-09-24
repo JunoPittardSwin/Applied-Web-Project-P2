@@ -169,13 +169,13 @@ main {
 	line-height: 1.5;
 }
 
-main article {
+#content {
 	width: min(120ch, 70vw);
 }
 
 @media screen and (max-width: 600px) {
 	/* On small screens, don't have any padding on the main content. */
-	main article {
+	#content {
 		width: 100%;
 	}
 }

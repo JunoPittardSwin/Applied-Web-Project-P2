@@ -10,7 +10,7 @@ description: Style for the About page (/about.html)
 	background-image: url('/images/backgrounds/pexels-shkrabaanthony-5466233.jpg');
 }
 
-main article img {
+#content img {
 	width: 100%;
 }
 
