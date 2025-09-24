@@ -55,15 +55,6 @@ form > fieldset:has(input[required]) > legend::after {
 	font-weight: bold;
 }
 
-form > p:last-child {
-	display: flex;
-	flex-direction: row-reverse;
-
-	margin-top: 1em;
-	padding-top: 1em;
-	border-top: 1px solid var(--col-text-overlay);
-}
-
 form .checkbox-list.multiline {
 	display: flex;
 	flex-direction: column;
@@ -76,6 +67,12 @@ form p:has(> #otherSkills) {
 #other-hint {
 	line-height: 1.5;
 	margin-top: 0.5em;
+}
+
+form .action-buttons {
+	margin-top: 1em;
+	padding-top: 1em;
+	border-top: 1px solid var(--col-text-overlay);
 }
 
 form .action-buttons button {
