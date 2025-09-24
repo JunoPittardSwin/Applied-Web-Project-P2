@@ -283,6 +283,27 @@ button:active, .button:active {
 	}
 }
 
+/*
+Display description lists as lists of single-line entries, where the label takes up a fixed width,
+reducing visual noise and being stylistically consistent with the apply page.
+*/
+dl {
+	display: grid;
+	grid-template-columns: minmax(30%, max-content);
+	column-gap: 1em;
+	line-height: 2;
+}
+
+dt::after {
+	content: ':';
+}
+
+/* Force the entry's description to display inline, after the entry name. */
+dd {
+	margin: 0;
+	grid-column-start: 2;
+}
+
 /***********************************************/
 /* #endregion Page Content (text and whatnot)  */
 /***********************************************/
