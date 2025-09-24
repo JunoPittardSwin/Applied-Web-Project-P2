@@ -70,25 +70,17 @@ form p:has(> #otherSkills) {
 	width: 100%;
 }
 
-form > p:last-child button {
+form .action-buttons button {
 	flex-basis: initial;
 	flex-grow: 0;
 }
 
-/**
- * FIXME: replace this with an ID selector rather than fishing for it - we are avoiding editing HTML
- * until the final document is provided.
- */
-form > p:last-child button[type="submit"] {
+form .action-buttons button[type="submit"] {
 	background-color: var(--col-background-card);
 	color: var(--col-text-card);
 }
 
-/**
- * FIXME: replace this with an ID selector rather than fishing for it - we are avoiding editing HTML
- * until the final document is provided.
- */
-form > p:last-child button[type="reset"] {
+form .action-buttons button[type="reset"] {
 	background-color: rgb(194, 85, 85);
 	color: var(--col-text-card);
 }
