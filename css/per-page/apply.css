@@ -57,7 +57,7 @@ form > p:last-child {
 	border-top: 1px solid var(--col-text-overlay);
 }
 
-form .skills {
+form .checkbox-list.multiline {
 	display: flex;
 	flex-direction: column;
 }
