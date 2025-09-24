@@ -61,3 +61,81 @@ The group photo - styled to appear as a printed photograph :)
 #team-photo img {
 	width: 100%;
 }
+
+/*
+As long as the user is okay with motion, fake a classic <marquee> effect :)
+*/
+@media screen and (prefers-reduced-motion: no-preference) {
+	/*
+	Simulate the obsolete <marquee> element without requiring browser support for it.
+	*/
+	.fake-marquee-container {
+		position: relative;
+		overflow: hidden;
+		padding: 0;
+	}
+
+	/*
+	Y-axis motion.
+	
+	Ashlyn, 24/09/2025:
+	I'll be honest, this was an absolute PAIN to get working correctly. There I was testing in
+	Firefox as I normally do, got it working very quickly. Then I jumped into Chromium, and the Y
+	axis motion was completely broken.
+
+	So I looked into it, and found that using the top property is undefined-behaviour in CSS, when
+	used on a child element of `display: table-cell`. Firefox does what I would see as the sensible
+	choice here - as usual - but Chromium opts to completely ignore the property in this situation.
+
+	I learnt today that `absolute` is not page-absolute, it's actually relative to the closest
+	parent element which isn't `static`ally positioned. By making the table cell itself `relative`,
+	the behaviour is no longer undefined, and `top` works again!
+
+	It seems pretty ironic that during implementing effectively a polyfill for an obsolete element,
+	generally seen on rather old websites, I run into a browser behaviour discrepancy. Rare these
+	days, not so back then!
+	*/
+	.fake-marquee-y {
+		display: block;
+		width: 100%;
+		position: absolute;
+		animation: fake-marquee-scroll-y 2.5s;
+		animation-direction: alternate;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+
+	@keyframes fake-marquee-scroll-y {
+		0% {
+			top: 0;
+		}
+		
+		100% {
+			top: 100%;
+			transform: translateY(-100%);
+		}
+	}
+
+	/*
+	X-axis motion.
+	*/
+	.fake-marquee-x {
+		display: inline-block;
+		position: relative;
+		animation: fake-marquee-scroll-x 2s;
+		animation-direction: alternate;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+
+	@keyframes fake-marquee-scroll-x {
+		0% {
+			left: 0;
+		}
+
+		100% {
+			left: 100%;
+			transform: translateX(-100%);
+		}
+	}
+}
