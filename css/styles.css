@@ -14,9 +14,11 @@ NOTE: For page-specific styling, individual CSS files should be used per-page.
 
 /* The site uses the Hanken Grotesk for all content. */
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-
-/* Site Theme Colours */
 :root {
+	/**************************/
+	/* #region Colours        */
+	/**************************/
+
 	/* Standard text content. */
 	--col-text-primary: #111;
 
@@ -53,6 +55,21 @@ NOTE: For page-specific styling, individual CSS files should be used per-page.
 
 	/* Items of high importance that should draw the viewer's attention. */
 	--col-attention: rgb(189, 67, 67);
+
+	/**************************/
+	/* #endregion Colours     */
+	/**************************/
+
+	/**************************/
+	/* #region Layout         */
+	/**************************/
+
+	/* The size of the main content block. */
+	--layout-width-content: min(120ch, 70vw);
+
+	/**************************/
+	/* #endregion Layout      */
+	/**************************/
 }
 
 /***********************************************/
@@ -148,7 +165,7 @@ The hero element is an *optional* element on each page which introduces the cont
 summarising the purpose of the page.
 */
 #hero {
-	min-width: 70vw;
+	width: var(--layout-width-content);
 	padding: 2em;
 	border-radius: 1em;
 
@@ -217,7 +234,7 @@ The important page content. This may be an <article>, or something else such as 
 constitutes what the page provides/does.
 */
 #content {
-	width: min(120ch, 70vw);
+	width: var(--layout-width-content);
 }
 
 @media screen and (max-width: 600px) {
