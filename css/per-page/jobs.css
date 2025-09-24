@@ -10,7 +10,11 @@ description: Style for the Jobs page (/jobs.html)
 	background-image: url('/images/backgrounds/pexels-fauxels-3184416.jpg');
 }
 
+/*
+Additional details for a job listing that are tangentially related.
+*/
 aside {
+	/* Requirements specify a 25% width, right-floated aside with margin, border and padding. */
 	width: 25%;
 	float: right;
 	margin-left: 1em;
@@ -19,4 +23,3 @@ aside {
 	border: 1px solid var(--col-text-secondary);
 	border-radius: 1em;
 }
-
