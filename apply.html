@@ -155,8 +155,14 @@
 				<fieldset>
 					<legend>Skill list (select at least one)</legend>
 
+					<!--
+					Ashlyn, 24/09/2025:
+
+					Pure HTML Forms don't give us the option to require *at least one* checkbox. We'll revisit this with
+					JS in Part 2. For now, we'll just pretend that the server validates the selection correctly.
+					-->
 					<div class="checkbox-list multiline">
-						<label><input type="checkbox" name="skills[]" value="soc_siem" required> SOC monitoring / SIEM (e.g., Splunk)</label>
+						<label><input type="checkbox" name="skills[]" value="soc_siem"> SOC monitoring / SIEM (e.g., Splunk)</label>
 						<label><input type="checkbox" name="skills[]" value="incident_response"> Incident response &amp; triage</label>
 						<label><input type="checkbox" name="skills[]" value="vuln_mgmt"> Vulnerability management</label>
 						<label><input type="checkbox" name="skills[]" value="cloud_security"> Cloud security (AWS/Azure/GCP)</label>
