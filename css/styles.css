@@ -214,6 +214,12 @@ footer .copyright-notice {
 /* #region Page Content (text and whatnot)     */
 /***********************************************/
 
+/*
+Tables are styled with clean and consistent borders between their cells, and surrounding the table.
+
+As tables can be rather long, to accommodate mobile displays, they will scroll their content when
+they are too large for the display area.
+*/
 table {
 	border-collapse: collapse;
 	overflow-x: auto;
@@ -246,6 +252,13 @@ a:hover {
 	text-decoration: underline;
 }
 
+/*
+Clicky, squishy buttons.
+
+Usage:
+	Create either a `<button>`, or something else that performs an action on-click (e.g. `<a>`),
+	and assign the "button" class.
+*/
 button, .button {
 	display: inline-block;
 	padding: 0.6em;
