@@ -6,10 +6,6 @@ last modified: 24/09/2025
 description: Style for the Job Application page (/apply.html)
 */
 
-:root {
-	--col-attention: rgb(194, 85, 85);
-}
-
 form {
 	display: flex;
 	flex-direction: column;
