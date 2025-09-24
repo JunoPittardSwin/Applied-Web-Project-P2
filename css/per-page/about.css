@@ -10,10 +10,7 @@ description: Style for the About page (/about.html)
 	background-image: url('/images/backgrounds/pexels-shkrabaanthony-5466233.jpg');
 }
 
-#content img {
-	width: 100%;
-}
-
+/* The list of team members. */
 #team-list {
 	display: flex;
 	flex-direction: column;
@@ -23,6 +20,10 @@ description: Style for the About page (/about.html)
 	list-style: none;
 }
 
+/*
+Display description lists as lists of single-line entries, where the label takes up a fixed width,
+reducing visual noise and being stylistically consistent with the apply page.
+*/
 dl {
 	display: grid;
 	grid-template-columns: minmax(30%, max-content);
@@ -34,18 +35,28 @@ dt::after {
 	content: ':';
 }
 
+/* Force the entry's description to display inline, after the entry name. */
 dd {
 	margin: 0;
 	grid-column-start: 2;
 }
 
-figure {
+/*
+The group photo - styled to appear as a printed photograph :)
+*/
+#team-photo {
 	/*
-	The below SHOULD be using var(), but we've mysteriously been forced to use hex colour codes on
-	this page!!
+	Ashlyn, 24/09/2025:
+
+	FIXME: The below *should* be the commented-out line, using our shared colour variables, but
+	we're required to use hex-codes for colours on this page.
 	*/
 	border: 1px solid #ddd;
 	/* border: 1px solid var(--col-text-overlay); */
 
 	padding: 2em;
+}
+
+#team-photo img {
+	width: 100%;
 }
