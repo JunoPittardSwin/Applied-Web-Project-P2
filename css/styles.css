@@ -243,6 +243,9 @@ td, th {
 	}
 }
 
+/*
+Links don't show underlines until they're hovered over.
+*/
 a {
 	text-decoration: none;
 	font-weight: bold;
