@@ -1,0 +1,15 @@
+# Base config of the web server shared between the production and development setups.
+services:
+  webserver-base:
+    build:
+      context: .
+    depends_on:
+      - mysql
+    ports:
+      - "8080:80"
+    secrets:
+      - db-password
+    environment:
+      MYSQL_HOST: "mysql"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD_FILE: "/run/secrets/db-password"

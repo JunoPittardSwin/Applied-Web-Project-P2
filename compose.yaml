@@ -1,0 +1,61 @@
+# Docker Compose definition for the website. Our website needs a MySQL database, and runs on an
+# Apache server (as such it uses PHP).
+# 
+# XAMPP on anything other than Windows is... finnicky, to put it lightly. For that reason, using
+# Docker (& docker-compose) means not dealing with any of that, and instead gives us a consistent,
+# reproducable setup that'll work on our dev machines, and when we deploy the site.
+# 
+# The `dev` configuration includes phpMyAdmin for administrating/debugging the database, and serves
+# a live version of the HTML root, whereas the `prod` config includes the HTML root directly into
+# the image.
+
+services:
+  # Production web server that includes the document root immutably.
+  webserver-production:
+    extends:
+      file: compose.webserver-base.yaml
+      service: webserver-base
+    build:
+      target: prod
+      args:
+        SOURCE_DIR: src
+    profiles: ['', 'prod']
+
+  # Development web server that serves live changes to our HTML files and so forth.
+  webserver-development:
+    extends:
+      file: compose.webserver-base.yaml
+      service: webserver-base
+    build:
+      target: dev
+    volumes:
+      # Live mount of the web root - serves our changes immediately.
+      - type: bind
+        source: src
+        target: "/var/www/html"
+        read_only: true
+    profiles: [dev]
+
+  # Administration interface for MySQL during development.
+  phpmyadmin:
+    image: phpmyadmin:latest
+    depends_on:
+      - mysql
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: "mysql"
+    profiles: [dev]
+
+  # MySQL server we'll use with the PHP server.
+  mysql:
+    image: mysql:latest
+    secrets:
+      - db-password
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: "/run/secrets/db-password"
+
+secrets:
+  # Password for the MySQL database.
+  db-password:
+    file: "./secrets/db-password"

@@ -6,5 +6,11 @@
 	// Use tabs rather than spaces.
 	"editor.insertSpaces": false,
 	// We'd like indentation to visually appear as 4 characters.
-	"editor.indentSize": 4
+	"editor.indentSize": 4,
+
+    // YAML annoyingly uses 2-space indentation as standard!
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+    }
 }
