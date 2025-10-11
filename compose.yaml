@@ -18,7 +18,7 @@ services:
     build:
       target: prod
       args:
-        SOURCE_DIR: src
+        SOURCE_DIR: project2
     profiles: ['', 'prod']
 
   # Development web server that serves live changes to our HTML files and so forth.
@@ -31,7 +31,7 @@ services:
     volumes:
       # Live mount of the web root - serves our changes immediately.
       - type: bind
-        source: src
+        source: project2
         target: "/var/www/html"
         read_only: true
     profiles: [dev]
