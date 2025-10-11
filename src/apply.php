@@ -11,19 +11,7 @@
 	<link rel="stylesheet" href="./css/per-page/apply.css">
 </head>
 <body>
-	<!-- Navigation bar, standard on all pages. -->
-	<header id="navigation">
-		<a class="company-title" href="./index.html">
-			<img src="./images/logo.png" alt="Watertight CyberSec Logo">
-			<span>Watertight CyberSec</span>
-		</a>
-
-		<nav>
-			<a href="./index.html">Home</a>
-			<a href="./about.html">About</a>
-			<a href="./jobs.html">Jobs</a>
-		</nav>
-	</header>
+	<?php include(__DIR__ . '/templates/navbar.html'); ?>
 
 	<!--
 		Optional full-screen content for the most important page content, if applicable.
@@ -36,7 +24,7 @@
 			<h1>Apply for a Position</h1>
 			<p>
 				Our team is always looking for new members who're passionate about Cyber Security. If you've checked our
-				<a href="./jobs.html">Jobs Page</a> and think you'd be a good fit for one of our roles, apply today using
+				<a href="./jobs.php">Jobs Page</a> and think you'd be a good fit for one of our roles, apply today using
 				the form below.
 			</p>
 		</div>
@@ -190,19 +178,6 @@
 		</form>
 	</main>
 
-	<!-- Footer with additional site information and contact, standard on all pages. -->
-	<footer>
-		<nav>
-			<a href="https://github.com/JunoPittardSwin/Applied-Web-Project" target="_blank">GitHub Repository</a>
-			<a href="https://junopittardswin.atlassian.net/jira/software/projects/SCRUM/summary" target="_blank">Jira Project</a>
-			<a href="mailto:info@watertightcybersec.com">Contact Us</a>
-		</nav>
-
-		<div class="copyright-notice">
-			&copy; 2025 Watertight CyberSec. All rights reserved.
-			<br>
-			Background photos are &copy; Various Authors, Pexels (<a href="https://www.pexels.com/license/">License</a>)
-		</div>
-	</footer>
+	<?php include(__DIR__ . '/templates/footer.html'); ?>
 </body>
 </html>
