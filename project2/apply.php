@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="./css/per-page/apply.css">
 </head>
 <body>
-	<?php include(__DIR__ . '/templates/navbar.html'); ?>
+	<?php include(__DIR__ . '/header.inc'); ?>
 
 	<!--
 		Optional full-screen content for the most important page content, if applicable.
@@ -178,6 +178,6 @@
 		</form>
 	</main>
 
-	<?php include(__DIR__ . '/templates/footer.html'); ?>
+	<?php include(__DIR__ . '/footer.inc'); ?>
 </body>
 </html>
