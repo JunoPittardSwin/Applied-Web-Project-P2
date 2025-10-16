@@ -28,3 +28,14 @@ $DB_USER = getenv('MYSQL_USER') ?: 'root';
  * behaviour.
  */
 $DB_PASSWORD = getenv('MYSQL_PASSWORD_FILE') ? file_get_contents(getenv('MYSQL_PASSWORD_FILE')) : '';
+
+/**
+ * Name of the database in MySQL.
+ */
+$DB_NAME = 'part2_db';
+
+// Ensure that our database exists before anything else.
+$temporaryMysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD);
+$temporaryMysqli->execute_query("CREATE DATABASE IF NOT EXISTS $DB_NAME");
+$temporaryMysqli->close();
+unset($temporaryMysqli);
