@@ -24,7 +24,7 @@
 	</style>
 </head>
 <body>
-	<?php include(__DIR__ . '/templates/navbar.html'); ?>
+	<?php include(__DIR__ . '/header.inc'); ?>
 
 	<header id="hero-container">
 		<div id="hero">
@@ -152,6 +152,6 @@
 		</article>
 	</main>
 
-	<?php include(__DIR__ . '/templates/footer.html'); ?>
+	<?php include(__DIR__ . '/footer.inc'); ?>
 </body>
 </html>
