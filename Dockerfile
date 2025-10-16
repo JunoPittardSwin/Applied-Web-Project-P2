@@ -3,8 +3,8 @@
 # We want an Apache server with the PHP addon, which is provided by the base image below.
 FROM php:apache AS base
 
-	# Install the PHP PDO extension for working with databases. Our DB is MySQL, so we'll grab that too.
-	RUN docker-php-ext-install pdo pdo_mysql
+	# Install the MySQLi extension for working with the database.
+	RUN docker-php-ext-install mysqli
 
 	# The web server runs on Port 80 (HTTP).
 	EXPOSE 80/tcp
