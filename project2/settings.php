@@ -39,3 +39,7 @@ $temporaryMysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD);
 $temporaryMysqli->execute_query("CREATE DATABASE IF NOT EXISTS $DB_NAME");
 $temporaryMysqli->close();
 unset($temporaryMysqli);
+
+// declares the shared database
+$db = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME);
+
