@@ -18,4 +18,13 @@
 
 $DB_HOST = getenv('MYSQL_HOST') ?: '127.0.0.1';
 $DB_USER = getenv('MYSQL_USER') ?: 'root';
+
+/**
+ * For the assignment, we are expected to set **no password** for the database. For flexibility, if
+ * we were to "deploy" this website, a password may be provided via a path in the filesystem - thus
+ * making it compatible with Docker Secrets.
+ * 
+ * However, if this variable is unset, a blank password is used. On XAMPP, this will be the default
+ * behaviour.
+ */
 $DB_PASSWORD = getenv('MYSQL_PASSWORD_FILE') ? file_get_contents(getenv('MYSQL_PASSWORD_FILE')) : '';
