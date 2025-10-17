@@ -2,6 +2,7 @@
 
 require_once(__DIR__ . '/lib/UserManager.php');
 require_once(__DIR__ . '/lib/ReqUtils.php');
+require_once(__DIR__ . '/lib/Session.php');
 require_once(__DIR__ . '/settings.php');
 
 $userManager = new UserManager($db);
@@ -93,7 +94,7 @@ switch ($_SERVER['REQUEST_METHOD'])
 		}
 
 		// Grant the user a login session.
-		ReqUtils\Session::set('userId', $user->id);
+		Session\setUser($user);
 
 		// Redirect to the management page.
 		http_response_code(303);

@@ -2,36 +2,11 @@
 
 require_once(__DIR__ . '/lib/UserManager.php');
 require_once(__DIR__ . '/lib/ReqUtils.php');
+require_once(__DIR__ . '/lib/Session.php');
 require_once(__DIR__ . '/settings.php');
 
-session_start();
-
-$userId = ReqUtils\Session::get('userId');
-
-if ($userId === null)
-{
-	// User is unauthenticated, redirect to the login page.
-	http_response_code(401);
-	header('Location: /login.php');
-
-	exit;
-}
-
 $userManager = new UserManager($db);
-$user = $userManager->getUserById($userId);
-
-if ($user === null)
-{
-	// No such user - the account must've been deleted during their session for whatever reason, so
-	// we'll revoke the garbage session.
-	session_unset();
-	session_destroy();
-
-	http_response_code(401);
-	header('Location: /login.php');
-
-	exit;
-}
+$user = Session\getUserOrLogin($userManager);
 
 ?>
 <!DOCTYPE html>
