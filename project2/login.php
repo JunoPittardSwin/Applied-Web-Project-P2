@@ -7,7 +7,7 @@ require_once(__DIR__ . '/settings.php');
 
 $userManager = new UserManager($db);
 
-session_start();
+@session_start();
 
 switch ($_SERVER['REQUEST_METHOD'])
 {
