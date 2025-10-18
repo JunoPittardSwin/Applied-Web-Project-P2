@@ -4,6 +4,7 @@
 		<a href="https://github.com/JunoPittardSwin/Applied-Web-Project" target="_blank">GitHub Repository</a>
 		<a href="https://junopittardswin.atlassian.net/jira/software/projects/SCRUM/summary" target="_blank">Jira Project</a>
 		<a href="mailto:info@watertightcybersec.com">Contact Us</a>
+		<a href="./login.php">Login</a>
 	</nav>
 
 	<div class="copyright-notice">

@@ -7,8 +7,6 @@ require_once(__DIR__ . '/settings.php');
 
 $userManager = new UserManager($db);
 
-@session_start();
-
 switch ($_SERVER['REQUEST_METHOD'])
 {
 	case 'GET':
@@ -30,7 +28,6 @@ switch ($_SERVER['REQUEST_METHOD'])
 						<h1>Site Management Log-in</h1>
 						<p>
 							Not a site manager?
-							<br>
 							<a href="./index.php">Take me back home.</a>
 						</p>
 
