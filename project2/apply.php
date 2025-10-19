@@ -32,13 +32,12 @@
 
 	<!-- Main content of the page. -->
 	<main>
-		<form id="content" action="https://mercury.swin.edu.au/it000000/formtest.php" method="post" autocomplete="on">
+		<form id="content" action="./process_eoi.php" method="post" autocomplete="on">
 			<!-- Job reference number: exactly 5 alphanumeric -->
 			<p>
 				<label for="ref">Job reference number</label>
 				<input id="ref" name="reference"
-							type="text" required inputmode="text" autocomplete="off"
-							pattern="^J[01][0-9]{3}$" maxlength="5"
+							type="text" inputmode="text" autocomplete="off"
 							title="See the Jobs page for the reference number for your position."
 							placeholder="e.g. J0123">
 			</p>
@@ -47,8 +46,7 @@
 			<p>
 				<label for="fname">First name</label>
 				<input id="fname" name="first_name"
-							type="text" required maxlength="20" autocomplete="given-name"
-							pattern="^[A-Za-z][A-Za-z '\-]{0,19}$"
+							type="text" autocomplete="given-name"
 							title="Letters plus space, hyphen, or apostrophe; up to 20 characters.">
 			</p>
 
@@ -56,8 +54,7 @@
 			<p>
 				<label for="lname">Last name</label>
 				<input id="lname" name="last_name"
-							type="text" required maxlength="20" autocomplete="family-name"
-							pattern="^[A-Za-z][A-Za-z '\-]{0,19}$"
+							type="text" autocomplete="family-name"
 							title="Letters plus space, hyphen, or apostrophe; up to 20 characters.">
 			</p>
 
@@ -65,15 +62,14 @@
 			<p>
 				<label for="dob">Date of birth</label>
 				<input id="dob" name="dob"
-							type="text" required inputmode="numeric" placeholder="dd/mm/yyyy"
-							pattern="^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19|20)[0-9]{2}$"
+							type="text" inputmode="numeric" placeholder="dd/mm/yyyy"
 							title="Use format dd/mm/yyyy, e.g. 07/02/1998">
 			</p>
 
 			<!-- Gender -->
 			<fieldset>
 				<legend>Gender</legend>
-				<label><input type="radio" name="gender" value="female" required> Female</label>
+				<label><input type="radio" name="gender" value="female"> Female</label>
 				<label><input type="radio" name="gender" value="male"> Male</label>
 				<label><input type="radio" name="gender" value="nonbinary"> Non-binary</label>
 				<label><input type="radio" name="gender" value="prefer_not"> Prefer not to say</label>
@@ -83,7 +79,7 @@
 			<p>
 				<label for="street">Street Address</label>
 				<input id="street" name="street_address"
-							type="text" required maxlength="40" autocomplete="address-line1"
+							type="text" autocomplete="address-line1"
 							title="Up to 40 characters.">
 			</p>
 
@@ -91,15 +87,14 @@
 			<p>
 				<label for="suburb">Suburb/Town</label>
 				<input id="suburb" name="suburb"
-							type="text" required maxlength="40" autocomplete="address-level2"
-							pattern="^[A-Za-z][A-Za-z '\-]{0,39}$"
+							type="text" autocomplete="address-level2"
 							title="Letters, spaces, hyphens, apostrophes; up to 40 characters.">
 			</p>
 
 			<!-- State -->
 			<p>
 				<label for="state">State</label>
-				<select id="state" name="state" required autocomplete="address-level1">
+				<select id="state" name="state" autocomplete="address-level1">
 					<option value="">-- Select --</option>
 					<option>VIC</option>
 					<option>NSW</option>
@@ -116,8 +111,7 @@
 			<p>
 				<label for="postcode">Postcode</label>
 				<input id="postcode" name="postcode"
-							type="text" required inputmode="numeric" autocomplete="postal-code"
-							pattern="^[0-9]{4}$" maxlength="4"
+							type="text" inputmode="numeric" autocomplete="postal-code"
 							title="Exactly 4 digits, e.g. 3000">
 			</p>
 
@@ -125,7 +119,7 @@
 			<p>
 				<label for="email">Email</label>
 				<input id="email" name="email"
-							type="email" required autocomplete="email"
+							type="email" autocomplete="email"
 							placeholder="name@example.com">
 			</p>
 
@@ -133,8 +127,7 @@
 			<p>
 				<label for="phone">Phone number</label>
 				<input id="phone" name="phone"
-							type="text" required inputmode="tel" autocomplete="tel-national"
-							pattern="^[0-9]{8,12}$"
+							type="text" inputmode="tel" autocomplete="tel-national"
 							title="8-12 digits, numbers only.">
 			</p>
 
