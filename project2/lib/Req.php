@@ -6,25 +6,62 @@
 namespace Req;
 
 /**
- * Get the query string parameter with the given name. If not given, returns `null`.
+ * Get the query string parameter with the given name.
+ * If not given or blank, returns `null`.
  *
  * @param string $name
  * @return string|null
  */
 function get(string $name): ?string
 {
-	return $_GET[$name] ?? null;
+	$value = $_GET[$name] ?? '';
+	$value = mb_trim($value = $value);
+
+	if ($value === '')
+	{
+		return null;
+	}
+
+	return $value;
 }
 
 /**
- * Get the POST-body request parameter with the given name. If not given, returns `null`.
+ * Get the POST-body request parameter with the given name.
+ * If not given or blank, returns `null`.
  *
  * @param string $name
  * @return string|null
  */
 function post(string $name): ?string
 {
-	return $_POST[$name] ?? null;
+	$value = $_POST[$name] ?? '';
+	$value = mb_trim($value = $value);
+
+	if ($value === '')
+	{
+		return null;
+	}
+
+	return $value;
+}
+
+/**
+ * Get the POST-body request parameter with the given name, or bail out with a HTTP 400 error.
+ *
+ * @param string $name
+ * @return string
+ */
+function postOrBail(string $name): string
+{
+	$value = post($name);
+
+	if ($value === null)
+	{
+		http_response_code(400);
+		exit;
+	}
+
+	return $value;
 }
 
 class Session

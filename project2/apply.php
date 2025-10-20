@@ -39,7 +39,8 @@
 				<input id="ref" name="reference"
 							type="text" inputmode="text" autocomplete="off"
 							title="See the Jobs page for the reference number for your position."
-							placeholder="e.g. J0123">
+							placeholder="e.g. J0123"
+							value="J0123">
 			</p>
 
 			<!-- First name -->
@@ -47,7 +48,8 @@
 				<label for="fname">First name</label>
 				<input id="fname" name="first_name"
 							type="text" autocomplete="given-name"
-							title="Letters plus space, hyphen, or apostrophe; up to 20 characters.">
+							title="Letters plus space, hyphen, or apostrophe; up to 20 characters."
+							value="Christopher">
 			</p>
 
 			<!-- Last name -->
@@ -55,7 +57,8 @@
 				<label for="lname">Last name</label>
 				<input id="lname" name="last_name"
 							type="text" autocomplete="family-name"
-							title="Letters plus space, hyphen, or apostrophe; up to 20 characters.">
+							title="Letters plus space, hyphen, or apostrophe; up to 20 characters."
+							value="Null">
 			</p>
 
 			<!-- DOB: dd/mm/yyyy -->
@@ -63,14 +66,15 @@
 				<label for="dob">Date of birth</label>
 				<input id="dob" name="dob"
 							type="text" inputmode="numeric" placeholder="dd/mm/yyyy"
-							title="Use format dd/mm/yyyy, e.g. 07/02/1998">
+							title="Use format dd/mm/yyyy, e.g. 07/02/1998"
+							value="01/01/2000">
 			</p>
 
 			<!-- Gender -->
 			<fieldset>
 				<legend>Gender</legend>
 				<label><input type="radio" name="gender" value="female"> Female</label>
-				<label><input type="radio" name="gender" value="male"> Male</label>
+				<label><input type="radio" name="gender" value="male" checked> Male</label>
 				<label><input type="radio" name="gender" value="nonbinary"> Non-binary</label>
 				<label><input type="radio" name="gender" value="prefer_not"> Prefer not to say</label>
 			</fieldset>
