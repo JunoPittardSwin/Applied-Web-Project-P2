@@ -76,22 +76,3 @@ $db->execute_query("CREATE TABLE IF NOT EXISTS contributions (
 	team_member ENUM('Ashlyn', 'Juno', 'Aadil') NOT NULL,
 	contribution_text TEXT NOT NULL
 	);");
-
-// creates the EOI table
-$db->execute_query("CREATE TABLE IF NOT EXISTS eoi (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	ref VARCHAR(5) NOT NULL,
-	fname VARCHAR(40) NOT NULL,
-	lname VARCHAR(40) NOT NULL,
-	dob VARCHAR(10) NOT NULL,
-	gender VARCHAR(15) NOT NULL,
-	street VARCHAR(40) NOT NULL,
-	suburb VARCHAR(40) NOT NULL,
-	state VARCHAR(3) NOT NULL,
-	postcode INT(4) NOT NULL,
-	email VARCHAR(50) NOT NULL,
-	phone INT(12) NOT NULL,
-	skills SET('soc_siem','incident_response','vuln_mgmt','cloud_security','iam_mfa','network_security','scripting','other') NOT NULL,
-	other_skills text NOT NULL,
-	status ENUM('New','Current','Final') NOT NULL DEFAULT 'New'
-	);");
