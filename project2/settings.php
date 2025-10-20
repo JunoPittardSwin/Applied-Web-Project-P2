@@ -40,29 +40,10 @@ $temporaryMysqli->execute_query("CREATE DATABASE IF NOT EXISTS $DB_NAME");
 $temporaryMysqli->close();
 unset($temporaryMysqli);
 
-// declares the shared database
 $db = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME);
 
-// lines 46-96: table creation
-//creates the EOI table
-$db->execute_query("CREATE TABLE IF NOT EXISTS eoi (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  ref VARCHAR(5) NOT NULL,
-  fname VARCHAR(40) NOT NULL,
-  lname VARCHAR(40) NOT NULL,
-  dob VARCHAR(10) NOT NULL,
-  gender VARCHAR(15) NOT NULL,
-  street VARCHAR(40) NOT NULL,
-  suburb VARCHAR(40) NOT NULL,
-  state VARCHAR(3) NOT NULL,
-  postcode INT(4) NOT NULL,
-  email VARCHAR(50) NOT NULL,
-  phone INT(12) NOT NULL,
-  skills SET('soc_siem','incident_response','vuln_mgmt','cloud_security','iam_mfa','network_security','scripting','other') NOT NULL,
-  other_skills text NOT NULL,
-  status ENUM('New','Current','Final') NOT NULL DEFAULT 'New'
-);");
 
+// below: creates tables if they do not already exist
 // creates the jobs table
 $db->execute_query("CREATE TABLE IF NOT EXISTS jobs (
 	ref VARCHAR(5) NOT NULL PRIMARY KEY,
@@ -76,44 +57,41 @@ $db->execute_query("CREATE TABLE IF NOT EXISTS jobs (
 // creates the jobs "essential requirements" sub-table
 $db->execute_query("CREATE TABLE IF NOT EXISTS jobs_ess_reqs (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	ref VARCHAR(5) NOT NULL,
+	jobs_ref VARCHAR(5) NOT NULL,
 	ess_text TEXT NOT NULL,
-	FOREIGN KEY (ref) REFERENCES jobs(ref)
+	FOREIGN KEY (jobs_ref) REFERENCES jobs(ref)
 	);");
 
 // creates the jobs "preferred requirements" sub-table
 $db->execute_query("CREATE TABLE IF NOT EXISTS jobs_pref_reqs (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	ref VARCHAR(5) NOT NULL,
+	jobs_ref VARCHAR(5) NOT NULL,
 	pref_text TEXT NOT NULL,
-	FOREIGN KEY (ref) REFERENCES jobs(ref)
+	FOREIGN KEY (jobs_ref) REFERENCES jobs(ref)
 	);");
 
 // creates the contributions table
 $db->execute_query("CREATE TABLE IF NOT EXISTS contributions (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	team_member ENUM('Ashlyn','Juno','Aadil') NOT NULL,
+	team_member ENUM('Ashlyn', 'Juno', 'Aadil') NOT NULL,
 	contribution_text TEXT NOT NULL
 	);");
 
-//lines 99- : default data insertion
-
-//checks if jobs table is empty
-$jobs_check = $db->execute_query("SELECT IF(NOT EXISTS(SELECT * FROM jobs), 'TRUE', 'FALSE'); ");
-$jobs_empty = mysqli_fetch_row($jobs_check)[0];
-
-// inserts default jobs table data, insert-where code referenced from stackoverflow user @RichardTheKiwi
-$db->execute_query("INSERT INTO jobs
-SELECT 'J0115', 'Security Analyst', '80000', '100000', 'Analyst Team Lead',
-'As a security analyst, you will work with our IT team to analyse and respond to emerging and existing threats. You will be tasked with monitoring our existing clients'' projects and ensuring security. We ask you to keep up with modern and emerging attack vectors and potential vulnerabilities to pre-empt attacks.'
-WHERE ($jobs_empty = TRUE);");
-
-$db->execute_query("INSERT INTO jobs 
-SELECT 'J0201', 'Incident Response Specialist', '120000', '160000', 'Incident Team Coordinator',
-'As an Incident Response Specialist, you will join our threat strike team and work on mitigating time-critical active threats. You will work with our analysts and clients to respond to cyberattacks as they happen, and assist in recovery afterwards. When there are no current incidents, you will be expected to proactively seek out new or advanced threats, which may evade regular detection.'
-WHERE ($jobs_empty = TRUE);");
-
-$db->execute_query("INSERT INTO jobs 
-SELECT 'J0302', 'Secure Culture Coordinator', '100000', '120000', 'Chief Communications Officer',
-'As our Secure Culture Coordinator, you will work with our clients to ensure that their organisation has good individual-level cybersecurity practices. You will be responsible for coordinating outreach, and ensuring that every employee at the clients'' business is aware of common attack vectors like phishing. '
-WHERE ($jobs_empty = TRUE);");
+// creates the EOI table
+$db->execute_query("CREATE TABLE IF NOT EXISTS eoi (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	ref VARCHAR(5) NOT NULL,
+	fname VARCHAR(40) NOT NULL,
+	lname VARCHAR(40) NOT NULL,
+	dob VARCHAR(10) NOT NULL,
+	gender VARCHAR(15) NOT NULL,
+	street VARCHAR(40) NOT NULL,
+	suburb VARCHAR(40) NOT NULL,
+	state VARCHAR(3) NOT NULL,
+	postcode INT(4) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	phone INT(12) NOT NULL,
+	skills SET('soc_siem','incident_response','vuln_mgmt','cloud_security','iam_mfa','network_security','scripting','other') NOT NULL,
+	other_skills text NOT NULL,
+	status ENUM('New','Current','Final') NOT NULL DEFAULT 'New'
+	);");
