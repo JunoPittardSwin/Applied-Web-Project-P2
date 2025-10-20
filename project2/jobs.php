@@ -11,7 +11,9 @@
 	<link rel="stylesheet" href="./css/per-page/jobs.css">
 </head>
 <body>
-	<?php include(__DIR__ . '/header.inc'); ?>
+	<?php require_once(__DIR__ . '/settings.php');
+	 include(__DIR__ . '/header.inc');
+	?>
 
 	<!--
 		Optional full-screen content for the most important page content, if applicable.
@@ -33,6 +35,29 @@
 		<!-- theoretical reference number format: Job, Internal=0 Contractor=1, 1 digit for Team ID, 2 digits for team position.  -->
 		<article id="content">
 			<section>
+				<?php
+				$conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWORD,$DB_NAME);
+				if($conn) {
+					$result = mysqli_query($conn, "SELECT * FROM jobs;");
+					if (mysqli_num_rows($result) > 0) {
+						echo "<p>Job listings found!</p>";
+						for($i = 1; $i <= mysqli_num_rows($result); $i++) {
+							$row = mysqli_fetch_assoc($result);
+							echo "<h2>" . $row['title'] . " (REF:" . $row['ref'] .")</h2>\n";
+							echo "<em>Salary: $" . $row['salary_low'] . " - $" . $row['salary_high'] . " p/a <br>";
+							echo "Reporting Line: " . $row['reporting_line'] . "</em>\n";
+							echo "<h3>About the role</h3>\n";
+							echo "<p>" . $row['about'] . "</p>\n";
+						}
+					} else {
+						echo "<p>No jobs posted at this time. Check back later!</p>";
+					}
+				} else {
+					echo "<p>Connection failed!</p>";
+				}
+				?>
+
+				<h1> --- OLD --- </h1>
 				<h2>Security Analyst (REF:J0115)</h2>
 				<em>Salary: $80,000 - $100,000 p/a <br>
 				Reporting Line: Analyst Team Lead

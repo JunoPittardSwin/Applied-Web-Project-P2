@@ -115,5 +115,5 @@ WHERE ($jobs_empty = TRUE);");
 
 $db->execute_query("INSERT INTO jobs 
 SELECT 'J0302', 'Secure Culture Coordinator', '100000', '120000', 'Chief Communications Officer',
-'As our Secure Culture Coordinator, you will work with our clients to ensure that their organisation has good individual-level cybersecurity practices. You will be responsible for coordinating outreach, and ensuring that every employee at the client''s business is aware of common attack vectors like phishing. '
+'As our Secure Culture Coordinator, you will work with our clients to ensure that their organisation has good individual-level cybersecurity practices. You will be responsible for coordinating outreach, and ensuring that every employee at the clients'' business is aware of common attack vectors like phishing. '
 WHERE ($jobs_empty = TRUE);");
