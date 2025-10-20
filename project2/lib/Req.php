@@ -3,34 +3,28 @@
 /**
  * Utilities for parsing data from requests.
  */
-namespace ReqUtils;
+namespace Req;
 
-class Post
+/**
+ * Get the query string parameter with the given name. If not given, returns `null`.
+ *
+ * @param string $name
+ * @return string|null
+ */
+function get(string $name): ?string
 {
-	/**
-	 * Get the POST-body request parameter with the given name. If not given, returns `null`.
-	 *
-	 * @param string $name
-	 * @return string|null
-	 */
-	static function get(string $name): ?string
-	{
-		return $_POST[$name] ?? null;
-	}
+	return $_GET[$name] ?? null;
 }
 
-class Get
+/**
+ * Get the POST-body request parameter with the given name. If not given, returns `null`.
+ *
+ * @param string $name
+ * @return string|null
+ */
+function post(string $name): ?string
 {
-	/**
-	 * Get the query string parameter with the given name. If not given, returns `null`.
-	 *
-	 * @param string $name
-	 * @return string|null
-	 */
-	static function get(string $name): ?string
-	{
-		return $_GET[$name] ?? null;
-	}
+	return $_POST[$name] ?? null;
 }
 
 class Session
