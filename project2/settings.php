@@ -43,3 +43,53 @@ unset($temporaryMysqli);
 // declares the shared database
 $db = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME);
 
+//creates the EOI table
+$db->execute_query("CREATE TABLE IF NOT EXISTS eoi (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  ref VARCHAR(5) NOT NULL,
+  fname VARCHAR(40) NOT NULL,
+  lname VARCHAR(40) NOT NULL,
+  dob VARCHAR(10) NOT NULL,
+  gender VARCHAR(15) NOT NULL,
+  street VARCHAR(40) NOT NULL,
+  suburb VARCHAR(40) NOT NULL,
+  state VARCHAR(3) NOT NULL,
+  postcode INT(4) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  phone INT(12) NOT NULL,
+  skills SET('soc_siem','incident_response','vuln_mgmt','cloud_security','iam_mfa','network_security','scripting','other') NOT NULL,
+  other_skills text NOT NULL,
+  status ENUM('New','Current','Final') NOT NULL DEFAULT 'New'
+);");
+
+// creates the jobs table
+$db->execute_query("CREATE TABLE IF NOT EXISTS jobs (
+	ref VARCHAR(5) NOT NULL PRIMARY KEY,
+	title VARCHAR(50) NOT NULL,
+	salary_low INT NOT NULL,
+	salary_high INT NOT NULL,
+	about TEXT NOT NULL
+	);");
+
+// creates the jobs "essential requirements" sub-table
+$db->execute_query("CREATE TABLE IF NOT EXISTS jobs_ess_reqs (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	ref VARCHAR(5) NOT NULL,
+	ess_text TEXT NOT NULL,
+	FOREIGN KEY (ref) REFERENCES jobs(ref)
+	);");
+
+// creates the jobs "preferred requirements" sub-table
+$db->execute_query("CREATE TABLE IF NOT EXISTS jobs_pref_reqs (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	ref VARCHAR(5) NOT NULL,
+	pref_text TEXT NOT NULL,
+	FOREIGN KEY (ref) REFERENCES jobs(ref)
+	);");
+
+// creates the contributions table
+$db->execute_query("CREATE TABLE IF NOT EXISTS contributions (
+	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	team_member ENUM('Ashlyn','Juno','Aadil') NOT NULL,
+	contribution_text TEXT NOT NULL
+	);");
