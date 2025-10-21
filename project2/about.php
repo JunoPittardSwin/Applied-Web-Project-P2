@@ -10,7 +10,17 @@
 	<link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-	<?php include(__DIR__ . '/header.inc'); ?>
+	<?php require_once(__DIR__ . '/settings.php');
+	include(__DIR__ . '/lib/DefaultData.php');
+	include(__DIR__ . '/header.inc');
+
+	// if the contributions table is empty, populate it
+	$contrib = $db->execute_query("SELECT * FROM contributions;");
+	if (mysqli_num_rows($contrib) == 0) {
+		defaultContributions($db);
+	}
+	?>
+	
 
 	<header id="hero-container" class="hero-background-team">
 		<div id="hero">
@@ -46,7 +56,21 @@
 						<h3>Juno Pittard <span class="student-id">(ID: 103983984)</span></h3>
 						<dl>
 							<dt>Contributions</dt>
-							<dd>About, Home and Jobs pages, coordination with stakeholders</dd>
+							<dd><ol>
+							<?php 
+								$conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWORD,$DB_NAME);
+								if($conn) {
+									$result = mysqli_query($conn, "SELECT * FROM contributions WHERE team_member = 'Juno';");
+									if (mysqli_num_rows($result) > 0) {
+										for($i = 1; $i <= mysqli_num_rows($result); $i++) {
+											$row = mysqli_fetch_assoc($result);
+											// above code: connect to the db, get everything from contributions, and iterate through member's rows.
+											echo "<li>" . $row['contribution_text'] . "</li>";
+										}
+									}
+								}
+							?>
+							</ol></dd>
 							<dt>Favourite Quote</dt>
 							<dd><q>Keep on keeping on!</q></dd>
 							<dt>Favourite Language</dt>
@@ -60,7 +84,20 @@
 						<h3>Ashlyn Randall <span class="student-id">(ID: 105928880)</span></h3>
 						<dl>
 							<dt>Contributions</dt>
-							<dd>Site design and CSS, team management</dd>
+							<dd><ol>
+							<?php 
+								$conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWORD,$DB_NAME);
+								if($conn) {
+									$result = mysqli_query($conn, "SELECT * FROM contributions WHERE team_member = 'Ashlyn';");
+									if (mysqli_num_rows($result) > 0) {
+										for($i = 1; $i <= mysqli_num_rows($result); $i++) {
+											$row = mysqli_fetch_assoc($result);
+											echo "<li>" . $row['contribution_text'] . "</li>";
+										}
+									}
+								}
+							?>
+							</ol></dd>
 							<dt>Favourite Quote</dt>
 							<dd><q>death by tray it shall be</q></dd>
 							<dt>Favourite Language</dt>
@@ -74,7 +111,20 @@
 						<h3>Aadil Vinod <span class="student-id">(ID: 105700716)</span></h3>
 						<dl>
 							<dt>Contributions</dt>
-							<dd>Application page and application form</dd>
+							<dd><ol>
+							<?php 
+								$conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWORD,$DB_NAME);
+								if($conn) {
+									$result = mysqli_query($conn, "SELECT * FROM contributions WHERE team_member = 'Aadil';");
+									if (mysqli_num_rows($result) > 0) {
+										for($i = 1; $i <= mysqli_num_rows($result); $i++) {
+											$row = mysqli_fetch_assoc($result);
+											echo "<li>" . $row['contribution_text'] . "</li>";
+										}
+									}
+								}
+							?>
+							</ol></dd>
 							<dt>Favourite Quote</dt>
 							<dd><q>Not all those who wander are lost</q><dd>
 							<dt>Favourite Language</dt>
