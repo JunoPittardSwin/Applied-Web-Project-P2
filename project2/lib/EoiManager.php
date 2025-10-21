@@ -33,7 +33,7 @@ class EoiManager
 
 			-- The state the applicant currently lives in. Non-nullable as we need this information for
 			-- remote/local work decisions & filtering.
-			state CHAR(3) NOT NULL,
+			state ENUM('VIC', 'NSW', 'QLD', 'NT', 'WA', 'SA', 'TAS', 'ACT') NOT NULL,
 
 			-- The house number or other information about their address on their street, if provided.
 			-- Applicants may choose not to specify.
