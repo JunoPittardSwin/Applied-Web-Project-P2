@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="Juno Pittard">
 	<meta name="description" content="Applied Web Project Part 1 - About Page">
-	<meta name="keywords" content="cybersecurity, company, watertightcybersec, team, about, information">
-	<title>About Us | Watertight CyberSec</title>
+	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, team, about, information">
+	<title>About Us | Watertight Recruitment</title>
 	<link rel="stylesheet" href="./css/styles.css">
 	<link rel="stylesheet" href="./css/per-page/about.css">
 	<style>
@@ -32,7 +32,7 @@
 			<!-- assignment requires that these are nested lists -->
 			<ul>
 				<li>
-					We're the Watertight CyberSec Team!
+					We're the Watertight Recruitment Team!
 					<ul>
 						<li>Working hours: 2:30 to 4:30 in EN302</li>
 					</ul>

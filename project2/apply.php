@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="Aadil Vinod">
 	<meta name="description" content="Apply to work with us!">
-	<meta name="keywords" content="cybersecurity, company, watertightcybersec, hiring, jobs">
-	<title>Apply | Watertight CyberSec</title>
+	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, hiring, jobs">
+	<title>Apply | Watertight Recruitment</title>
 	<link rel="stylesheet" href="./css/styles.css">
 	<link rel="stylesheet" href="./css/per-page/apply.css">
 </head>
@@ -23,7 +23,7 @@
 		<div id="hero">
 			<h1>Apply for a Position</h1>
 			<p>
-				Our team is always looking for new members who're passionate about Cyber Security. If you've checked our
+				Our clients are always looking for new members who're passionate about Cyber Security. If you've checked our
 				<a href="./jobs.php">Jobs Page</a> and think you'd be a good fit for one of our roles, apply today using
 				the form below.
 			</p>

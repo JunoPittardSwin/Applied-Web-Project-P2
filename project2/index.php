@@ -5,8 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="author" content="Juno Pittard">
 	<meta name="description" content="Applied Web Project Part 1 - Index Page">
-	<meta name="keywords" content="cybersecurity, company, watertightcybersec, salespitch">
-	<title>Watertight CyberSec</title>
+	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, salespitch">
+	<title>Watertight Recruitment</title>
 	<link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
@@ -21,7 +21,7 @@
 	<header id="hero-container">
 		<div id="hero">
 			<img src="images/logo.png" alt="Company Logo">
-			<h1>Watertight Cyber Securities</h1>
+			<h1>Watertight Recruitment</h1>
 			<!-- slogan -->
 			<em>Out of sight, out of mind</em>
 		</div>
@@ -33,21 +33,11 @@
 			<h2>Why choose us?</h2>
 
 			<p>
-				Watertight CyberSec takes the burden off you and puts it on us. Never worry about vulnerabilities again - that's what we're here for!
+				Watertight Recruitment takes the burden off you and puts it on us. Never worry about vulnerabilities again - that's what we're here for!
 			</p>
 
 			<p>
-				We specialise in HTML and CSS code. We promise to deliver flawless programming that'll be so secure, you won't even have to check.
-			</p>
-
-			<p>
-				In fact, we're so confident in our work that we'll manage any bug reports or data breaches ourselves, and only forward the critical, stock-plummeting news to you.
-			</p>
-
-			<p>
-				Not that there will be any. <br>
-				Because it's perfect. <br>
-				You don't need to check.
+				We hire specialists in cybersecurity and web development. We promise to deliver flawless programmers that'll be so secure, you won't even have to check.
 			</p>
 
 			<table>
@@ -55,8 +45,8 @@
 
 				<thead>
 					<tr>
-						<th>Security Vulnerabilities</th>
-						<th>Projects Delivered</th>
+						<th>Applicants hired</th>
+						<th>Applicants promoted</th>
 						<th>CEOs made Happy</th>
 						<th>CEOs made Unhappy</th>
 						<!-- We're required to use inline CSS somewhere for some reason. Here is that! -->
@@ -71,7 +61,7 @@
 						<td>1</td>
 						<td>0</td>
 						<td>0</td>
-						<td>4</td>
+						<td>5</td>
 						<td>6</td>
 					</tr>
 				</tbody>

@@ -16,7 +16,7 @@ switch ($_SERVER['REQUEST_METHOD'])
 			<head>
 				<meta charset="UTF-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<title>Admin Login | Watertight CyberSec</title>
+				<title>Admin Login | Watertight Recruitment</title>
 				<link rel="stylesheet" href="./css/styles.css">
 				<link rel="stylesheet" href="./css/per-page/apply.css">
 			</head>

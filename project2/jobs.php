@@ -6,7 +6,7 @@
 	<meta name="author" content="Juno Pittard">
 	<meta name="description" content="Applied Web Project Part 1 - Jobs Page">
 	<meta name="keywords" content="cybersecurity, jobs, hiring">
-	<title>Open Jobs | Watertight CyberSec</title>
+	<title>Open Jobs | Watertight Recruitment</title>
 	<link rel="stylesheet" href="./css/styles.css">
 	<link rel="stylesheet" href="./css/per-page/jobs.css">
 </head>
