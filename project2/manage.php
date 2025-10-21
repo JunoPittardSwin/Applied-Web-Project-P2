@@ -1,7 +1,7 @@
 <?php declare(strict_types=1); 
 
 require_once(__DIR__ . '/lib/UserManager.php');
-require_once(__DIR__ . '/lib/ReqUtils.php');
+require_once(__DIR__ . '/lib/Req.php');
 require_once(__DIR__ . '/lib/Session.php');
 require_once(__DIR__ . '/settings.php');
 

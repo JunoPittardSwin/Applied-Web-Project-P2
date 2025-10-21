@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 require_once(__DIR__ . '/lib/UserManager.php');
-require_once(__DIR__ . '/lib/ReqUtils.php');
+require_once(__DIR__ . '/lib/Req.php');
 require_once(__DIR__ . '/lib/Session.php');
 require_once(__DIR__ . '/settings.php');
 
@@ -55,8 +55,9 @@ switch ($_SERVER['REQUEST_METHOD'])
 
 	case 'POST':
 		// Login attempt.
-		$name = ReqUtils\Post::get('name');
-		$password = ReqUtils\Post::get('password');
+		$name = Req\post('name');
+		$password = Req\post('password');
+		$name = $_POST['name'] ?? null;
 
 		if ($name === null || $password === null)
 		{
