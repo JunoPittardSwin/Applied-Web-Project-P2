@@ -19,7 +19,7 @@ session_start();
  */
 function getUserOrLogin(\UserManager $userManager): \User
 {
-	$userId = \ReqUtils\Session::get('userId');
+	$userId = $_SESSION['userId'] ?? null;
 
 	if ($userId === null)
 	{
@@ -62,5 +62,5 @@ function setUser(?\User $user)
 		return;
 	}
 	
-	\ReqUtils\Session::set('userId', $user->id);
+	$_SESSION['userId'] = $user->id;
 }
