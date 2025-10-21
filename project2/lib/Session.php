@@ -6,7 +6,7 @@
 namespace Session;
 
 require_once(__DIR__ . '/UserManager.php');
-require_once(__DIR__ . '/ReqUtils.php');
+require_once(__DIR__ . '/Req.php');
 
 session_start();
 
