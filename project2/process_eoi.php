@@ -166,7 +166,7 @@ require_once(__DIR__ . '/settings.php');
 
 $eoiManager = new EoiManager($db);
 
-$eoiManager->submitEoi(
+$refNumber = $eoiManager->submitEoi(
 	// jobReferenceId: $jobReferenceId,
 	firstName: $firstName,
 	lastName: $lastName,
@@ -181,6 +181,32 @@ $eoiManager->submitEoi(
 	skills: $skills,
 	commentsAndOtherSkills: $otherSkills
 );
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Thanks for Applying | Watertight CyberSec</title>
+	<link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+	<?php include(__DIR__ . '/header.inc'); ?>
 
-echo '<pre>';
-print_r($_POST);
+	<main>
+		<article>
+			<h1>Thanks for Applying!</h1>
+			<p>
+				We'll be in touch regarding your next steps.
+			</p>
+			<p>
+				Your reference number is <strong><?= strval($refNumber) ?></strong>. If you wish to
+				contact us regarding your application in the future, include this number.
+			</p>
+			<a href="./index.php" class="button">Return Home</a>
+		</article>
+	</main>
+
+	<?php include(__DIR__ . '/footer.inc'); ?>
+</body>
+</html>
