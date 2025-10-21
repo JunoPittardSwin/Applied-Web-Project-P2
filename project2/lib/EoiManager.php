@@ -112,7 +112,7 @@ class EoiManager
 			$emailAddress,
 			$phoneNumber,
 			$gender,
-			$dateOfBirth,
+			$dateOfBirth->format('Y/m/d'),
 			$state,
 			$streetAddress,
 			$suburb,
