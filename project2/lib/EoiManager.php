@@ -159,6 +159,26 @@ class EoiManager
 	}
 
 	/**
+	 * Get an EOI by its ID.
+	 *
+	 * @param integer $id
+	 * @return Eoi|null
+	 */
+	public function getEoi(int $id): ?Eoi
+	{
+		$result = $this->db->execute_query('SELECT * FROM eoi WHERE id = ?', [$id]);
+		$row = $result->fetch_assoc();
+		$result->close();
+
+		if (!is_array($row))
+		{
+			return null;
+		}
+
+		return new Eoi(...$row, skills: $this->getSkillsForEoi($id));
+	}
+
+	/**
 	 * Retrieve zero or more expressions of interest which match the given criteria.
 	 *
 	 * @param string|null $forJobRef
@@ -222,25 +242,7 @@ class EoiManager
 				break;
 			}
 
-			$skillsResult = $this->db->execute_query(
-				"SELECT skill FROM eoi_skill WHERE eoiId = ?",
-				[$row['id']]
-			);
-
-			$skills = [];
-
-			while (true)
-			{
-				$skill = $skillsResult->fetch_column();
-
-				if (!is_string($skill))
-				{
-					$skillsResult->close();
-					break;
-				}
-
-				$skills []= $skill;
-			}
+			$skills = $this->getSkillsForEoi($row['id']);
 
 			// Do they have the skills we requested?
 			if (($withSkills === null) || (count(array_intersect($withSkills, $skills)) >= count($withSkills)))
@@ -253,6 +255,32 @@ class EoiManager
 		return $entries;
 	}
 
+	/**
+	 * Retrieve the list of skills an applicant specified in their EOI.
+	 *
+	 * @param integer $id
+	 * @return array
+	 */
+	private function getSkillsForEoi(int $id): array
+	{
+		$skillsResult = $this->db->execute_query("SELECT skill FROM eoi_skill WHERE eoiId = ?", [$id]);
+		$skills = [];
+
+		while (true)
+		{
+			$skill = $skillsResult->fetch_column();
+
+			if (!is_string($skill))
+			{
+				break;
+			}
+
+			$skills []= $skill;
+		}
+
+		$skillsResult->close();
+		return $skills;
+	}
 }
 
 readonly class Eoi
