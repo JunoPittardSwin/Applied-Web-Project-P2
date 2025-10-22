@@ -137,7 +137,7 @@ class EoiManager
 
 		$skillQuery = $this->db->prepare("INSERT INTO eoi_skill(eoiId, skill) VALUES (?, ?)");
 
-		foreach ($skills as $skill)
+		foreach (array_unique($skills) as $skill)
 		{
 			$skillQuery->execute([$eoiId, $skill]);
 		}
