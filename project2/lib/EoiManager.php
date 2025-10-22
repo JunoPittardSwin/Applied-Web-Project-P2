@@ -80,7 +80,7 @@ class EoiManager
 		string $phoneNumber,
 		?string $gender,
 		?DateTimeImmutable $dateOfBirth,
-		string $state,
+		AustraliaState $state,
 		?string $streetAddress,
 		?string $suburb,
 		?int $postcode,
@@ -112,7 +112,7 @@ class EoiManager
 				$phoneNumber,
 				$gender,
 				$dateOfBirth->format('Y/m/d'),
-				$state,
+				$state->value,
 				$streetAddress,
 				$suburb,
 				$postcode,
@@ -159,7 +159,7 @@ readonly class Eoi
 		public string $phoneNumber,
 		public ?string $gender,
 		public ?DateTimeImmutable $dateOfBirth,
-		public string $state,
+		public AustraliaState $state,
 		public ?string $streetAddress,
 		public ?string $suburb,
 		public ?int $postcode,
@@ -175,4 +175,16 @@ enum EoiSubmitError
 	 * The job reference ID doesn't refer to any current listings.
 	 */
 	case NoSuchJobRef;
+}
+
+enum AustraliaState: string
+{
+	case Vic = 'VIC';
+	case Nsw = 'NSW';
+	case Qld = 'QLD';
+	case Nt = 'NT';
+	case Wa = 'WA';
+	case Sa = 'SA';
+	case Tas = 'TAS';
+	case Act = 'ACT';
 }
