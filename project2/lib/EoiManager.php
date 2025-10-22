@@ -148,6 +148,17 @@ class EoiManager
 	}
 
 	/**
+	 * Delete an expression of interest with the given unique ID.
+	 *
+	 * @param integer $id
+	 * @return void
+	 */
+	public function deleteEoi(int $id)
+	{
+		$this->db->execute_query("DELETE FROM eoi WHERE id = ?", [$id]);
+	}
+
+	/**
 	 * Retrieve zero or more expressions of interest which match the given criteria.
 	 *
 	 * @param string|null $forJobRef
