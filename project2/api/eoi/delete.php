@@ -54,4 +54,5 @@ if ($form->hasErrors())
 $eoiManager = new EoiManager($db);
 $eoiManager->deleteEoi($eoiId);
 
-http_response_code(204);
+http_response_code(303);
+header('Location: /manage.php');
