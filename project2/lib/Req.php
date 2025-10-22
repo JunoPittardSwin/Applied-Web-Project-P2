@@ -281,7 +281,7 @@ function mapInputValue(
 		}
 	}
 
-	if (($value === false) || ($regex !== null && preg_match($regex, $value) === false))
+	if (($value === false) || ($regex !== null && preg_match($regex, $value) !== 1))
 	{
 		throw new InputBadFormatException;
 	}
