@@ -8,8 +8,7 @@ class EoiManager
 			id INTEGER PRIMARY KEY AUTO_INCREMENT,
 
 			-- ID of the job that's being applied for
-			-- TODO: Uncomment this once https://github.com/JunoPittardSwin/Applied-Web-Project-P2/issues/8 is done.
-			-- jobReferenceId CHAR(5),
+			jobReferenceId CHAR(5) NOT NULL,
 
 			-- The current status of this application in the review process.
 			status ENUM('New', 'Current', 'Final') NOT NULL DEFAULT('New'),
@@ -49,10 +48,9 @@ class EoiManager
 			postcode INTEGER,
 
 			-- Additional comments made by the applicant. Includes the 'Other skills' they specified.
-			commentsAndOtherSkills TEXT
+			commentsAndOtherSkills TEXT,
 
-			-- TODO: Uncomment this once https://github.com/JunoPittardSwin/Applied-Web-Project-P2/issues/8 is done.
-			-- FOREIGN KEY (jobReferenceId) REFERENCES job(id) ON DELETE CASCADE
+			FOREIGN KEY (jobReferenceId) REFERENCES jobs(ref) ON DELETE CASCADE
 		)");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS eoi_skill(
@@ -72,11 +70,10 @@ class EoiManager
 	/**
 	 * Submit an expression of interest from the person with the provided details.
 	 * 
-	 * @return int Unique ID of the EOI
+	 * @return int|EoiSubmitError Unique ID of the EOI
 	 */
 	function submitEoi(
-		// TODO: Uncomment this once https://github.com/JunoPittardSwin/Applied-Web-Project-P2/issues/8 is done.
-		// string $jobReferenceId,
+		string $jobReferenceId,
 		string $firstName,
 		string $lastName,
 		string $emailAddress,
@@ -89,36 +86,52 @@ class EoiManager
 		?int $postcode,
 		array $skills,
 		?string $commentsAndOtherSkills,
-	): int
+	): int|EoiSubmitError
 	{
 		// oh the joys of mysqli
-		$this->db->execute_query("INSERT INTO eoi(
-			-- TODO: Uncomment this once https://github.com/JunoPittardSwin/Applied-Web-Project-P2/issues/8 is done.
-			-- jobReferenceId,
-			firstName,
-			lastName,
-			emailAddress,
-			phoneNumber,
-			gender,
-			dateOfBirth,
-			state,
-			streetAddress,
-			suburb,
-			postCode,
-			commentsAndOtherSkills
-		) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [
-			$firstName,
-			$lastName,
-			$emailAddress,
-			$phoneNumber,
-			$gender,
-			$dateOfBirth->format('Y/m/d'),
-			$state,
-			$streetAddress,
-			$suburb,
-			$postcode,
-			$commentsAndOtherSkills
-		]);
+		try
+		{
+			$this->db->execute_query("INSERT INTO eoi(
+				jobReferenceId,
+				firstName,
+				lastName,
+				emailAddress,
+				phoneNumber,
+				gender,
+				dateOfBirth,
+				state,
+				streetAddress,
+				suburb,
+				postCode,
+				commentsAndOtherSkills
+			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [
+				$jobReferenceId,
+				$firstName,
+				$lastName,
+				$emailAddress,
+				$phoneNumber,
+				$gender,
+				$dateOfBirth->format('Y/m/d'),
+				$state,
+				$streetAddress,
+				$suburb,
+				$postcode,
+				$commentsAndOtherSkills
+			]);
+		}
+		catch (mysqli_sql_exception $sqlException)
+		{
+			// Error code for a foreign key constraint failing. In our case, this means that the job
+			// listing we were given a reference for doesn't exist.
+			// 
+			// https://dev.mysql.com/doc/mysql-errors/8.4/en/server-error-reference.html
+			if ($sqlException->getCode() === 1452)
+			{
+				return EoiSubmitError::NoSuchJobRef;
+			}
+
+			throw $sqlException;
+		}
 
 		$eoiId = $this->db->insert_id;
 
@@ -139,8 +152,7 @@ readonly class Eoi
 {
 	function __construct(
 		public int $id,
-		// TODO: Uncomment this once https://github.com/JunoPittardSwin/Applied-Web-Project-P2/issues/8 is done.
-		// public string $jobReferenceId,
+		public string $jobReferenceId,
 		public string $firstName,
 		public string $lastName,
 		public string $emailAddress,
@@ -155,4 +167,12 @@ readonly class Eoi
 		public ?string $commentsAndOtherSkills,
 	)
 	{}
+}
+
+enum EoiSubmitError
+{
+	/**
+	 * The job reference ID doesn't refer to any current listings.
+	 */
+	case NoSuchJobRef;
 }

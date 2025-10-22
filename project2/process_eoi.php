@@ -10,6 +10,52 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST')
 	exit;
 }
 
+function displayErrorPage(int $responseCode, callable $contentWriter): never
+{
+	http_response_code($responseCode);
+
+	?>
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Expression of Interest | Watertight CyberSec</title>
+		<link rel="stylesheet" href="./css/styles.css">
+	</head>
+	<body>
+		<?php include(__DIR__ . '/header.inc'); ?>
+
+		<header id="hero-container">
+			<div id="hero">
+				<h1>Please try again</h1>
+				<p>
+					Thanks for submitting your expression of interest. Unfortunately, there's a few
+					issues with it listed below. Please fix these issues and submit again, we'd
+					love to hear from you!
+				</p>
+			</div>
+		</header>
+
+		<main>
+			<article>
+				<h2>Submission Issues</h2>
+				<?php $contentWriter() ?>
+
+				<nav>
+					<a class="button" href="./apply.php">Retry your application</a>
+				</nav>
+			</article>
+		</main>
+
+		<?php include(__DIR__ . '/footer.inc'); ?>
+	</body>
+	</html>
+	<?php
+
+	exit;
+}
+
 require_once(__DIR__ . '/lib/Req.php');
 
 $form = FormContext::fromPostBody();
@@ -112,53 +158,20 @@ $skills = $form->inputArray(
 
 if ($form->hasErrors())
 {
-	http_response_code(400);
-	?>
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Expression of Interest | Watertight CyberSec</title>
-		<link rel="stylesheet" href="./css/styles.css">
-	</head>
-	<body>
-		<?php include(__DIR__ . '/header.inc'); ?>
-
-		<header id="hero-container">
-			<div id="hero">
-				<h1>Please try again</h1>
-				<p>
-					Thanks for submitting your expression of interest. Unfortunately, there's a few
-					issues with it listed below. Please fix these issues and submit again, we'd
-					love to hear from you!
-				</p>
-			</div>
-		</header>
-
-		<main>
-			<article>
-				<h2>Submission Issues</h2>
-				<ul>
-					<?php foreach ($form->htmlErrorList as $error)
-					{
-						?>
-						<li><?= $error ?></li>
-						<?php
-					}
-					?>
-				</ul>
-
-				<a class="button" href="./apply.php">Retry your application</a>
-			</article>
-		</main>
-
-		<?php include(__DIR__ . '/footer.inc'); ?>
-	</body>
-	</html>
-
-	<?php
-	exit;
+	displayErrorPage(400, contentWriter: function() use ($form)
+	{
+		?>
+		<ul>
+			<?php foreach ($form->htmlErrorList as $error)
+			{
+				?>
+				<li><?= $error ?></li>
+				<?php
+			}
+			?>
+		</ul>
+		<?php
+	});
 }
 
 require_once(__DIR__ . '/lib/EoiManager.php');
@@ -166,8 +179,8 @@ require_once(__DIR__ . '/settings.php');
 
 $eoiManager = new EoiManager($db);
 
-$refNumber = $eoiManager->submitEoi(
-	// jobReferenceId: $jobReferenceId,
+$refNumberOrError = $eoiManager->submitEoi(
+	jobReferenceId: $jobReferenceId,
 	firstName: $firstName,
 	lastName: $lastName,
 	emailAddress: $emailAddress,
@@ -181,6 +194,23 @@ $refNumber = $eoiManager->submitEoi(
 	skills: $skills,
 	commentsAndOtherSkills: $otherSkills
 );
+
+// Handle possible issues, if the submission was unsuccessful.
+switch ($refNumberOrError)
+{
+	case EoiSubmitError::NoSuchJobRef:
+		displayErrorPage(404, contentWriter: function() use ($jobReferenceId)
+		{
+			?>
+			<p>
+				We aren't currently listing a job with the ID <q><?= htmlspecialchars($jobReferenceId) ?></q>.
+				Did you type it correctly?
+			</p>
+			<?php
+		});
+	break;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -200,7 +230,7 @@ $refNumber = $eoiManager->submitEoi(
 				We'll be in touch regarding your next steps.
 			</p>
 			<p>
-				Your reference number is <strong><?= strval($refNumber) ?></strong>. If you wish to
+				Your reference number is <strong><?= strval($refNumberOrError) ?></strong>. If you wish to
 				contact us regarding your application in the future, include this number.
 			</p>
 			<a href="./index.php" class="button">Return Home</a>
