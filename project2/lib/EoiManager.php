@@ -54,8 +54,6 @@ class EoiManager
 		)");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS eoi_skill(
-			id INTEGER PRIMARY KEY AUTO_INCREMENT,
-
 			-- ID of the EOI this skill entry belongs to.
 			eoiId INTEGER NOT NULL,
 
@@ -63,7 +61,9 @@ class EoiManager
 			skill VARCHAR(32) NOT NULL,
 
 			-- Remove these skill entries when an EOI is removed.
-			FOREIGN KEY (eoiId) REFERENCES eoi(id) ON DELETE CASCADE
+			FOREIGN KEY (eoiId) REFERENCES eoi(id) ON DELETE CASCADE,
+
+			PRIMARY KEY (eoiId, skill)
 		)");
 	}
 
@@ -146,27 +146,140 @@ class EoiManager
 
 		return $eoiId;
 	}
+
+	/**
+	 * Retrieve zero or more expressions of interest which match the given criteria.
+	 *
+	 * @param string|null $forJobRef
+	 * @param EoiStatus|null $withStatus
+	 * @param string|null $withEmailAddress
+	 * @param string|null $withPhoneNumber
+	 * @param string|null $withFirstName
+	 * @param string|null $withLastName
+	 * @param AustraliaState|null $inState
+	 * @param integer|null $inPostcode
+	 * @param string|null $inSuburb
+	 * @param string[]|null $withSkills
+	 * @return Eoi[]
+	 */
+	function getSubmissions(
+		?string $forJobRef = null,
+		?EoiStatus $withStatus = null,
+		?string $withEmailAddress = null,
+		?string $withPhoneNumber = null,
+		?string $withFirstName = null,
+		?string $withLastName = null,
+		?AustraliaState $inState = null,
+		?int $inPostcode = null,
+		?string $inSuburb = null,
+		?array $withSkills = null
+	): array
+	{
+		$query = "SELECT * FROM eoi";
+
+		$filters = array_filter([
+			'jobReferenceId' => $forJobRef,
+			'status' => $withStatus?->value,
+			'firstName' => $withFirstName,
+			'lastName' => $withLastName,
+			'emailAddress' => $withEmailAddress,
+			'phoneNumber' => $withPhoneNumber,
+			'state' => $inState?->value,
+			'suburb' => $inSuburb,
+			'postCode' => $inPostcode
+		], fn($entry) => $entry !== null);
+
+		$filterNames = array_keys($filters);
+
+		if (count($filters) > 0)
+		{
+			$query .= ' WHERE ' . implode(' AND ', array_map(
+				array: $filterNames,
+				callback: fn(string $key) => "$key = ?",
+			));
+		}
+
+		$entries = [];
+		$result = $this->db->execute_query($query, array_values($filters));
+
+		while (true)
+		{
+			$row = $result->fetch_assoc();
+
+			if (!is_array($row))
+			{
+				break;
+			}
+
+			$skillsResult = $this->db->execute_query(
+				"SELECT skill FROM eoi_skill WHERE eoiId = ?",
+				[$row['id']]
+			);
+
+			$skills = [];
+
+			while (true)
+			{
+				$skill = $skillsResult->fetch_column();
+
+				if (!is_string($skill))
+				{
+					$skillsResult->close();
+					break;
+				}
+
+				$skills []= $skill;
+			}
+
+			// Do they have the skills we requested?
+			if (count(array_intersect($withSkills, $skills)) >= count($withSkills))
+			{
+				$entries []= new Eoi(...$row, skills: $skills);
+			}
+		}
+
+		$result->close();
+		return $entries;
+	}
+
 }
 
 readonly class Eoi
 {
+	public EoiStatus $status;
+	public AustraliaState $state;
+	public ?DateTimeImmutable $dateOfBirth;
+
 	function __construct(
 		public int $id,
 		public string $jobReferenceId,
+		EoiStatus|string $status,
 		public string $firstName,
 		public string $lastName,
 		public string $emailAddress,
 		public string $phoneNumber,
 		public ?string $gender,
-		public ?DateTimeImmutable $dateOfBirth,
-		public AustraliaState $state,
+		DateTimeImmutable|string|null $dateOfBirth,
+		AustraliaState|string $state,
 		public ?string $streetAddress,
 		public ?string $suburb,
 		public ?int $postcode,
 		public array $skills,
 		public ?string $commentsAndOtherSkills,
 	)
-	{}
+	{
+		$this->state = ($state instanceof AustraliaState)
+			? $state
+			: AustraliaState::from($state);
+
+		$this->dateOfBirth = (is_string($dateOfBirth))
+			? new DateTimeImmutable($dateOfBirth)
+			: $dateOfBirth;
+
+		$this->status = ($status instanceof EoiStatus)
+			? $status
+			: EoiStatus::from($status);
+	}
 }
 
 enum EoiSubmitError
@@ -187,4 +300,11 @@ enum AustraliaState: string
 	case Sa = 'SA';
 	case Tas = 'TAS';
 	case Act = 'ACT';
+}
+
+enum EoiStatus: string
+{
+	case New = 'New';
+	case Current = 'Current';
+	case Final = 'Final';
 }
