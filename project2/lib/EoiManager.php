@@ -13,6 +13,13 @@ class EoiManager
 			-- The current status of this application in the review process.
 			status ENUM('New', 'Current', 'Final') NOT NULL DEFAULT('New'),
 
+			-- The UNIX-style timestamp at which this EOI was submitted.
+			-- 
+			-- Unfortunately, MySQL's `TIMESTAMP` type is STILL 32-bit even today, because I guess
+			-- Oracle doesn't have any plans in MySQL being usable past 2038. As such, we're
+			-- manually specifying a 64-bit integer here.
+			submissionTimestamp BIGINT NOT NULL,
+
 			firstName VARCHAR(32) NOT NULL,
 			lastName VARCHAR(32) NOT NULL,
 			emailAddress VARCHAR(64) NOT NULL,
@@ -93,6 +100,7 @@ class EoiManager
 		{
 			$this->db->execute_query("INSERT INTO eoi(
 				jobReferenceId,
+				submissionTimestamp,
 				firstName,
 				lastName,
 				emailAddress,
@@ -104,8 +112,9 @@ class EoiManager
 				suburb,
 				postCode,
 				commentsAndOtherSkills
-			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [
+			) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [
 				$jobReferenceId,
+				time(),
 				$firstName,
 				$lastName,
 				$emailAddress,
@@ -286,6 +295,7 @@ class EoiManager
 readonly class Eoi
 {
 	public EoiStatus $status;
+	public DateTimeImmutable $submissionTimestamp;
 	public AustraliaState $state;
 	public ?DateTimeImmutable $dateOfBirth;
 
@@ -293,6 +303,7 @@ readonly class Eoi
 		public int $id,
 		public string $jobReferenceId,
 		EoiStatus|string $status,
+		DateTimeImmutable|int $submissionTimestamp,
 		public string $firstName,
 		public string $lastName,
 		public string $emailAddress,
@@ -307,6 +318,10 @@ readonly class Eoi
 		public ?string $commentsAndOtherSkills,
 	)
 	{
+		$this->submissionTimestamp = (is_int($submissionTimestamp))
+			? DateTimeImmutable::createFromTimestamp($submissionTimestamp)
+			: $submissionTimestamp;
+
 		$this->state = ($state instanceof AustraliaState)
 			? $state
 			: AustraliaState::from($state);
