@@ -232,7 +232,7 @@ class EoiManager
 			}
 
 			// Do they have the skills we requested?
-			if (count(array_intersect($withSkills, $skills)) >= count($withSkills))
+			if (($withSkills === null) || (count(array_intersect($withSkills, $skills)) >= count($withSkills)))
 			{
 				$entries []= new Eoi(...$row, skills: $skills);
 			}
