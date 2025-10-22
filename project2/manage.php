@@ -170,6 +170,17 @@ if ($eoiIdToView !== null)
 					EOI <strong><?= strval($eoi->id) ?></strong> for <?= htmlspecialchars($eoi->jobReferenceId) ?> by <?= htmlspecialchars($eoi->firstName) ?> (<?= htmlspecialchars($eoi->status->value) ?>)
 				</h1>
 
+				<p>
+					<?php
+					$localDateTime = $eoi->submissionTimestamp->setTimezone(new DateTimeZone(date_default_timezone_get()));
+					?>
+
+					Submitted on
+					<time datetime="<?= $eoi->submissionTimestamp->format('c') ?>">
+						<?= $localDateTime->format('d/m/Y') ?> at <?= $localDateTime->format('h:ia') ?>
+					</time>
+				</p>
+
 				<dl>
 					<dt>First Name</dt>
 					<dd><?= htmlspecialchars($eoi->firstName) ?></dd>
