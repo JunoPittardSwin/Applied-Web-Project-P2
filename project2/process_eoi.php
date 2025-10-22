@@ -1,6 +1,9 @@
 <?php declare(strict_types=1);
 
 use Req\FormContext;
+use Req\InputMapFailedException;
+
+require_once(__DIR__ . '/lib/EoiManager.php');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST')
 {
@@ -117,11 +120,13 @@ $otherSkills = $form->input(
 	required: false
 );
 
+/** @var ?AustraliaState */
 $state = $form->input(
 	readableName: 'State',
 	key: 'state',
-	regex: '/^(VIC|NSW|QLD|NT|WA|SA|TAS|ACT)$/',
-	required: true
+	required: true,
+	mapValue: fn(string $state) => AustraliaState::tryFrom($state)
+		?? throw new InputMapFailedException('is not a state in Australia.')
 );
 
 $streetAddress = $form->input(
@@ -174,9 +179,7 @@ if ($form->hasErrors())
 	});
 }
 
-require_once(__DIR__ . '/lib/EoiManager.php');
 require_once(__DIR__ . '/settings.php');
-
 $eoiManager = new EoiManager($db);
 
 $refNumberOrError = $eoiManager->submitEoi(

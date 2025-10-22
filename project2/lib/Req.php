@@ -17,7 +17,7 @@ use Exception;
 function get(string $name): ?string
 {
 	$value = $_GET[$name] ?? '';
-	$value = mb_trim($value = $value);
+	$value = trim($value = $value);
 
 	if ($value === '')
 	{
@@ -37,7 +37,7 @@ function get(string $name): ?string
 function post(string $name): ?string
 {
 	$value = $_POST[$name] ?? '';
-	$value = mb_trim($value = $value);
+	$value = trim($value = $value);
 
 	if ($value === '')
 	{
@@ -248,7 +248,7 @@ function mapInputValue(
 {
 	if (is_string($value))
 	{
-		$value = mb_trim($value);
+		$value = trim($value);
 	}
 
 	if ($value === null || $value === '')
@@ -290,7 +290,7 @@ function mapInputValue(
 	{
 		if (is_string($value))
 		{
-			return mb_trim($value);
+			return trim($value);
 		}
 
 		return $value;
