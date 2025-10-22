@@ -24,7 +24,14 @@ $jobReferenceId = $form->input(
 	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, hiring, jobs">
 	<title>Apply | Watertight Recruitment</title>
 	<link rel="stylesheet" href="./css/styles.css">
-	<link rel="stylesheet" href="./css/per-page/apply.css">
+
+	<style>  /* added 22/10 after collating stylesheet */
+		#content {
+			display: flex;
+			flex-direction: column;
+			row-gap: 2em;
+		}
+	</style>
 </head>
 <body>
 	<?php include(__DIR__ . '/header.inc'); ?>

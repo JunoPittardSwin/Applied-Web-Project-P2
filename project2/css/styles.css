@@ -1,20 +1,260 @@
 /*
-filename: styles.css
-author: Aadil Vinod
-created: 21/10/2025
+filename: styles.css (COMBINED)
+author: AADIL VINOD
+created: 20/10/2025
 last modified: 22/10/2025
-description: Combined stylesheet for all pages (about.php, apply.php, jobs.php)
+description: Combined stylesheet that inlines original styles.css, about.css, apply.css, and jobs.css.
+NOTE: Sections below are included verbatim from their original files. No deletions or edits.
 */
 
 /* =========================================================
-   ABOUT PAGE STYLES
+   START: ORIGINAL styles.css (shared site styling)
    ========================================================= */
 
-#hero-container {
-	background-image: url('../images/backgrounds/pexels-shkrabaanthony-5466233.jpg');
+/*
+filename: styles.css
+author: Ashlyn Randall
+created: 04/09/2025
+last modified: 22/09/2025
+description: Main shared styling for site pages.
+
+NOTE: For page-specific styling, individual CSS files should be used per-page.
+*/
+
+/***********************************************/
+/* #region Theming                             */
+/***********************************************/
+
+/* The site uses the Hanken Grotesk for all content. */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+:root {
+	--col-text-primary: #111;
+	--col-text-secondary: #555;
+	--col-text-overlay: #ddd;
+	--col-text-title: #444;
+	--col-text-card: #efefef;
+	--col-text-card-title: #fff;
+	--col-background-card: #605a9c;
+	--col-background-card-translucent: #605a9cf0;
+	--col-background-nav: #fafafb;
+	--col-element-shadow: rgba(0, 0, 0, 0.25);
+	--col-attention: rgb(189, 67, 67);
+	--layout-width-content: min(120ch, 70vw);
 }
 
-/* Grouping of the photo & team list so we can put them side-by-side on large screens. */
+/***********************************************/
+/* #endregion Theming                          */
+/***********************************************/
+
+/***********************************************/
+/* #region Page Layout                         */
+/***********************************************/
+
+body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	font-family: 'Hanken Grotesk', sans-serif;
+	color: var(--col-text-primary);
+}
+
+#navigation {
+	position: sticky;
+	top: 0;
+	width: 100%;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1em;
+	z-index: 1;
+	box-shadow: 0 0.25vh 2vh var(--col-element-shadow);
+	background-color: var(--col-background-nav);
+}
+
+#navigation .company-title {
+	font-size: larger;
+	font-weight: 600;
+	color: var(--col-text-title);
+}
+
+#navigation .company-title img {
+	height: 2em;
+	vertical-align: middle;
+}
+
+#navigation > nav {
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+}
+
+#navigation a {
+	color: var(--col-text-title);
+	font-weight: normal;
+}
+
+@media screen and (max-width: 600px) {
+	#navigation .company-title span {
+		display: none;
+	}
+}
+
+#hero-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 60vh;
+	padding: 1em;
+	box-sizing: border-box;
+	background-image: url('../images/backgrounds/pexels-gustavo-fring-6285081.jpg');
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+#hero {
+	width: var(--layout-width-content);
+	padding: 2em;
+	border-radius: 1em;
+	background-color: var(--col-background-card-translucent);
+	backdrop-filter: blur(4px);
+	color: var(--col-text-card);
+	animation-name: hero-fade-in;
+	animation-duration: 0.4s;
+}
+
+#hero > img {
+	float: left;
+	margin-right: 1em;
+}
+
+@keyframes hero-fade-in {
+	0% { opacity: 0.5; translate: 0 1vh; transform: scale(0.99); }
+	100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	#hero { animation: none; }
+}
+
+#hero h1 { color: var(--col-text-card-title); }
+#hero a, footer a { color: var(--col-text-card-title); }
+
+main {
+	padding: 2em 1em;
+	box-sizing: border-box;
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	box-shadow: 0 -1vh 2vh var(--col-element-shadow);
+	color: var(--col-text-primary);
+	line-height: 1.5;
+}
+
+#content { width: var(--layout-width-content); }
+
+@media screen and (max-width: 600px) {
+	#content { width: 100%; }
+}
+
+footer {
+	padding: 1em;
+	box-sizing: border-box;
+	background-color: var(--col-background-card);
+	color: var(--col-text-card);
+	line-height: 1.5;
+}
+
+footer > nav {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 2em;
+}
+
+footer a { font-weight: bold; color: var(--col-text-card-title); }
+footer .copyright-notice {
+	margin-top: 0.5em;
+	font-style: italic;
+	font-size: small;
+}
+
+/***********************************************/
+/* #endregion Page Layout                      */
+/***********************************************/
+
+/***********************************************/
+/* #region Page Content                        */
+/***********************************************/
+
+table {
+	border-collapse: collapse;
+	overflow-x: auto;
+	display: block;
+}
+table > caption {
+	font-style: italic;
+	color: var(--col-text-title);
+}
+td, th {
+	border: 1px solid var(--col-text-secondary);
+	padding: 0.5em;
+}
+@media screen and (max-width: 600px) {
+	td, th { padding: 0.25em; }
+}
+a { text-decoration: none; font-weight: bold; }
+a:hover { text-decoration: underline; }
+button, .button {
+	display: inline-block;
+	padding: 0.6em;
+	border: none;
+	border-radius: 1em;
+	background-color: var(--col-background-card);
+	color: var(--col-text-card);
+	font-weight: bold;
+	text-decoration: none !important;
+	transition: 0.1s ease;
+	transition-property: transform;
+	cursor: pointer;
+}
+button:hover, .button:hover { transform: scale(1.1); }
+button:active, .button:active { transform: scale(0.95); }
+@media screen and (prefers-reduced-motion: reduce) {
+	button, .button { transition: none; }
+}
+dl {
+	display: grid;
+	grid-template-columns: minmax(30%, max-content);
+	column-gap: 1em;
+	line-height: 2;
+}
+dt::after { content: ':'; }
+dd { margin: 0; grid-column-start: 2; }
+
+/***********************************************/
+/* #endregion Page Content                     */
+/***********************************************/
+
+/* =========================================================
+   END: ORIGINAL styles.css
+   ========================================================= */
+
+
+/* =========================================================
+   START: about.css
+   ========================================================= */
+
+/*
+filename: about.css
+author: Ashlyn Randall
+created: 22/09/2025
+last modified: 22/09/2025
+description: Style for the About page (/about.php)
+*/
+
 #team-photo-and-list {
 	display: flex;
 	flex-direction: row;
@@ -24,7 +264,6 @@ description: Combined stylesheet for all pages (about.php, apply.php, jobs.php)
 	margin-bottom: 2em;
 }
 
-/* The list of team members. */
 #team-list {
 	flex-grow: 1;
 	display: flex;
@@ -35,30 +274,21 @@ description: Combined stylesheet for all pages (about.php, apply.php, jobs.php)
 	list-style: none;
 }
 
-#team-list h3 {
-	margin-top: 0;
-}
+#team-list h3 { margin-top: 0; }
 
-/* The group photo - styled to appear as a printed photograph :) */
 #team-photo {
 	width: 30%;
 	flex-grow: 1;
 	margin: 0;
 	padding: 2em;
 	border: 1px solid #ddd;
+	/* border: 1px solid var(--col-text-overlay); */
 }
 
-#team-photo img {
-	width: 100%;
-}
+#team-photo img { width: 100%; }
 
-/* As long as the user is okay with motion, fake a classic <marquee> effect :) */
 @media screen and (prefers-reduced-motion: no-preference) {
-	.fake-marquee-container {
-		position: relative;
-		overflow: hidden;
-		padding: 0;
-	}
+	.fake-marquee-container { position: relative; overflow: hidden; padding: 0; }
 
 	.fake-marquee-y {
 		display: block;
@@ -66,7 +296,6 @@ description: Combined stylesheet for all pages (about.php, apply.php, jobs.php)
 		position: absolute;
 		animation: fake-marquee-scroll-y 2.5s alternate linear infinite;
 	}
-
 	@keyframes fake-marquee-scroll-y {
 		0% { top: 0; }
 		100% { top: 100%; transform: translateY(-100%); }
@@ -77,7 +306,6 @@ description: Combined stylesheet for all pages (about.php, apply.php, jobs.php)
 		position: relative;
 		animation: fake-marquee-scroll-x 2s alternate linear infinite;
 	}
-
 	@keyframes fake-marquee-scroll-x {
 		0% { left: 0; }
 		100% { left: 100%; transform: translateX(-100%); }
@@ -85,19 +313,28 @@ description: Combined stylesheet for all pages (about.php, apply.php, jobs.php)
 }
 
 /* =========================================================
-   APPLY PAGE STYLES
+   END: about.css
    ========================================================= */
 
-/***********************************************/
-/* General form appearance                     */
-/***********************************************/
+
+/* =========================================================
+   START: apply.css
+   ========================================================= */
+
+/*
+filename: apply.css
+author: Ashlyn Randall
+created: 22/09/2025
+last modified: 24/09/2025
+description: Style for the Job Application page (/apply.php)
+*/
+
 form {
 	display: flex;
 	flex-direction: column;
 	row-gap: 0.5em;
 }
 
-/* Buttons for submitting or resetting the form, side-by-side. */
 form .action-buttons {
 	margin-top: 1em;
 	padding-top: 1em;
@@ -119,9 +356,6 @@ form .action-buttons button[type="reset"] {
 	color: var(--col-text-card);
 }
 
-/***********************************************/
-/* Item and label appearance                   */
-/***********************************************/
 input, select, textarea, fieldset {
 	border: 2px solid var(--col-text-overlay);
 	border-radius: 0.25em;
@@ -132,9 +366,7 @@ fieldset {
 	margin-bottom: 0.5em;
 }
 
-textarea {
-	font-family: inherit;
-}
+textarea { font-family: inherit; }
 
 form p {
 	display: flex;
@@ -143,19 +375,11 @@ form p {
 	line-height: 2;
 }
 
-form p > label, form legend {
-	color: var(--col-text-secondary);
-}
+form p > label, form legend { color: var(--col-text-secondary); }
 
-form p > label {
-	flex-basis: 40%;
-}
+form p > label { flex-basis: 40%; }
+form p > :not(label) { flex-grow: 1; }
 
-form p > :not(label) {
-	flex-grow: 1;
-}
-
-/* Show a red asterisk next to required fields */
 form > p:has(input[required]) > label::after,
 form > fieldset:has(input[required]) > legend::after {
 	content: '*';
@@ -163,15 +387,11 @@ form > fieldset:has(input[required]) > legend::after {
 	font-weight: bold;
 }
 
-/* A list of checkboxes where the user can pick multiple, each checkbox on a separate line. */
 form .checkbox-list.multiline {
 	display: flex;
 	flex-direction: column;
 }
 
-/***********************************************/
-/* Per-item customisation                      */
-/***********************************************/
 form p:has(> #otherSkills) {
 	flex-direction: column;
 }
@@ -182,14 +402,22 @@ form p:has(> #otherSkills) {
 }
 
 /* =========================================================
-   JOBS PAGE STYLES
+   END: apply.css
    ========================================================= */
 
-#hero-container {
-	background-image: url('../images/backgrounds/pexels-fauxels-3184416.jpg');
-}
 
-/* Additional details for a job listing that are tangentially related. */
+/* =========================================================
+   START: jobs.css
+   ========================================================= */
+
+/*
+filename: jobs.css
+author: Ashlyn Randall
+created: 22/09/2025
+last modified: 22/09/2025
+description: Style for the Jobs page (/jobs.php)
+*/
+
 aside {
 	width: 25%;
 	float: right;
@@ -199,10 +427,6 @@ aside {
 	border-radius: 1em;
 }
 
-/* Separate each job listing so the apply buttons don't get visually jumbled together. */
-#content {
-	display: flex;
-	flex-direction: column;
-	row-gap: 2em;
-}
-
+/* =========================================================
+   END: jobs.css
+   ========================================================= */

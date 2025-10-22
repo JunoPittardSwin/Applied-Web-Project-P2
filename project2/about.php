@@ -8,7 +8,6 @@
 	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, team, about, information">
 	<title>About Us | Watertight Recruitment</title>
 	<link rel="stylesheet" href="./css/styles.css">
-	<link rel="stylesheet" href="./css/per-page/about.css">
 	<style>
 		/*
 		We have to include a "embedded CSS example". I'm going to assume <style> is what is meant there. Here's part of
@@ -20,6 +19,11 @@
 
 		#team-list .student-id:hover {
 			text-decoration: underline;
+		}
+		
+		/* added 22/10 after collating stylesheet */
+		#hero-container { 
+			background-image: url('images/backgrounds/pexels-shkrabaanthony-5466233.jpg');
 		}
 	</style>
 </head>

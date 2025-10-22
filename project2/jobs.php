@@ -8,7 +8,12 @@
 	<meta name="keywords" content="cybersecurity, jobs, hiring">
 	<title>Open Jobs | Watertight Recruitment</title>
 	<link rel="stylesheet" href="./css/styles.css">
-	<link rel="stylesheet" href="./css/per-page/jobs.css">
+
+	<style> /* addeed 22/10 after collating stylesheet */
+		#hero-container { 
+			background-image: url('images/backgrounds/pexels-fauxels-3184416.jpg');
+		}
+		</style>
 </head>
 <body>
 	<?php require_once(__DIR__ . '/settings.php');

@@ -8,6 +8,7 @@
 	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, salespitch">
 	<title>Watertight Recruitment</title>
 	<link rel="stylesheet" href="./css/styles.css">
+
 </head>
 <body>
 	<?php include(__DIR__ . '/header.inc'); ?>
