@@ -330,7 +330,7 @@ class InputBadFormatException extends InputException
 	#[\Override]
 	public function messageSuffix(): string
 	{
-		return 'TODO';
+		return 'doesn\'t look correct.';
 	}
 }
 
