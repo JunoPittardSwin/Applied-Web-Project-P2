@@ -13,22 +13,17 @@ use \DateTimeZone;
  */
 function viewEoi(Eoi $eoi): string
 {
+	$localDateTime = $eoi->submissionTimestamp->setTimezone(new DateTimeZone(date_default_timezone_get()));
 	ob_start();
 
 	?>
 	<h1>
-		EOI <strong><?= strval($eoi->id) ?></strong> for <?= htmlspecialchars($eoi->jobReferenceId) ?> by <?= htmlspecialchars($eoi->firstName) ?> (<?= htmlspecialchars($eoi->status->value) ?>)
+		EOI for <?= htmlspecialchars($eoi->jobReferenceId) ?> by <?= htmlspecialchars($eoi->firstName) ?> (<?= htmlspecialchars($eoi->status->value) ?>)
 	</h1>
 
 	<p>
-		<?php
-		$localDateTime = $eoi->submissionTimestamp->setTimezone(new DateTimeZone(date_default_timezone_get()));
-		?>
-
-		Submitted on
-		<time datetime="<?= $eoi->submissionTimestamp->format('c') ?>">
-			<?= $localDateTime->format('d/m/Y') ?> at <?= $localDateTime->format('h:ia') ?>
-		</time>
+		Reference Number <strong><?= strval($eoi->id) ?></strong>,
+		Submitted on <time datetime="<?= $eoi->submissionTimestamp->format('c') ?>"><?= $localDateTime->format('d/m/Y') ?> at <?= $localDateTime->format('h:ia') ?></time>.
 	</p>
 
 	<dl>
