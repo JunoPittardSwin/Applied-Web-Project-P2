@@ -15,7 +15,7 @@ require_once(__DIR__ . '/lib/templates/document.php');
 $userManager = new UserManager($db);
 $user = Session\getUserOrLogin($userManager);
 
-// See if we're viewing a specific application, or grab the filter settings etc.
+// See if we're viewing a specific application.
 $form = new Req\FormContext($_GET);
 
 /** @var ?int A specific EOI ID to view fullscreen. */
@@ -74,9 +74,11 @@ if ($eoiIdToView !== null)
 echo document(
 	title: 'Manage Jobs',
 	description: 'Manage job listings and expressions of interest.',
-	mainContent: function() use ($user, $eoiManager, $form)
+	mainContent: function() use ($user, $eoiManager)
 	{
 		require_once(__DIR__ . '/lib/templates/manage/eoi-table.php');
+
+		$form = new Req\FormContext($_GET);
 
 		/** @var ?string A specific job listing to filter results against. */
 		$filterJobRef = $form->input(
