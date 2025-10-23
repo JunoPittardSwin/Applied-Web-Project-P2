@@ -248,6 +248,22 @@ echo document(
 				) ?>
 
 			</section>
+
+			<section>
+				<h2>Job Listings</h2>
+
+				<form action="./api/eoi/delete.php" method="post">
+					<h3>Delete all EOIs for a Job</h3>
+
+					<?= textInput(
+						readableName: 'Job Reference ID',
+						key: 'reference',
+						required: true
+					) ?>
+
+					<button type="submit">Delete all EOIs for this Job ID</button>
+				</form>
+			</section>
 		</article>
 		<?php
 
