@@ -168,6 +168,25 @@ class EoiManager
 	}
 
 	/**
+	 * Set the status of a given EOI.
+	 *
+	 * @param integer $id The ID of the EOI to modify
+	 * @param EoiStatus $status The status to set for this EOI
+	 * @return boolean Whether the status was updated. If `false`, the EOI did not exist.
+	 */
+	public function setStatusOf(int $id, EoiStatus $status): bool
+	{
+		$this->db->execute_query(
+			"UPDATE eoi
+			 SET status = ?
+			 WHERE id = ?",
+			[$status->value, $id]
+		);
+
+		return ($this->db->affected_rows > 0);
+	}
+
+	/**
 	 * Get an EOI by its ID.
 	 *
 	 * @param integer $id

@@ -4,6 +4,7 @@ namespace Templates\Manage;
 
 use \Eoi;
 use \DateTimeZone;
+use EoiStatus;
 
 /**
  * View the details about a specific Expression of Interest submitted.
@@ -79,7 +80,27 @@ function viewEoi(Eoi $eoi): string
 
 	<h2>Management Actions</h2>
 	<nav>
+		<form action="./api/eoi/change-status.php" method="post">
+			<h3>Update Status</h3>
+			<p>Change the status of this application in the review process.</p>
+
+			<input type="hidden" name="eoiId" value="<?= strval($eoi->id) ?>">
+
+			<select name="status" required>
+				<?php foreach (array_filter(EoiStatus::cases(), fn(EoiStatus $case) => ($case !== $eoi->status)) as $status): ?>
+					<option value="<?= htmlspecialchars($status->value, ENT_QUOTES) ?>">
+						<?= htmlspecialchars($status->value) ?>
+					</option>
+				<?php endforeach ?>
+			</select>
+
+			<input type="submit" value="Set Status" class="button">
+		</form>
+
 		<form action="./api/eoi/delete.php" method="post">
+			<h3>Delete</h3>
+			<p>Remove this expression of interest from the system.</p>
+
 			<input type="hidden" name="eoiId" value="<?= strval($eoi->id) ?>">
 			<input type="submit" value="Delete" class="button">
 		</form>
