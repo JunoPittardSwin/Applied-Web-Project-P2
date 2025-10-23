@@ -3,6 +3,7 @@
 use function Templates\document;
 use function Templates\Manage\eoiTable;
 use function Templates\Manage\viewEoi;
+use function Templates\textInput;
 
 require_once(__DIR__ . '/lib/UserManager.php');
 require_once(__DIR__ . '/lib/EoiManager.php');
@@ -77,6 +78,7 @@ echo document(
 	mainContent: function() use ($user, $eoiManager)
 	{
 		require_once(__DIR__ . '/lib/templates/manage/eoi-table.php');
+		require_once(__DIR__ . '/lib/templates/text-input.php');
 
 		$form = new Req\FormContext($_GET);
 
@@ -108,25 +110,19 @@ echo document(
 				<h2>Expressions of Interest</h2>
 
 				<form action="" method="get">
-					<label for="filterJobRef">Job Reference ID</label>
-					<input
-						type="text"
-						name="filterJobRef"
-						id="filterJobRef"
-						<?php if ($filterJobRef !== null): ?>
-							value="<?= htmlspecialchars($filterJobRef, ENT_QUOTES) ?>"
-						<?php endif ?>
-					>
+					<?= textInput(
+						readableName: 'Job Reference ID',
+						key: 'filterJobRef',
+						required: false,
+						initialValue: $filterJobRef
+					) ?>
 
-					<label for="filterEmailAddress">Email Address</label>
-					<input
-						type="text"
-						name="filterEmailAddress"
-						id="filterEmailAddress"
-						<?php if ($filterEmailAddress !== null): ?>
-							value="<?= htmlspecialchars($filterEmailAddress, ENT_QUOTES) ?>"
-						<?php endif ?>
-					>
+					<?= textInput(
+						readableName: 'Email Address',
+						key: 'filterEmailAddress',
+						required: false,
+						initialValue: $filterEmailAddress
+					) ?>
 					
 					<button type="submit">Search</button>
 				</form>
