@@ -2,25 +2,25 @@
 
 function defaultContributions($db) {
 
-	$db->execute_query("INSERT INTO team_members ()
-	VALUES ();
+	// populate team_members table with default data
+	$db->execute_query("INSERT INTO team_members (name)
+	VALUES ('Juno'), ('Ashlyn'), ('Aadil');
 	");
 
-	//populate contributions table with default data
-	$db->execute_query("INSERT INTO contributions (team_member, contribution_text)
-	VALUES ('Juno', 'About page, static and dynamic rendering'),
-	('Juno', 'Jobs page, static and dynamic rendering'),
-	('Juno', 'Index page, static HTML'),
-	('Juno', 'Content writing'),
-	('Ashlyn', 'Site design'),
-	('Ashlyn', 'CSS styling'),
-	('Ashlyn', 'Team coordination and management'),
-	('Ashlyn', 'Management page, login, and user queries'),
-	('Aadil', 'Application page, static HTML'),
-	('Aadil', 'Application form with MySQL integration'),
-	('Aadil', 'EOI processing checks');
+	// populate contributions table with default data
+	$db->execute_query("INSERT INTO contributions (team_member_id, contribution_text)
+	VALUES (1, 'About page, static and dynamic rendering'),
+	(1, 'Jobs page, static and dynamic rendering'),
+	(1, 'Index page, static HTML'),
+	(1, 'Content writing'),
+	(2, 'Site design'),
+	(2, 'CSS styling'),
+	(2, 'Team coordination and management'),
+	(2, 'Management page, login, and user queries'),
+	(3, 'Application page, static HTML'),
+	(3, 'Application form with MySQL integration'),
+	(3, 'EOI processing checks');
 	");
-
 }
 
 function defaultJobs(JobManager $jobManager)
