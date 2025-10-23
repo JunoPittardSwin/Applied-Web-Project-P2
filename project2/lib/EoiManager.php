@@ -370,13 +370,13 @@ readonly class Eoi
 /**
  * Fields in an EOI that may be used to sort the data set.
  */
-enum EoiSortBy
+enum EoiSortBy: string
 {
 	/** How new the submission is. */
-	case Recency;
+	case Recency = 'Recency';
 	
 	/** Alphabetically by the job reference ID. */
-	case JobReferenceId;
+	case JobReferenceId = 'JobReferenceId';
 }
 
 /**

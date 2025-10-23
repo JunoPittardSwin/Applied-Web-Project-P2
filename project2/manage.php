@@ -1,8 +1,11 @@
 <?php declare(strict_types=1);
 
+use Req\InputMapFailedException;
+
 use function Templates\document;
 use function Templates\Manage\eoiTable;
 use function Templates\Manage\viewEoi;
+use function Templates\selectInput;
 use function Templates\textInput;
 
 require_once(__DIR__ . '/lib/UserManager.php');
@@ -72,6 +75,24 @@ if ($eoiIdToView !== null)
 	exit;
 }
 
+function eoiSortByName(EoiSortBy $case): string
+{
+	return match ($case)
+	{
+		EoiSortBy::JobReferenceId => 'Job Reference ID',
+		EoiSortBy::Recency => 'Recency',
+	};
+}
+
+function sortDirectionName(SortDirection $case): string
+{
+	return match ($case)
+	{
+		SortDirection::Ascending => 'Ascending Order',
+		SortDirection::Descending => 'Descending Order',
+	};
+}
+
 echo document(
 	title: 'Manage Jobs',
 	description: 'Manage job listings and expressions of interest.',
@@ -79,6 +100,7 @@ echo document(
 	{
 		require_once(__DIR__ . '/lib/templates/manage/eoi-table.php');
 		require_once(__DIR__ . '/lib/templates/text-input.php');
+		require_once(__DIR__ . '/lib/templates/select-input.php');
 
 		$form = new Req\FormContext($_GET);
 
@@ -98,6 +120,24 @@ echo document(
 			filterMode: FILTER_VALIDATE_EMAIL
 		);
 
+		/** @var EoiSortBy Field to sort the applications by. */
+		$sortBy = $form->input(
+			readableName: 'Sort By',
+			key: 'sortBy',
+			required: false,
+			mapValue: fn(string $value) => EoiSortBy::tryFrom($value)
+				?? throw new InputMapFailedException('is not a valid sorting method.')
+		) ?? EoiSortBy::Recency;
+
+		/** @var SortDirection The direction in which to sort the fields. */
+		$sortDirection = $form->input(
+			readableName: 'Sort Direction',
+			key: 'sortDirection',
+			required: false,
+			mapValue: fn(string $value) => SortDirection::tryFrom($value)
+				?? throw new InputMapFailedException('is not a valid sorting direction.')
+		) ?? SortDirection::Descending;
+
 		ob_start();
 
 		?>
@@ -110,21 +150,62 @@ echo document(
 				<h2>Expressions of Interest</h2>
 
 				<form action="" method="get">
-					<?= textInput(
-						readableName: 'Job Reference ID',
-						key: 'filterJobRef',
-						required: false,
-						initialValue: $filterJobRef
-					) ?>
+					<fieldset>
+						<legend>Filters</legend>
 
-					<?= textInput(
-						readableName: 'Email Address',
-						key: 'filterEmailAddress',
-						required: false,
-						initialValue: $filterEmailAddress
-					) ?>
+						<?= textInput(
+							readableName: 'Job Reference ID',
+							key: 'filterJobRef',
+							required: false,
+							initialValue: $filterJobRef
+						) ?>
+
+						<?= textInput(
+							readableName: 'Email Address',
+							key: 'filterEmailAddress',
+							required: false,
+							initialValue: $filterEmailAddress
+						) ?>
+					</fieldset>
+
+					<fieldset>
+						<legend>Sort</legend>
+
+						<?= selectInput(
+							readableName: 'Sort By',
+							key: 'sortBy',
+							options: [
+								eoiSortByName(EoiSortBy::JobReferenceId) => EoiSortBy::JobReferenceId->value,
+								eoiSortByName(EoiSortBy::Recency) => EoiSortBy::Recency->value,
+							],
+							initialChoiceName: eoiSortByName($sortBy),
+						) ?>
+						
+						<?= selectInput(
+							readableName: 'Sort Direction',
+							key: 'sortDirection',
+							options: [
+								sortDirectionName(SortDirection::Descending) => SortDirection::Descending->value,
+								sortDirectionName(SortDirection::Ascending) => SortDirection::Ascending->value,
+							],
+							initialChoiceName: sortDirectionName($sortDirection),
+						) ?>
+					</fieldset>
+
+					<?php if ($form->hasErrors()): ?>
+						<fieldset>
+							<legend>Search Issues</legend>
+							<ul>
+								<?php foreach ($form->htmlErrorList as $error): ?>
+									<li><?= $error ?></li>
+								<?php endforeach ?>
+							</ul>
+						</fieldset>
+					<?php endif ?>
 					
-					<button type="submit">Search</button>
+					<p class="action-buttons">
+						<button type="submit">Search</button>
+					</p>
 				</form>
 
 				<h3>New</h3>
@@ -134,7 +215,9 @@ echo document(
 						forJobRef: $filterJobRef,
 						withEmailAddress: $filterEmailAddress,
 						withStatus: EoiStatus::New,
-						withSkills: []
+						withSkills: [],
+						sortBy: $sortBy,
+						sortDirection: $sortDirection
 					)
 				) ?>
 
@@ -145,7 +228,9 @@ echo document(
 						forJobRef: $filterJobRef,
 						withEmailAddress: $filterEmailAddress,
 						withStatus: EoiStatus::Current,
-						withSkills: []
+						withSkills: [],
+						sortBy: $sortBy,
+						sortDirection: $sortDirection
 					)
 				) ?>
 
@@ -156,7 +241,9 @@ echo document(
 						forJobRef: $filterJobRef,
 						withEmailAddress: $filterEmailAddress,
 						withStatus: EoiStatus::Final,
-						withSkills: []
+						withSkills: [],
+						sortBy: $sortBy,
+						sortDirection: $sortDirection
 					)
 				) ?>
 
