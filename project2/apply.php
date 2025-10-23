@@ -1,3 +1,19 @@
+<?php declare(strict_types=1);
+
+use Req\FormContext;
+
+require_once(__DIR__ . '/lib/Req.php');
+
+$form = new FormContext($_GET);
+
+$jobReferenceId = $form->input(
+	readableName: 'Job Reference ID',
+	key: 'reference',
+	regex: '/^J[0-9]{4}$/',
+	required: false,
+);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,9 +53,13 @@
 			<p>
 				<label for="ref">Job reference number</label>
 				<input id="ref" name="reference"
-							type="text" inputmode="text" autocomplete="off"
-							title="See the Jobs page for the reference number for your position."
-							placeholder="e.g. J0123">
+					type="text" inputmode="text" autocomplete="off"
+					title="See the Jobs page for the reference number for your position."
+					placeholder="e.g. J0123"
+					<?php if ($jobReferenceId !== null): ?>
+						value="<?= htmlspecialchars($jobReferenceId, ENT_QUOTES) ?>"
+					<?php endif ?>
+				>
 			</p>
 
 			<!-- First name -->

@@ -68,7 +68,7 @@
 								echo "<li>" . $reqs_row['pref_text'] . "</li>\n";
 							}
 							echo "</ol>\n";
-							echo "<a class='button' href='./apply.php'>Apply for " . $row['ref'] . "</a>";
+							echo "<a class='button' href='./apply.php?reference=" . htmlspecialchars($row['ref'], ENT_QUOTES) . "'>Apply for " . $row['ref'] . "</a>";
 						}
 					} else {
 						echo "<p>No jobs posted at this time. Check back later!</p>\n";
