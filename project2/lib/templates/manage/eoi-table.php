@@ -27,7 +27,6 @@ function eoiTable(array $submissions, ?string $caption = null): string
 				<th>First Name</th>
 				<th>Email Address</th>
 				<th>Ph. Number</th>
-				<th>Actions</th>
 			</tr>
 		</thead>
 
@@ -35,19 +34,14 @@ function eoiTable(array $submissions, ?string $caption = null): string
 			<?php foreach ($submissions as $eoi): ?>
 				<tr>
 					<td>
-						<a href="?eoiIdToView=<?= strval($eoi->id) ?>"><?= strval($eoi->id) ?></a>
+						<!-- FIXME: replace this with stylesheet usage -->
+						<a style="display: block;" href="?eoiIdToView=<?= strval($eoi->id) ?>"><?= strval($eoi->id) ?></a>
 					</td>
 					<td><?= htmlspecialchars($eoi->jobReferenceId) ?></td>
 					<td><?= htmlspecialchars($eoi->lastName) ?></td>
 					<td><?= htmlspecialchars($eoi->firstName) ?></td>
 					<td><?= htmlspecialchars($eoi->emailAddress) ?></td>
 					<td><?= htmlspecialchars($eoi->phoneNumber) ?></td>
-					<td>
-						<form action="./api/eoi/delete.php" method="post">
-							<input type="hidden" name="eoiId" value="<?= strval($eoi->id) ?>">
-							<input type="submit" value="Delete" class="button">
-						</form>
-					</td>
 				</tr>
 			<?php endforeach ?>
 		</tbody>
