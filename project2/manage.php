@@ -35,10 +35,22 @@ if ($eoiIdToView !== null)
 
 	if ($eoi === null)
 	{
-		// If we're viewing a non-existent EOI, just redirect to the main page as it must've been
-		// deleted.
-		http_response_code(303);
-		header('Location: /manage.php');
+		http_response_code(404);
+
+		echo document(
+			title: 'EOI ' . strval($eoiIdToView) . ' not found',
+			mainContent: function() use ($eoiIdToView)
+			{
+				ob_start();
+				?>
+				<article id="content">
+					<h1>The EOI with ID <?= strval($eoiIdToView) ?> doesn't seem to exist</h1>
+					<a href="?">Back to Overview</a>
+				</article>
+				<?php
+				return ob_get_clean();
+			}
+		);
 
 		exit;
 	}
