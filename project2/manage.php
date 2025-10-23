@@ -120,6 +120,20 @@ echo document(
 			filterMode: FILTER_VALIDATE_EMAIL
 		);
 
+		/** @var ?string An applicant's last name to filter by. */
+		$filterLastName = $form->input(
+			readableName: 'Last Name',
+			key: 'filterLastName',
+			required: false,
+		);
+
+		/** @var ?string An applicant's first name to filter by. */
+		$filterFirstName = $form->input(
+			readableName: 'First Name',
+			key: 'filterFirstName',
+			required: false,
+		);
+
 		/** @var EoiSortBy Field to sort the applications by. */
 		$sortBy = $form->input(
 			readableName: 'Sort By',
@@ -165,6 +179,20 @@ echo document(
 							key: 'filterEmailAddress',
 							required: false,
 							initialValue: $filterEmailAddress
+						) ?>
+
+						<?= textInput(
+							readableName: 'Last Name',
+							key: 'filterLastName',
+							required: false,
+							initialValue: $filterLastName
+						) ?>
+
+						<?= textInput(
+							readableName: 'First Name',
+							key: 'filterFirstName',
+							required: false,
+							initialValue: $filterFirstName
 						) ?>
 					</fieldset>
 
@@ -213,6 +241,8 @@ echo document(
 					caption: 'Expressions of Interest that haven\'t been categorised yet.',
 					submissions: $eoiManager->getSubmissions(
 						forJobRef: $filterJobRef,
+						withFirstName: $filterFirstName,
+						withLastName: $filterLastName,
 						withEmailAddress: $filterEmailAddress,
 						withStatus: EoiStatus::New,
 						withSkills: [],
@@ -226,6 +256,8 @@ echo document(
 					caption: 'Expressions of Interest that are... Current? Whatever that means?',
 					submissions: $eoiManager->getSubmissions(
 						forJobRef: $filterJobRef,
+						withFirstName: $filterFirstName,
+						withLastName: $filterLastName,
 						withEmailAddress: $filterEmailAddress,
 						withStatus: EoiStatus::Current,
 						withSkills: [],
@@ -239,6 +271,8 @@ echo document(
 					caption: 'Expressions of Interest that made it into the final round (??? I dunno)',
 					submissions: $eoiManager->getSubmissions(
 						forJobRef: $filterJobRef,
+						withFirstName: $filterFirstName,
+						withLastName: $filterLastName,
 						withEmailAddress: $filterEmailAddress,
 						withStatus: EoiStatus::Final,
 						withSkills: [],
