@@ -1,19 +1,24 @@
 <?php 
 
 function defaultContributions($db) {
+
+	$db->execute_query("INSERT INTO team_members ()
+	VALUES ();
+	");
+
 	//populate contributions table with default data
-	$db->execute_query("INSERT INTO contributions (id, team_member, contribution_text)
-	VALUES ('NULL', 'Juno', 'About page, static and dynamic rendering'),
-	('NULL', 'Juno', 'Jobs page, static and dynamic rendering'),
-	('NULL', 'Juno', 'Index page, static HTML'),
-	('NULL', 'Juno', 'Content writing'),
-	('NULL', 'Ashlyn', 'Site design'),
-	('NULL', 'Ashlyn', 'CSS styling'),
-	('NULL', 'Ashlyn', 'Team coordination and management'),
-	('NULL', 'Ashlyn', 'Management page, login, and user queries'),
-	('NULL', 'Aadil', 'Application page, static HTML'),
-	('NULL', 'Aadil', 'Application form with MySQL integration'),
-	('NULL', 'Aadil', 'EOI processing checks');
+	$db->execute_query("INSERT INTO contributions (team_member, contribution_text)
+	VALUES ('Juno', 'About page, static and dynamic rendering'),
+	('Juno', 'Jobs page, static and dynamic rendering'),
+	('Juno', 'Index page, static HTML'),
+	('Juno', 'Content writing'),
+	('Ashlyn', 'Site design'),
+	('Ashlyn', 'CSS styling'),
+	('Ashlyn', 'Team coordination and management'),
+	('Ashlyn', 'Management page, login, and user queries'),
+	('Aadil', 'Application page, static HTML'),
+	('Aadil', 'Application form with MySQL integration'),
+	('Aadil', 'EOI processing checks');
 	");
 
 }
