@@ -39,9 +39,9 @@ function viewEoi(Eoi $eoi): string
 		<dt>Phone Number</dt>
 		<dd><?= htmlspecialchars($eoi->phoneNumber) ?></dd>
 		<dt>Gender</dt>
-		<dd><?= htmlspecialchars(ucfirst($eoi->gender) ?? 'Unspecified') ?></dd>
+		<dd><?= htmlspecialchars(ucfirst($eoi->gender) ?? 'Not specified') ?></dd>
 		<dt>Date Of Birth</dt>
-		<dd><time><?= htmlspecialchars($eoi->dateOfBirth?->format('d/m/Y') ?? 'Unspecified') ?></time></dd>
+		<dd><time><?= htmlspecialchars($eoi->dateOfBirth?->format('d/m/Y') ?? 'Not specified') ?></time></dd>
 	</dl>
 
 	<section>
