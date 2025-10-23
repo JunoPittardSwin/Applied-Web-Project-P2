@@ -20,7 +20,7 @@ function viewEoi(Eoi $eoi): string
 	<a href="?">Back to Overview</a>
 
 	<h1>
-		EOI for <?= htmlspecialchars($eoi->jobReferenceId) ?> by <?= htmlspecialchars($eoi->firstName) ?> (<?= htmlspecialchars($eoi->status->value) ?>)
+		<?= htmlspecialchars($eoi->status->value) ?>: EOI for <?= htmlspecialchars($eoi->jobReferenceId) ?> by <?= htmlspecialchars($eoi->firstName) ?>
 	</h1>
 
 	<p>
