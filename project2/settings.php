@@ -41,7 +41,6 @@ $db = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD);
 
 // Ensure that our database exists before anything else.
 $db->execute_query("CREATE DATABASE IF NOT EXISTS $DB_NAME");
-
 $db->select_db($DB_NAME);
 
 // below: creates tables if they do not already exist
