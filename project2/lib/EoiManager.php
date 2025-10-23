@@ -219,6 +219,8 @@ class EoiManager
 	 * @param integer|null $inPostcode
 	 * @param string|null $inSuburb
 	 * @param string[]|null $withSkills
+	 * @param EoiSortBy $sortBy How the entries should be sorted
+	 * @param SortDirection $sortDirection The direction in which entries should be sorted
 	 * @return Eoi[]
 	 */
 	function getSubmissions(
@@ -231,7 +233,9 @@ class EoiManager
 		?AustraliaState $inState = null,
 		?int $inPostcode = null,
 		?string $inSuburb = null,
-		?array $withSkills = null
+		?array $withSkills = null,
+		EoiSortBy $sortBy = EoiSortBy::Recency,
+		SortDirection $sortDirection = SortDirection::Descending
 	): array
 	{
 		$query = "SELECT * FROM eoi";
@@ -257,6 +261,14 @@ class EoiManager
 				callback: fn(string $key) => "$key = ?",
 			));
 		}
+
+		$sortFieldName = match ($sortBy)
+		{
+			EoiSortBy::JobReferenceId => 'jobReferenceId',
+			EoiSortBy::Recency => 'submissionTimestamp',
+		};
+		
+		$query .= " ORDER BY $sortFieldName " . $sortDirection->value;
 
 		$entries = [];
 		$result = $this->db->execute_query($query, array_values($filters));
@@ -353,6 +365,27 @@ readonly class Eoi
 			? $status
 			: EoiStatus::from($status);
 	}
+}
+
+/**
+ * Fields in an EOI that may be used to sort the data set.
+ */
+enum EoiSortBy
+{
+	/** How new the submission is. */
+	case Recency;
+	
+	/** Alphabetically by the job reference ID. */
+	case JobReferenceId;
+}
+
+/**
+ * A direction to sort results in.
+ */
+enum SortDirection: string
+{
+	case Ascending = 'ASC';
+	case Descending = 'DESC';
 }
 
 enum EoiSubmitError
