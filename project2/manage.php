@@ -74,7 +74,7 @@ if ($eoiIdToView !== null)
 /** @var ?string A specific job listing to filter results against. */
 $filterJobRef = $form->input(
 	readableName: 'Job Reference ID',
-	key: 'jobRefId',
+	key: 'filterJobRef',
 	required: false,
 	regex: '/^J[0-9]{4}$/'
 );
@@ -95,6 +95,21 @@ echo document(
 
 			<section>
 				<h2>Expressions of Interest</h2>
+
+				<form action="" method="get">
+					<label for="filterJobRef">Job Reference ID</label>
+					
+					<input
+						type="text"
+						name="filterJobRef"
+						id="filterJobRef"
+						<?php if ($filterJobRef !== null): ?>
+							value="<?= htmlspecialchars($filterJobRef, ENT_QUOTES) ?>"
+						<?php endif ?>
+					>
+					
+					<button type="submit">Search</button>
+				</form>
 
 				<h3>New</h3>
 				<?= eoiTable(
