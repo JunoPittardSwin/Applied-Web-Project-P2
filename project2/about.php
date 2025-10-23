@@ -7,30 +7,12 @@
 	<meta name="description" content="Applied Web Project Part 1 - About Page">
 	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, team, about, information">
 	<title>About Us | Watertight Recruitment</title>
-	<link rel="stylesheet" href="./css/styles.css">
-	<style>
-		/*
-		We have to include a "embedded CSS example". I'm going to assume <style> is what is meant there. Here's part of
-		about.css, moved here, for no reason other than that requirement :)
-		*/
-		#team-list .student-id {
-			float: right;
-		}
-
-		#team-list .student-id:hover {
-			text-decoration: underline;
-		}
-		
-		/* added 22/10 after collating stylesheet */
-		#hero-container { 
-			background-image: url('images/backgrounds/pexels-shkrabaanthony-5466233.jpg');
-		}
-	</style>
+	<link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
 	<?php include(__DIR__ . '/header.inc'); ?>
 
-	<header id="hero-container">
+	<header class="hero-container" id="about-container">
 		<div id="hero">
 			<h1>About Us</h1>
 			<!-- assignment requires that these are nested lists -->

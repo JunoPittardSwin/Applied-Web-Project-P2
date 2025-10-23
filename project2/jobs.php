@@ -7,13 +7,7 @@
 	<meta name="description" content="Applied Web Project Part 1 - Jobs Page">
 	<meta name="keywords" content="cybersecurity, jobs, hiring">
 	<title>Open Jobs | Watertight Recruitment</title>
-	<link rel="stylesheet" href="./css/styles.css">
-
-	<style> /* addeed 22/10 after collating stylesheet */
-		#hero-container { 
-			background-image: url('images/backgrounds/pexels-fauxels-3184416.jpg');
-		}
-		</style>
+	<link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
 	<?php require_once(__DIR__ . '/settings.php');
@@ -32,7 +26,7 @@
 		Page-specific styling may override the `background-image` of this element to a relevant
 		image.
 	-->
-	<header id="hero-container">
+	<header class="hero-container" id="jobs-container">
 		<div id="hero">
 			<h1>We're Hiring!</h1>
 			<p>

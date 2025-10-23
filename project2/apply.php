@@ -23,15 +23,7 @@ $jobReferenceId = $form->input(
 	<meta name="description" content="Apply to work with us!">
 	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, hiring, jobs">
 	<title>Apply | Watertight Recruitment</title>
-	<link rel="stylesheet" href="./css/styles.css">
-
-	<style>  /* added 22/10 after collating stylesheet */
-		#content {
-			display: flex;
-			flex-direction: column;
-			row-gap: 2em;
-		}
-	</style>
+	<link rel="stylesheet" href="./styles/styles.css">
 </head>
 <body>
 	<?php include(__DIR__ . '/header.inc'); ?>
@@ -42,7 +34,7 @@ $jobReferenceId = $form->input(
 		Page-specific styling may override the `background-image` of this element to a relevant
 		image.
 	-->
-	<header id="hero-container">
+	<header class="hero-container">
 		<div id="hero">
 			<h1>Apply for a Position</h1>
 			<p>
