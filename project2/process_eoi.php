@@ -111,7 +111,7 @@ $dateOfBirth = $form->input(
 	readableName: 'Date of Birth',
 	key: 'dob',
 	required: false,
-	mapValue: fn(string $dob) => new DateTimeImmutable($dob)
+	mapValue: fn(string $dob) => DateTimeImmutable::createFromFormat('d/m/Y', $dob)
 );
 
 $otherSkills = $form->input(
