@@ -34,14 +34,15 @@ $DB_PASSWORD = getenv('MYSQL_PASSWORD_FILE') ? file_get_contents(getenv('MYSQL_P
  */
 $DB_NAME = 'part2_db';
 
+/**
+ * @var mysqli Connection to our MySQL database.
+ */
+$db = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD);
+
 // Ensure that our database exists before anything else.
-$temporaryMysqli = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD);
-$temporaryMysqli->execute_query("CREATE DATABASE IF NOT EXISTS $DB_NAME");
-$temporaryMysqli->close();
-unset($temporaryMysqli);
+$db->execute_query("CREATE DATABASE IF NOT EXISTS $DB_NAME");
 
-$db = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_NAME);
-
+$db->select_db($DB_NAME);
 
 // below: creates tables if they do not already exist
 // creates the jobs table
