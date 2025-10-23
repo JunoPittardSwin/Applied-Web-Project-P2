@@ -6,7 +6,7 @@ namespace Templates\Manage;
  * A table of information about zero or more expressions of interest for a job.
  *
  * @param ?string $caption
- * @param array $submissions
+ * @param \Eoi[] $submissions
  * @return string The HTML to display.
  */
 function eoiTable(array $submissions, ?string $caption = null): string
