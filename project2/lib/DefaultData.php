@@ -3,8 +3,10 @@
 function defaultContributions($db) {
 
 	// populate team_members table with default data
-	$db->execute_query("INSERT INTO team_members (name)
-	VALUES ('Juno'), ('Ashlyn'), ('Aadil');
+	$db->execute_query("INSERT INTO team_members (name, student_id, quote, language, translation, job, snack, town, study, element)
+	VALUES ('Juno', 103983984, 'Keep on keeping on!', 'French', 'Continue comme ça!', 'Game Developer', 'Soy sauce fish', 'Camberwell', 'Hawthorn library', '<a>'),
+	('Ashlyn', 105928880, 'death by tray it shall be', 'Old Norse', 'ᛒᚨᚾᚨᛞᚨᚢᚦᛁ ᚨᚠ ᛒᚨᚲᚨ ᛊᚲᚨᛚ ᚦᚨᛏ ᚢᛖᚱᚨ', 'Reverse Engineering / Software Development', 'Dumplings or Gnocchi', 'Sassafras', 'Latelab, floor 3', '<marquee>'),
+	('Aadil', 105700716, 'Not all those who wander are lost', 'Malayalam', 'മലയാളം ആണ് എന്റെ ഇഷ്ട ഭാഷ.', 'Software Engineer', 'Biryani', 'Laverton', 'On campus', 'Void elements');
 	");
 
 	// populate contributions table with default data

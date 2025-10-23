@@ -73,7 +73,16 @@ $db->execute_query("CREATE TABLE IF NOT EXISTS jobs_pref_reqs (
 // creates the team_members table
 $db->execute_query("CREATE TABLE IF NOT EXISTS team_members (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(20) NOT NULL
+	name VARCHAR(20) NOT NULL,
+	student_id INT(9) NOT NULL,
+	quote TEXT NOT NULL,
+	language VARCHAR(25) NOT NULL,
+	translation TEXT NOT NULL,
+	job TEXT NOT NULL,
+	snack TEXT NOT NULL,
+	town TEXT NOT NULL,
+	study TEXT NOT NULL,
+	element VARCHAR(20) NOT NULL
 );");
 
 // creates the contributions sub-table
