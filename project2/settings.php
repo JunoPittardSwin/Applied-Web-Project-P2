@@ -72,9 +72,8 @@ $db->execute_query("CREATE TABLE IF NOT EXISTS jobs_pref_reqs (
 
 // creates the team_members table
 $db->execute_query("CREATE TABLE IF NOT EXISTS team_members (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	name VARCHAR(20) NOT NULL,
-	student_id INT(9) NOT NULL,
+	student_id INT(9) NOT NULL PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
 	quote TEXT NOT NULL,
 	language VARCHAR(25) NOT NULL,
 	translation TEXT NOT NULL,
@@ -90,5 +89,5 @@ $db->execute_query("CREATE TABLE IF NOT EXISTS contributions (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	team_member_id INT NOT NULL,
 	contribution_text TEXT NOT NULL,
-	FOREIGN KEY (team_member_id) REFERENCES team_members(id)
+	FOREIGN KEY (team_member_id) REFERENCES team_members(student_id)
 	);");
