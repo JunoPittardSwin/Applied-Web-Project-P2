@@ -77,10 +77,10 @@ $db->execute_query("CREATE TABLE IF NOT EXISTS team_members (
 	quote TEXT NOT NULL,
 	language VARCHAR(25) NOT NULL,
 	translation TEXT NOT NULL,
-	job TEXT NOT NULL,
-	snack TEXT NOT NULL,
-	town TEXT NOT NULL,
-	study TEXT NOT NULL,
+	job VARCHAR(75) NOT NULL,
+	snack VARCHAR(50) NOT NULL,
+	town VARCHAR(50) NOT NULL,
+	study VARCHAR(50) NOT NULL,
 	element VARCHAR(20) NOT NULL
 );");
 
@@ -91,3 +91,4 @@ $db->execute_query("CREATE TABLE IF NOT EXISTS contributions (
 	contribution_text TEXT NOT NULL,
 	FOREIGN KEY (team_member_id) REFERENCES team_members(student_id)
 	);");
+	

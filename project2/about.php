@@ -63,7 +63,7 @@
 								{
 									break;
 								}
-								$teamMemberId = $row['student_id'];
+								$teamMemberId = htmlspecialchars($row['student_id']);
 								?>
 								<h3><?= htmlspecialchars($row['name']) ?> <span class="student-id">(<?= strval($row['student_id']) ?>)</span></h3>
 								<dl>
