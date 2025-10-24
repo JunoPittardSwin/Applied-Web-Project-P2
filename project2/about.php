@@ -89,7 +89,7 @@
 											}
 
 											foreach($contributions as $c) {
-												echo "<li>" . $c . "</li>";
+												echo "<li>" . htmlspecialchars($c) . "</li>";
 											}
 
 											$contribsResult->close();
