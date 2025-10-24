@@ -16,7 +16,7 @@
 
 	// if the team_members table is empty, populate it
 	$contrib = $db->execute_query("SELECT * FROM team_members;");
-	if (mysqli_num_rows($contrib) == 0) {
+	if ($contrib->num_rows == 0) {
 		defaultContributions($db);
 	}
 	?>
