@@ -26,7 +26,7 @@
 		Page-specific styling may override the `background-image` of this element to a relevant
 		image.
 	-->
-	<header class="hero-container" id="jobs-container">
+	<header id="hero-container" class="hero-background-jobs">
 		<div id="hero">
 			<h1>We're Hiring!</h1>
 			<p>

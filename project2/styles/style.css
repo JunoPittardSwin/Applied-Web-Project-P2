@@ -102,24 +102,28 @@ body {
 	}
 }
 
-.hero-container {
+#hero-container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
 	min-height: 60vh;
 	padding: 1em;
 	box-sizing: border-box;
+	
 	background-image: url('./images/pexels-gustavo-fring-6285081.jpg');
 	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;
 }
-#about-container {
+
+#hero-container.hero-background-team {
 	background-image: url('./images/pexels-shkrabaanthony-5466233.jpg');
 }
-#jobs-container { 
-			background-image: url('./images/pexels-fauxels-3184416.jpg');
-		}
+
+#hero-container.hero-background-jobs { 
+	background-image: url('./images/pexels-fauxels-3184416.jpg');
+}
 
 #hero {
 	width: var(--layout-width-content);

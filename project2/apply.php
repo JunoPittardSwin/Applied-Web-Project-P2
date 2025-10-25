@@ -34,7 +34,7 @@ $jobReferenceId = $form->input(
 		Page-specific styling may override the `background-image` of this element to a relevant
 		image.
 	-->
-	<header class="hero-container">
+	<header id="hero-container">
 		<div id="hero">
 			<h1>Apply for a Position</h1>
 			<p>

@@ -12,7 +12,7 @@
 <body>
 	<?php include(__DIR__ . '/header.inc'); ?>
 
-	<header class="hero-container" id="about-container">
+	<header id="hero-container" class="hero-background-team">
 		<div id="hero">
 			<h1>About Us</h1>
 			<!-- assignment requires that these are nested lists -->
