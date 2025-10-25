@@ -7,18 +7,12 @@ description: Combined stylesheet that inlines original style.css, about.css, app
 NOTE: Sections below are included verbatim from their original files. No deletions or edits.
 */
 
-/* =========================================================
-   START: ORIGINAL style.css (shared site styling)
-   ========================================================= */
-
 /*
 filename: style.css
 author: Ashlyn Randall
 created: 04/09/2025
-last modified: 22/09/2025
-description: Main shared styling for site pages.
-
-NOTE: For page-specific styling, individual CSS files should be used per-page.
+last modified: 25/10/2025
+description: Shared styling for site pages.
 */
 
 /***********************************************/
@@ -334,22 +328,7 @@ description: Style for the About page (/about.php)
 	}
 }
 
-/* =========================================================
-   END: about.css
-   ========================================================= */
 
-
-/* =========================================================
-   START: apply.css
-   ========================================================= */
-
-/*
-filename: apply.css
-author: Ashlyn Randall
-created: 22/09/2025
-last modified: 24/09/2025
-description: Style for the Job Application page (/apply.php)
-*/
 
 form {
 	display: flex;
@@ -423,21 +402,10 @@ form p:has(> #otherSkills) {
 	margin-top: 0.5em;
 }
 
-/* =========================================================
-   END: apply.css
-   ========================================================= */
 
-
-/* =========================================================
-   START: jobs.css
-   ========================================================= */
 
 /*
-filename: jobs.css
-author: Ashlyn Randall
-created: 22/09/2025
-last modified: 22/09/2025
-description: Style for the Jobs page (/jobs.php)
+As long as the user is okay with motion, fake a classic <marquee> effect :)
 */
 
 aside {
@@ -449,6 +417,3 @@ aside {
 	border-radius: 1em;
 }
 
-/* =========================================================
-   END: jobs.css
-   ========================================================= */
