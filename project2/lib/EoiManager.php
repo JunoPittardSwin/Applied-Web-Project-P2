@@ -350,7 +350,7 @@ readonly class Eoi
 	)
 	{
 		$this->submissionTimestamp = (is_int($submissionTimestamp))
-			? DateTimeImmutable::createFromTimestamp($submissionTimestamp)
+			? DateTimeImmutable::createFromFormat('U', strval($submissionTimestamp))
 			: $submissionTimestamp;
 
 		$this->state = ($state instanceof AustraliaState)
