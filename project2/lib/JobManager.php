@@ -17,8 +17,8 @@ class JobManager
 		$db->execute_query("CREATE TABLE IF NOT EXISTS job(
 			ref CHAR(5) NOT NULL PRIMARY KEY,
 			title VARCHAR(50) NOT NULL,
-			salaryLowBracket INT NOT NULL,
-			salaryHighBracket INT NOT NULL,
+			salaryLowBracket INTEGER NOT NULL,
+			salaryHighBracket INTEGER NOT NULL,
 			reportingLine VARCHAR(50) NOT NULL,
 			aboutHtml TEXT NOT NULL
 		);");
