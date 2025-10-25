@@ -57,7 +57,7 @@ class EoiManager
 			-- Additional comments made by the applicant. Includes the 'Other skills' they specified.
 			commentsAndOtherSkills TEXT,
 
-			FOREIGN KEY (jobReferenceId) REFERENCES jobs(ref) ON DELETE CASCADE
+			FOREIGN KEY (jobReferenceId) REFERENCES job(ref) ON DELETE CASCADE
 		)");
 
 		$this->db->query("CREATE TABLE IF NOT EXISTS eoi_skill(
