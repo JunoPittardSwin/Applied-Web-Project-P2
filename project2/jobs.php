@@ -40,14 +40,16 @@
 	<main>
 		<!-- theoretical reference number format: Job, Internal=0 Contractor=1, 1 digit for Team ID, 2 digits for team position.  -->
 		<article id="content">
-			<section>
-				<?php
-				$conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWORD,$DB_NAME);
-				if($conn) {
-					$result = mysqli_query($conn, "SELECT * FROM jobs;");
-					if (mysqli_num_rows($result) > 0) {
-						for($i = 1; $i <= mysqli_num_rows($result); $i++) {
-							$row = mysqli_fetch_assoc($result);
+			<?php
+			$conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWORD,$DB_NAME);
+			if($conn) {
+				$result = mysqli_query($conn, "SELECT * FROM jobs;");
+				if (mysqli_num_rows($result) > 0) {
+					for($i = 1; $i <= mysqli_num_rows($result); $i++) {
+						$row = mysqli_fetch_assoc($result);
+						?>
+						<section>
+							<?php
 							echo "<h2>" . $row['title'] . " (REF:" . $row['ref'] .")</h2>\n";
 							echo "<em>Salary: $" . $row['salary_low'] . " - $" . $row['salary_high'] . " p/a <br>";
 							echo "Reporting Line: " . $row['reporting_line'] . "</em>\n";
@@ -69,15 +71,17 @@
 							}
 							echo "</ol>\n";
 							echo "<a class='button' href='./apply.php?reference=" . htmlspecialchars($row['ref'], ENT_QUOTES) . "'>Apply for " . $row['ref'] . "</a>";
-						}
-					} else {
-						echo "<p>No jobs posted at this time. Check back later!</p>\n";
+							?>
+						</section>
+						<?php
 					}
 				} else {
-					echo "<p>Connection failed!</p>\n";
+					echo "<p>No jobs posted at this time. Check back later!</p>\n";
 				}
-				?>
-			</section>
+			} else {
+				echo "<p>Connection failed!</p>\n";
+			}
+			?>
 		</article>
 	</main>
 
