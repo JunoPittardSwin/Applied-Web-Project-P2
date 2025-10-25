@@ -163,65 +163,9 @@ echo document(
 			<section>
 				<h2>Expressions of Interest</h2>
 
-				<form action="" method="get">
-					<fieldset>
-						<legend>Filters</legend>
-
-						<?= textInput(
-							readableName: 'Job Reference ID',
-							key: 'filterJobRef',
-							required: false,
-							initialValue: $filterJobRef
-						) ?>
-
-						<?= textInput(
-							readableName: 'Email Address',
-							key: 'filterEmailAddress',
-							required: false,
-							initialValue: $filterEmailAddress
-						) ?>
-
-						<?= textInput(
-							readableName: 'Last Name',
-							key: 'filterLastName',
-							required: false,
-							initialValue: $filterLastName
-						) ?>
-
-						<?= textInput(
-							readableName: 'First Name',
-							key: 'filterFirstName',
-							required: false,
-							initialValue: $filterFirstName
-						) ?>
-					</fieldset>
-
-					<fieldset>
-						<legend>Sort</legend>
-
-						<?= selectInput(
-							readableName: 'Sort By',
-							key: 'sortBy',
-							options: [
-								eoiSortByName(EoiSortBy::JobReferenceId) => EoiSortBy::JobReferenceId->value,
-								eoiSortByName(EoiSortBy::Recency) => EoiSortBy::Recency->value,
-							],
-							initialChoiceName: eoiSortByName($sortBy),
-						) ?>
-						
-						<?= selectInput(
-							readableName: 'Sort Direction',
-							key: 'sortDirection',
-							options: [
-								sortDirectionName(SortDirection::Descending) => SortDirection::Descending->value,
-								sortDirectionName(SortDirection::Ascending) => SortDirection::Ascending->value,
-							],
-							initialChoiceName: sortDirectionName($sortDirection),
-						) ?>
-					</fieldset>
-
+				<form action="" method="get" class="search">
 					<?php if ($form->hasErrors()): ?>
-						<fieldset>
+						<fieldset class="issues">
 							<legend>Search Issues</legend>
 							<ul>
 								<?php foreach ($form->htmlErrorList as $error): ?>
@@ -230,10 +174,80 @@ echo document(
 							</ul>
 						</fieldset>
 					<?php endif ?>
-					
-					<p class="action-buttons">
+
+					<section class="filters-and-sorting">
+						<fieldset class="filters">
+							<legend>Filters</legend>
+
+							<p>
+								<?= textInput(
+									readableName: 'Job Reference ID',
+									key: 'filterJobRef',
+									required: false,
+									initialValue: $filterJobRef
+								) ?>
+							</p>
+
+							<p>
+								<?= textInput(
+									readableName: 'Email Address',
+									key: 'filterEmailAddress',
+									required: false,
+									initialValue: $filterEmailAddress
+								) ?>
+							</p>
+
+							<p>
+								<?= textInput(
+									readableName: 'Last Name',
+									key: 'filterLastName',
+									required: false,
+									initialValue: $filterLastName
+								) ?>
+							</p>
+
+							<p>
+								<?= textInput(
+									readableName: 'First Name',
+									key: 'filterFirstName',
+									required: false,
+									initialValue: $filterFirstName
+								) ?>
+							</p>
+						</fieldset>
+
+						<fieldset class="sorting">
+							<legend>Sort</legend>
+
+							<p>
+								<?= selectInput(
+									readableName: 'Sort By',
+									key: 'sortBy',
+									options: [
+										eoiSortByName(EoiSortBy::JobReferenceId) => EoiSortBy::JobReferenceId->value,
+										eoiSortByName(EoiSortBy::Recency) => EoiSortBy::Recency->value,
+									],
+									initialChoiceName: eoiSortByName($sortBy),
+								) ?>
+							</p>
+							
+							<p>
+								<?= selectInput(
+									readableName: 'Sort Direction',
+									key: 'sortDirection',
+									options: [
+										sortDirectionName(SortDirection::Descending) => SortDirection::Descending->value,
+										sortDirectionName(SortDirection::Ascending) => SortDirection::Ascending->value,
+									],
+									initialChoiceName: sortDirectionName($sortDirection),
+								) ?>
+							</p>
+						</fieldset>
+					</section>
+
+					<nav class="buttons">
 						<button type="submit">Search</button>
-					</p>
+					</nav>
 				</form>
 
 				<h3>New</h3>
