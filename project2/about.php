@@ -141,6 +141,7 @@
 									<td><?= htmlspecialchars($row['snack'])?></td>
 									<td><?= htmlspecialchars($row['town'])?></td>
 									<td><?= htmlspecialchars($row['study'])?></td>
+									<!-- below block checks for Ashlyn's ID, and applies the unique styling if so. Otherwise, display normally. -->
 									<?php
 									if(htmlspecialchars($row['student_id']) == 105928880) {?>
 										<td class="fake-marquee-container">
