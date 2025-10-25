@@ -3,10 +3,11 @@
 use Req\FormContext;
 
 /**
- * Delete an EOI by its ref number.
+ * Delete one or more EOIs that match one or more given criteria.
  * 
  * # Form Body
- * - `eoiId`: ID of the EOI application to delete.
+ * - `eoiId`: ID of a EOI application to delete. If specified, other criteria are ignored.
+ * - `jobReferenceId`: ID of a job to delete all EOIs on.
  */
 
 // This is a POST or DELETE route.
@@ -31,9 +32,16 @@ $form = FormContext::fromPostBody();
 $eoiId = $form->input(
 	readableName: 'EOI ID',
 	key: 'eoiId',
-	required: true,
+	required: false,
 	regex: '/^[0-9]+$/',
 	mapValue: intval(...)
+);
+
+$jobReferenceId = $form->input(
+	readableName: 'Job Reference ID',
+	key: 'reference',
+	regex: '/^J[0-9]{4}$/',
+	required: false,
 );
 
 if ($form->hasErrors())
@@ -52,6 +60,30 @@ if ($form->hasErrors())
 }
 
 $eoiManager = new EoiManager($db);
-$eoiManager->deleteEoi($eoiId);
 
-http_response_code(204);
+if ($eoiId === null)
+{
+	if ($jobReferenceId === null)
+	{
+		http_response_code(400);
+
+		?>
+		<h1>400 Bad Request</h1>
+		<p>At least one filter must be specified to bulk-delete.</p>
+		<?php
+
+		exit;
+	}
+
+	foreach ($eoiManager->getSubmissions(forJobRef: $jobReferenceId) as $eoi)
+	{
+		$eoiManager->deleteEoi($eoi->id);
+	}
+}
+else
+{
+	$eoiManager->deleteEoi($eoiId);
+}
+
+http_response_code(303);
+header('Location: /manage.php');

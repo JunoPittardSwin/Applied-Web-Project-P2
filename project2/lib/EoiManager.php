@@ -168,6 +168,25 @@ class EoiManager
 	}
 
 	/**
+	 * Set the status of a given EOI.
+	 *
+	 * @param integer $id The ID of the EOI to modify
+	 * @param EoiStatus $status The status to set for this EOI
+	 * @return boolean Whether the status was updated. If `false`, the EOI did not exist.
+	 */
+	public function setStatusOf(int $id, EoiStatus $status): bool
+	{
+		$this->db->execute_query(
+			"UPDATE eoi
+			 SET status = ?
+			 WHERE id = ?",
+			[$status->value, $id]
+		);
+
+		return ($this->db->affected_rows > 0);
+	}
+
+	/**
 	 * Get an EOI by its ID.
 	 *
 	 * @param integer $id
@@ -200,6 +219,8 @@ class EoiManager
 	 * @param integer|null $inPostcode
 	 * @param string|null $inSuburb
 	 * @param string[]|null $withSkills
+	 * @param EoiSortBy $sortBy How the entries should be sorted
+	 * @param SortDirection $sortDirection The direction in which entries should be sorted
 	 * @return Eoi[]
 	 */
 	function getSubmissions(
@@ -212,7 +233,9 @@ class EoiManager
 		?AustraliaState $inState = null,
 		?int $inPostcode = null,
 		?string $inSuburb = null,
-		?array $withSkills = null
+		?array $withSkills = null,
+		EoiSortBy $sortBy = EoiSortBy::Recency,
+		SortDirection $sortDirection = SortDirection::Descending
 	): array
 	{
 		$query = "SELECT * FROM eoi";
@@ -238,6 +261,14 @@ class EoiManager
 				callback: fn(string $key) => "$key = ?",
 			));
 		}
+
+		$sortFieldName = match ($sortBy)
+		{
+			EoiSortBy::JobReferenceId => 'jobReferenceId',
+			EoiSortBy::Recency => 'submissionTimestamp',
+		};
+		
+		$query .= " ORDER BY $sortFieldName " . $sortDirection->value;
 
 		$entries = [];
 		$result = $this->db->execute_query($query, array_values($filters));
@@ -319,7 +350,7 @@ readonly class Eoi
 	)
 	{
 		$this->submissionTimestamp = (is_int($submissionTimestamp))
-			? DateTimeImmutable::createFromTimestamp($submissionTimestamp)
+			? DateTimeImmutable::createFromFormat('U', strval($submissionTimestamp))
 			: $submissionTimestamp;
 
 		$this->state = ($state instanceof AustraliaState)
@@ -334,6 +365,27 @@ readonly class Eoi
 			? $status
 			: EoiStatus::from($status);
 	}
+}
+
+/**
+ * Fields in an EOI that may be used to sort the data set.
+ */
+enum EoiSortBy: string
+{
+	/** How new the submission is. */
+	case Recency = 'Recency';
+	
+	/** Alphabetically by the job reference ID. */
+	case JobReferenceId = 'JobReferenceId';
+}
+
+/**
+ * A direction to sort results in.
+ */
+enum SortDirection: string
+{
+	case Ascending = 'ASC';
+	case Descending = 'DESC';
 }
 
 enum EoiSubmitError

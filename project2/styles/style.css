@@ -482,7 +482,7 @@ The group photo - styled to appear as a printed photograph :)
 /* #region Forms                               */
 /***********************************************/
 
-form {
+form, fieldset {
 	display: flex;
 	flex-direction: column;
 	row-gap: 0.5em;
@@ -570,6 +570,45 @@ form p:has(> #otherSkills) {
 #other-hint {
 	line-height: 1.5;
 	margin-top: 0.5em;
+}
+
+/*
+A form for searching a data set, including filters and sorting choices.
+*/
+form.search {
+	
+}
+
+/*
+Issues with the search query.
+*/
+form.search fieldset.issues {
+	
+}
+
+/*
+Filtering and sorting options for the search query.
+*/
+form.search .filters-and-sorting {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 1em;
+}
+
+/*
+Filters are more complex than sorting options, so should take up more space.
+*/
+form.search .filters-and-sorting .filters {
+	flex-grow: 2;
+}
+
+form.search .filters-and-sorting .sorting {
+	flex-grow: 1;
+}
+
+form.search .buttons {
+	align-self: flex-end;
 }
 
 /***********************************************/

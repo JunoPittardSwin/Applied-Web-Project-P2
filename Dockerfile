@@ -9,6 +9,9 @@ FROM php:apache AS base
 	# The web server runs on Port 80 (HTTP).
 	EXPOSE 80/tcp
 
+	# Load the shared config overrides for both profiles.
+	COPY php.overrides.ini "$PHP_INI_DIR/conf.d"
+
 FROM base AS dev
 
 	# Use the development PHP configuration.
