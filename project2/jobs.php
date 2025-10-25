@@ -1,3 +1,19 @@
+<?php declare(strict_types=1);
+
+require_once(__DIR__ . '/lib/JobManager.php');
+require_once(__DIR__ . '/settings.php');
+
+$jobManager = new JobManager($db);
+
+if ($jobManager->getJobListingCount() === 0)
+{
+	include_once(__DIR__ . '/lib/DefaultData.php');
+	defaultJobs($jobManager);
+}
+
+$jobListings = $jobManager->getAllJobListings();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +26,7 @@
 	<link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-	<?php require_once(__DIR__ . '/settings.php');
-	include(__DIR__ . '/lib/DefaultData.php');
-	include(__DIR__ . '/header.inc');
-
-	$jobs = $db->execute_query("SELECT * FROM jobs;");
-	if (mysqli_num_rows($jobs) == 0) {
-		defaultJobs($db);
-	}
-	?>
+	<?php include(__DIR__ . '/header.inc'); ?>
 
 	<!--
 		Optional full-screen content for the most important page content, if applicable.
@@ -39,48 +47,37 @@
 	<main>
 		<!-- theoretical reference number format: Job, Internal=0 Contractor=1, 1 digit for Team ID, 2 digits for team position.  -->
 		<article id="content" class="listing">
-			<?php
-			$conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWORD,$DB_NAME);
-			if($conn) {
-				$result = mysqli_query($conn, "SELECT * FROM jobs;");
-				if (mysqli_num_rows($result) > 0) {
-					for($i = 1; $i <= mysqli_num_rows($result); $i++) {
-						$row = mysqli_fetch_assoc($result);
-						?>
-						<section>
-							<?php
-							echo "<h2>" . $row['title'] . " (REF:" . $row['ref'] .")</h2>\n";
-							echo "<em>Salary: $" . $row['salary_low'] . " - $" . $row['salary_high'] . " p/a <br>";
-							echo "Reporting Line: " . $row['reporting_line'] . "</em>\n";
-							echo "<h3>About the role</h3>\n";
-							echo "<p>" . $row['about'] . "</p>\n";
-							echo "<h3>Essential requirements:</h3>\n<ol>\n";
-							$ref_num = $row['ref'];
-							$ess_reqs = mysqli_query($conn, "SELECT * FROM jobs_ess_reqs WHERE jobs_ref = '$ref_num';");
-							for($j = 1; $j <= mysqli_num_rows($ess_reqs); $j++) {
-								$reqs_row = mysqli_fetch_assoc($ess_reqs);
-								echo "<li>" . $reqs_row['ess_text'] . "</li>\n";
-							}
-							echo "</ol>\n";
-							echo "<h3>Preferred requirements:</h3>\n<ol>\n";
-							$pref_reqs = mysqli_query($conn, "SELECT * FROM jobs_pref_reqs WHERE jobs_ref = '$ref_num';");
-							for($j = 1; $j <= mysqli_num_rows($pref_reqs); $j++) {
-								$reqs_row = mysqli_fetch_assoc($pref_reqs);
-								echo "<li>" . $reqs_row['pref_text'] . "</li>\n";
-							}
-							echo "</ol>\n";
-							echo "<a class='button' href='./apply.php?reference=" . htmlspecialchars($row['ref'], ENT_QUOTES) . "'>Apply for " . $row['ref'] . "</a>";
-							?>
-						</section>
-						<?php
-					}
-				} else {
-					echo "<p>No jobs posted at this time. Check back later!</p>\n";
-				}
-			} else {
-				echo "<p>Connection failed!</p>\n";
-			}
-			?>
+			<?php foreach ($jobListings as $job): ?>
+				<section>
+					<h2><?= htmlspecialchars($job->title) ?> (REF:<?= htmlspecialchars($job->ref) ?>)</h2>
+					<em>
+						Salary: $<?= number_format($job->salaryLowBracket, 2) ?> - $<?= number_format($job->salaryHighBracket, 2) ?> p/a
+						<br>
+						Reporting Line: <?= htmlspecialchars($job->reportingLine) ?>
+					</em>
+
+					<h3>About the role</h3>
+					<p><?= $job->aboutHtml ?></p>
+
+					<h3>Essential requirements:</h3>
+					<ol>
+						<?php foreach ($job->essentialRequirements as $requirement): ?>
+							<li><?= htmlspecialchars($requirement) ?></li>
+						<?php endforeach ?>
+					</ol>
+
+					<h3>Preferred requirements:</h3>
+					<ol>
+						<?php foreach ($job->preferredRequirements as $requirement): ?>
+							<li><?= htmlspecialchars($requirement) ?></li>
+						<?php endforeach ?>
+					</ol>
+
+					<a href="./apply.php?reference=<?= htmlspecialchars($job->ref, ENT_QUOTES) ?>" class="button">
+						Apply for <?= htmlspecialchars($job->ref) ?>
+					</a>
+				</section>
+			<?php endforeach ?>
 		</article>
 	</main>
 
