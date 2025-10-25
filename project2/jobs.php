@@ -38,7 +38,7 @@
 	<!-- Main content of the page. -->
 	<main>
 		<!-- theoretical reference number format: Job, Internal=0 Contractor=1, 1 digit for Team ID, 2 digits for team position.  -->
-		<article id="content">
+		<article id="content" class="listing">
 			<?php
 			$conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWORD,$DB_NAME);
 			if($conn) {

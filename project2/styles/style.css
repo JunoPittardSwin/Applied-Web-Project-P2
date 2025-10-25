@@ -1,15 +1,6 @@
 /*
-filename: style.css (COMBINED)
-author: AADIL VINOD
-created: 20/10/2025
-last modified: 22/10/2025
-description: Combined stylesheet that inlines original style.css, about.css, apply.css, and jobs.css.
-NOTE: Sections below are included verbatim from their original files. No deletions or edits.
-*/
-
-/*
 filename: style.css
-author: Ashlyn Randall
+authors: Ashlyn Randall, Aadil Vinod
 created: 04/09/2025
 last modified: 25/10/2025
 description: Shared styling for site pages.
@@ -22,18 +13,61 @@ description: Shared styling for site pages.
 /* The site uses the Hanken Grotesk for all content. */
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 :root {
+	/**************************/
+	/* #region Colours        */
+	/**************************/
+
+	/* Standard text content. */
 	--col-text-primary: #111;
+
+	/* Supporting text content, or inline non-text content, e.g. item borders. */
 	--col-text-secondary: #555;
+
+	/* A lighter content colour for dividing page content and separating sections. */
 	--col-text-overlay: #ddd;
+
+	/* Main content headings. */
 	--col-text-title: #444;
+
+	/* Standard text content within cards (terminology borrowed from Material Design.) */
 	--col-text-card: #efefef;
+
+	/* Headings within cards. */
 	--col-text-card-title: #fff;
+
+	/* Background colour for cards. */
 	--col-background-card: #605a9c;
+
+	/* Background colour for cards that should be lightly translucent. */
 	--col-background-card-translucent: #605a9cf0;
+
+	/* Background colour for the navigation bar. */
+	/*
+	Ashlyn, 24/09/2025:
+	TODO: Replace this with a more general variable where it might be useful elsewhere.
+	*/
 	--col-background-nav: #fafafb;
+
+	/* Shadows cast from "closer" elements to the viewer onto elements behind them. */
 	--col-element-shadow: rgba(0, 0, 0, 0.25);
+
+	/* Items of high importance that should draw the viewer's attention. */
 	--col-attention: rgb(189, 67, 67);
+
+	/**************************/
+	/* #endregion Colours     */
+	/**************************/
+
+	/**************************/
+	/* #region Layout         */
+	/**************************/
+
+	/* The size of the main content block. */
 	--layout-width-content: min(120ch, 70vw);
+
+	/**************************/
+	/* #endregion Layout      */
+	/**************************/
 }
 
 /***********************************************/
@@ -46,24 +80,33 @@ description: Shared styling for site pages.
 
 body {
 	margin: 0;
+
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
+
 	font-family: 'Hanken Grotesk', sans-serif;
 	color: var(--col-text-primary);
 }
 
+/*
+The global navigation bar. Always shows at the top of the page, and is identical across all site
+pages.
+*/
 #navigation {
 	position: sticky;
 	top: 0;
 	width: 100%;
 	box-sizing: border-box;
+
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	padding: 1em;
+
 	z-index: 1;
+
 	box-shadow: 0 0.25vh 2vh var(--col-element-shadow);
 	background-color: var(--col-background-nav);
 }
@@ -79,6 +122,9 @@ body {
 	vertical-align: middle;
 }
 
+/*
+The list of pages in the global navbar.
+*/
 #navigation > nav {
 	display: flex;
 	flex-direction: row;
@@ -91,6 +137,7 @@ body {
 }
 
 @media screen and (max-width: 600px) {
+	/* On small screens, just show the logo, not the name. */
 	#navigation .company-title span {
 		display: none;
 	}
@@ -119,14 +166,21 @@ body {
 	background-image: url('./images/pexels-fauxels-3184416.jpg');
 }
 
+/*
+The hero element is an *optional* element on each page which introduces the content briefly,
+summarising the purpose of the page.
+*/
 #hero {
 	width: var(--layout-width-content);
 	padding: 2em;
 	border-radius: 1em;
+
 	background-color: var(--col-background-card-translucent);
 	backdrop-filter: blur(4px);
 	color: var(--col-text-card);
+
 	animation-name: hero-fade-in;
+	animation-play-state: running;
 	animation-duration: 0.4s;
 }
 
@@ -135,42 +189,75 @@ body {
 	margin-right: 1em;
 }
 
+/*
+Fly-in animation for the hero element when the page opens.
+*/
 @keyframes hero-fade-in {
-	0% { opacity: 0.5; translate: 0 1vh; transform: scale(0.99); }
-	100% { opacity: 1; }
+	0% {
+		opacity: 0.5;
+		translate: 0 1vh;
+		transform: scale(0.99);
+	}
+	
+	100% {
+		opacity: 1;
+	}
 }
 
+/* Disable our fly-in animation for readers who prefer reduced motion :) */
 @media (prefers-reduced-motion: reduce) {
-	#hero { animation: none; }
+	#hero {
+		animation: none;
+	}
 }
 
-#hero h1 { color: var(--col-text-card-title); }
-#hero a, footer a { color: var(--col-text-card-title); }
+#hero h1 {
+	color: var(--col-text-card-title);
+}
 
+#hero a, footer a {
+	color: var(--col-text-card-title);
+}
+
+/*
+Wrapper for the main content of the page.
+*/
 main {
 	padding: 2em 1em;
 	box-sizing: border-box;
 	flex-grow: 1;
 	display: flex;
 	justify-content: center;
+
 	box-shadow: 0 -1vh 2vh var(--col-element-shadow);
+	
 	color: var(--col-text-primary);
 	line-height: 1.5;
 }
 
-#content { width: var(--layout-width-content); }
+/*
+The important page content. This may be an <article>, or something else such as a <form> if that
+constitutes what the page provides/does.
+*/
+#content {
+	width: var(--layout-width-content);
+}
 
 @media screen and (max-width: 600px) {
-	#content { width: 100%; }
+	/* On small screens, don't have any padding on the main content. */
+	#content {
+		width: 100%;
+	}
 }
 
-#table-link {
-	color: var(--col-text);
-}
-
+/*
+Global page footer shared across all pages, much like the navigation bar. Used for external links
+off-site and some miscellaneous information.
+*/
 footer {
 	padding: 1em;
 	box-sizing: border-box;
+
 	background-color: var(--col-background-card);
 	color: var(--col-text-card);
 	line-height: 1.5;
@@ -182,7 +269,11 @@ footer > nav {
 	column-gap: 2em;
 }
 
-footer a { font-weight: bold; color: var(--col-text-card-title); }
+footer a {
+	font-weight: bold;
+	color: var(--col-text-card-title);
+}
+
 footer .copyright-notice {
 	margin-top: 0.5em;
 	font-style: italic;
@@ -197,72 +288,143 @@ footer .copyright-notice {
 /* #region Page Content                        */
 /***********************************************/
 
+/*
+Tables are styled with clean and consistent borders between their cells, and surrounding the table.
+
+As tables can be rather long, to accommodate mobile displays, they will scroll their content when
+they are too large for the display area.
+*/
 table {
 	border-collapse: collapse;
 	overflow-x: auto;
 	display: block;
 }
+
 table > caption {
 	font-style: italic;
 	color: var(--col-text-title);
 }
+
 td, th {
 	border: 1px solid var(--col-text-secondary);
 	padding: 0.5em;
 }
+
 @media screen and (max-width: 600px) {
-	td, th { padding: 0.25em; }
+	/* Compact table display on small screens. */
+	td, th {
+		padding: 0.25em;
+	}
 }
-a { text-decoration: none; font-weight: bold; }
-a:hover { text-decoration: underline; }
+
+/*
+Additional details for a content section. Namely used on the jobs page for additional information
+regarding specific job listings.
+*/
+#content section aside {
+	/* Requirements specify a 25% width, right-floated aside with margin, border and padding. */
+	width: 25%;
+	float: right;
+	margin-left: 1em;
+	padding: 0.5em 1em;
+
+	border: 1px solid var(--col-text-overlay);
+	border-radius: 1em;
+}
+
+/*
+Separate each listing so they don't get visually jumbled together.
+*/
+#content.listing {
+	display: flex;
+	flex-direction: column;
+	row-gap: 2em;
+}
+
+/*
+Links don't show underlines until they're hovered over.
+*/
+a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#table-link {
+	color: var(--col-text);
+}
+
+/*
+Clicky, squishy buttons.
+
+Usage:
+	Create either a `<button>`, or something else that performs an action on-click (e.g. `<a>`),
+	and assign the "button" class.
+*/
 button, .button {
 	display: inline-block;
 	padding: 0.6em;
+
 	border: none;
 	border-radius: 1em;
 	background-color: var(--col-background-card);
+	
 	color: var(--col-text-card);
 	font-weight: bold;
+
+	/* Don't inherit the underline behaviour when a hyperlink is a button. */
 	text-decoration: none !important;
+	
 	transition: 0.1s ease;
 	transition-property: transform;
+
 	cursor: pointer;
 }
-button:hover, .button:hover { transform: scale(1.1); }
-button:active, .button:active { transform: scale(0.95); }
-@media screen and (prefers-reduced-motion: reduce) {
-	button, .button { transition: none; }
+
+button:hover, .button:hover {
+	/* Enlarge the button when hovered. */
+	transform: scale(1.1);
 }
+
+button:active, .button:active {
+	/* Make the button click down smaller. */
+	transform: scale(0.95);
+}
+
+/* Don't smoothly animate buttons for people who prefer less motion. */
+@media screen and (prefers-reduced-motion: reduce) {
+	button, .button {
+		transition: none;
+	}
+}
+
+/*
+Display description lists as lists of single-line entries, where the label takes up a fixed width,
+reducing visual noise and being stylistically consistent with the apply page.
+*/
 dl {
 	display: grid;
 	grid-template-columns: minmax(30%, max-content);
 	column-gap: 1em;
 	line-height: 2;
 }
-dt::after { content: ':'; }
-dd { margin: 0; grid-column-start: 2; }
 
-/***********************************************/
-/* #endregion Page Content                     */
-/***********************************************/
+dt::after {
+	content: ':';
+}
 
-/* =========================================================
-   END: ORIGINAL style.css
-   ========================================================= */
-
-
-/* =========================================================
-   START: about.css
-   ========================================================= */
+/* Force the entry's description to display inline, after the entry name. */
+dd {
+	margin: 0;
+	grid-column-start: 2;
+}
 
 /*
-filename: about.css
-author: Ashlyn Randall
-created: 22/09/2025
-last modified: 22/09/2025
-description: Style for the About page (/about.php)
+Grouping of the photo & team list so we can put them side-by-side on large screens.
 */
-
 #team-photo-and-list {
 	display: flex;
 	flex-direction: row;
@@ -272,17 +434,22 @@ description: Style for the About page (/about.php)
 	margin-bottom: 2em;
 }
 
+/* The list of team members. */
 #team-list {
 	flex-grow: 1;
+
 	display: flex;
 	flex-direction: column;
 	row-gap: 2em;
 	padding: 0;
 	margin: 0;
+
 	list-style: none;
 }
 
-#team-list h3 { margin-top: 0; }
+#team-list h3 {
+	margin-top: 0;
+}
 
 #team-list .student-id {
 	float: right;
@@ -292,43 +459,28 @@ description: Style for the About page (/about.php)
 	text-decoration: underline;
 }
 
+/*
+The group photo - styled to appear as a printed photograph :)
+*/
 #team-photo {
 	width: 30%;
 	flex-grow: 1;
 	margin: 0;
 	padding: 2em;
-	border: 1px solid #ddd;
-	/* border: 1px solid var(--col-text-overlay); */
+	border: 1px solid var(--col-text-overlay);
 }
 
-#team-photo img { width: 100%; }
-
-@media screen and (prefers-reduced-motion: no-preference) {
-	.fake-marquee-container { position: relative; overflow: hidden; padding: 0; }
-
-	.fake-marquee-y {
-		display: block;
-		width: 100%;
-		position: absolute;
-		animation: fake-marquee-scroll-y 2.5s alternate linear infinite;
-	}
-	@keyframes fake-marquee-scroll-y {
-		0% { top: 0; }
-		100% { top: 100%; transform: translateY(-100%); }
-	}
-
-	.fake-marquee-x {
-		display: inline-block;
-		position: relative;
-		animation: fake-marquee-scroll-x 2s alternate linear infinite;
-	}
-	@keyframes fake-marquee-scroll-x {
-		0% { left: 0; }
-		100% { left: 100%; transform: translateX(-100%); }
-	}
+#team-photo img {
+	width: 100%;
 }
 
+/***********************************************/
+/* #endregion Page Content                     */
+/***********************************************/
 
+/***********************************************/
+/* #region Forms                               */
+/***********************************************/
 
 form {
 	display: flex;
@@ -336,6 +488,7 @@ form {
 	row-gap: 0.5em;
 }
 
+/* Buttons for submitting or resetting the form, side-by-side. */
 form .action-buttons {
 	margin-top: 1em;
 	padding-top: 1em;
@@ -357,30 +510,45 @@ form .action-buttons button[type="reset"] {
 	color: var(--col-text-card);
 }
 
+/* Consistent border style for all form elements. */
 input, select, textarea, fieldset {
 	border: 2px solid var(--col-text-overlay);
 	border-radius: 0.25em;
 }
 
 fieldset {
+	/* Override the user agent's inset. */
 	margin: 0;
 	margin-bottom: 0.5em;
 }
 
-textarea { font-family: inherit; }
+textarea {
+	font-family: inherit;
+}
 
+/* Each <p> tag in the form is a given item the user needs to fill out. */
 form p {
 	display: flex;
 	justify-content: space-between;
 	margin: 0;
+	
 	line-height: 2;
 }
 
-form p > label, form legend { color: var(--col-text-secondary); }
+form p > label, form legend {
+	color: var(--col-text-secondary);
+}
 
-form p > label { flex-basis: 40%; }
-form p > :not(label) { flex-grow: 1; }
+form p > label {
+	/* Align all the label columns, makes it a bit less visually noisy. */
+	flex-basis: 40%;
+}
 
+form p > :not(label) {
+	flex-grow: 1;
+}
+
+/* Show a red asterisks next to required fields - this is the conventional method for most sites. */
 form > p:has(input[required]) > label::after,
 form > fieldset:has(input[required]) > legend::after {
 	content: '*';
@@ -388,11 +556,13 @@ form > fieldset:has(input[required]) > legend::after {
 	font-weight: bold;
 }
 
+/* A list of checkboxes where the user can pick multiple, each checkbox on a separate line. */
 form .checkbox-list.multiline {
 	display: flex;
 	flex-direction: column;
 }
 
+/* Give the "other skills" textbox more room. */
 form p:has(> #otherSkills) {
 	flex-direction: column;
 }
@@ -402,18 +572,92 @@ form p:has(> #otherSkills) {
 	margin-top: 0.5em;
 }
 
+/***********************************************/
+/* #endregion Forms                            */
+/***********************************************/
 
+/***********************************************/
+/* #region Eye candy                           */
+/***********************************************/
 
 /*
 As long as the user is okay with motion, fake a classic <marquee> effect :)
 */
+@media screen and (prefers-reduced-motion: no-preference) {
+	/*
+	Simulate the obsolete <marquee> element without requiring browser support for it.
+	*/
+	.fake-marquee-container {
+		position: relative;
+		overflow: hidden;
+		padding: 0;
+	}
 
-aside {
-	width: 25%;
-	float: right;
-	margin-left: 1em;
-	padding: 0.5em 1em;
-	border: 1px solid var(--col-text-overlay);
-	border-radius: 1em;
+	/*
+	Y-axis motion.
+	
+	Ashlyn, 24/09/2025:
+	I'll be honest, this was an absolute PAIN to get working correctly. There I was testing in
+	Firefox as I normally do, got it working very quickly. Then I jumped into Chromium, and the Y
+	axis motion was completely broken.
+
+	So I looked into it, and found that using the top property is undefined-behaviour in CSS, when
+	used on a child element of `display: table-cell`. Firefox does what I would see as the sensible
+	choice here - as usual - but Chromium opts to completely ignore the property in this situation.
+
+	I learnt today that `absolute` is not page-absolute, it's actually relative to the closest
+	parent element which isn't `static`ally positioned. By making the table cell itself `relative`,
+	the behaviour is no longer undefined, and `top` works again!
+
+	It seems pretty ironic that during implementing effectively a polyfill for an obsolete element,
+	generally seen on rather old websites, I run into a browser behaviour discrepancy. Rare these
+	days, not so back then!
+	*/
+	.fake-marquee-y {
+		display: block;
+		width: 100%;
+		position: absolute;
+		animation: fake-marquee-scroll-y 2.5s;
+		animation-direction: alternate;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+
+	@keyframes fake-marquee-scroll-y {
+		0% {
+			top: 0;
+		}
+		
+		100% {
+			top: 100%;
+			transform: translateY(-100%);
+		}
+	}
+
+	/*
+	X-axis motion.
+	*/
+	.fake-marquee-x {
+		display: inline-block;
+		position: relative;
+		animation: fake-marquee-scroll-x 2s;
+		animation-direction: alternate;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+
+	@keyframes fake-marquee-scroll-x {
+		0% {
+			left: 0;
+		}
+
+		100% {
+			left: 100%;
+			transform: translateX(-100%);
+		}
+	}
 }
 
+/***********************************************/
+/* #endregion Eye candy                        */
+/***********************************************/
