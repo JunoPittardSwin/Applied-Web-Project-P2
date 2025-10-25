@@ -7,8 +7,7 @@
 	<meta name="description" content="Applied Web Project Part 1 - Jobs Page">
 	<meta name="keywords" content="cybersecurity, jobs, hiring">
 	<title>Open Jobs | Watertight Recruitment</title>
-	<link rel="stylesheet" href="./css/styles.css">
-	<link rel="stylesheet" href="./css/per-page/jobs.css">
+	<link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
 	<?php require_once(__DIR__ . '/settings.php');
@@ -27,7 +26,7 @@
 		Page-specific styling may override the `background-image` of this element to a relevant
 		image.
 	-->
-	<header id="hero-container">
+	<header id="hero-container" class="hero-background-jobs">
 		<div id="hero">
 			<h1>We're Hiring!</h1>
 			<p>
@@ -39,7 +38,7 @@
 	<!-- Main content of the page. -->
 	<main>
 		<!-- theoretical reference number format: Job, Internal=0 Contractor=1, 1 digit for Team ID, 2 digits for team position.  -->
-		<article id="content">
+		<article id="content" class="listing">
 			<?php
 			$conn = mysqli_connect($DB_HOST,$DB_USER,$DB_PASSWORD,$DB_NAME);
 			if($conn) {

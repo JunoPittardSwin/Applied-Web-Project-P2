@@ -7,7 +7,7 @@
 	<meta name="description" content="Applied Web Project Part 1 - Index Page">
 	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, salespitch">
 	<title>Watertight Recruitment</title>
-	<link rel="stylesheet" href="./css/styles.css">
+	<link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
 	<?php include(__DIR__ . '/header.inc'); ?>
@@ -20,7 +20,7 @@
 	-->
 	<header id="hero-container">
 		<div id="hero">
-			<img src="images/logo.png" alt="Company Logo">
+			<img src="./images/logo.png" alt="Company Logo">
 			<h1>Watertight Recruitment</h1>
 			<!-- slogan -->
 			<em>Out of sight, out of mind</em>
@@ -49,8 +49,7 @@
 						<th>Applicants promoted</th>
 						<th>CEOs made Happy</th>
 						<th>CEOs made Unhappy</th>
-						<!-- We're required to use inline CSS somewhere for some reason. Here is that! -->
-						<th><a style="color: var(--col-text);" href="https://www.youtube.com/watch?v=fu3ETgAvQrw">Times Logo Redesigned</a></th>
+						<th><a class="table-link" href="https://www.youtube.com/watch?v=fu3ETgAvQrw">Times Logo Redesigned</a></th>
 						<th>Table Columns</th>
 					</tr>
 				</thead>

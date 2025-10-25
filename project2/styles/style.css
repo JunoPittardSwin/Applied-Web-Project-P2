@@ -1,11 +1,9 @@
 /*
-filename: styles.css
-author: Ashlyn Randall
+filename: style.css
+authors: Ashlyn Randall, Aadil Vinod
 created: 04/09/2025
-last modified: 23/09/2025
-description: Main shared styling for site pages.
-
-NOTE: For page-specific styling, individual CSS files should be used per-page.
+last modified: 25/10/2025
+description: Shared styling for site pages.
 */
 
 /***********************************************/
@@ -154,10 +152,18 @@ The list of pages in the global navbar.
 	padding: 1em;
 	box-sizing: border-box;
 	
-	background-image: url('../images/backgrounds/pexels-gustavo-fring-6285081.jpg');
+	background-image: url('./images/backgrounds/pexels-gustavo-fring-6285081.jpg');
 	background-position: center;
 	background-size: cover;
 	background-attachment: fixed;
+}
+
+#hero-container.hero-background-team {
+	background-image: url('./images/backgrounds/pexels-shkrabaanthony-5466233.jpg');
+}
+
+#hero-container.hero-background-jobs { 
+	background-image: url('./images/backgrounds/pexels-fauxels-3184416.jpg');
 }
 
 /*
@@ -279,7 +285,7 @@ footer .copyright-notice {
 /***********************************************/
 
 /***********************************************/
-/* #region Page Content (text and whatnot)     */
+/* #region Page Content                        */
 /***********************************************/
 
 /*
@@ -312,6 +318,30 @@ td, th {
 }
 
 /*
+Additional details for a content section. Namely used on the jobs page for additional information
+regarding specific job listings.
+*/
+#content section aside {
+	/* Requirements specify a 25% width, right-floated aside with margin, border and padding. */
+	width: 25%;
+	float: right;
+	margin-left: 1em;
+	padding: 0.5em 1em;
+
+	border: 1px solid var(--col-text-overlay);
+	border-radius: 1em;
+}
+
+/*
+Separate each listing so they don't get visually jumbled together.
+*/
+#content.listing {
+	display: flex;
+	flex-direction: column;
+	row-gap: 2em;
+}
+
+/*
 Links don't show underlines until they're hovered over.
 */
 a {
@@ -321,6 +351,10 @@ a {
 
 a:hover {
 	text-decoration: underline;
+}
+
+a.table-link {
+	color: var(--col-text);
 }
 
 /*
@@ -388,6 +422,242 @@ dd {
 	grid-column-start: 2;
 }
 
+/*
+Grouping of the photo & team list so we can put them side-by-side on large screens.
+*/
+#team-photo-and-list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: start;
+	gap: 2em;
+	margin-bottom: 2em;
+}
+
+/* The list of team members. */
+#team-list {
+	flex-grow: 1;
+
+	display: flex;
+	flex-direction: column;
+	row-gap: 2em;
+	padding: 0;
+	margin: 0;
+
+	list-style: none;
+}
+
+#team-list h3 {
+	margin-top: 0;
+}
+
+#team-list .student-id {
+	float: right;
+}
+
+#team-list .student-id:hover {
+	text-decoration: underline;
+}
+
+/*
+The group photo - styled to appear as a printed photograph :)
+*/
+#team-photo {
+	width: 30%;
+	flex-grow: 1;
+	margin: 0;
+	padding: 2em;
+	border: 1px solid var(--col-text-overlay);
+}
+
+#team-photo img {
+	width: 100%;
+}
+
 /***********************************************/
-/* #endregion Page Content (text and whatnot)  */
+/* #endregion Page Content                     */
+/***********************************************/
+
+/***********************************************/
+/* #region Forms                               */
+/***********************************************/
+
+form {
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.5em;
+}
+
+/* Buttons for submitting or resetting the form, side-by-side. */
+form .action-buttons {
+	margin-top: 1em;
+	padding-top: 1em;
+	border-top: 1px solid var(--col-text-overlay);
+}
+
+form .action-buttons button {
+	flex-basis: initial;
+	flex-grow: 0;
+}
+
+form .action-buttons button[type="submit"] {
+	background-color: var(--col-background-card);
+	color: var(--col-text-card);
+}
+
+form .action-buttons button[type="reset"] {
+	background-color: var(--col-attention);
+	color: var(--col-text-card);
+}
+
+/* Consistent border style for all form elements. */
+input, select, textarea, fieldset {
+	border: 2px solid var(--col-text-overlay);
+	border-radius: 0.25em;
+}
+
+fieldset {
+	/* Override the user agent's inset. */
+	margin: 0;
+	margin-bottom: 0.5em;
+}
+
+textarea {
+	font-family: inherit;
+}
+
+/* Each <p> tag in the form is a given item the user needs to fill out. */
+form p {
+	display: flex;
+	justify-content: space-between;
+	margin: 0;
+	
+	line-height: 2;
+}
+
+form p > label, form legend {
+	color: var(--col-text-secondary);
+}
+
+form p > label {
+	/* Align all the label columns, makes it a bit less visually noisy. */
+	flex-basis: 40%;
+}
+
+form p > :not(label) {
+	flex-grow: 1;
+}
+
+/* Show a red asterisks next to required fields - this is the conventional method for most sites. */
+form > p:has(input[required]) > label::after,
+form > fieldset:has(input[required]) > legend::after {
+	content: '*';
+	color: var(--col-attention);
+	font-weight: bold;
+}
+
+/* A list of checkboxes where the user can pick multiple, each checkbox on a separate line. */
+form .checkbox-list.multiline {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Give the "other skills" textbox more room. */
+form p:has(> #otherSkills) {
+	flex-direction: column;
+}
+
+#other-hint {
+	line-height: 1.5;
+	margin-top: 0.5em;
+}
+
+/***********************************************/
+/* #endregion Forms                            */
+/***********************************************/
+
+/***********************************************/
+/* #region Eye candy                           */
+/***********************************************/
+
+/*
+As long as the user is okay with motion, fake a classic <marquee> effect :)
+*/
+@media screen and (prefers-reduced-motion: no-preference) {
+	/*
+	Simulate the obsolete <marquee> element without requiring browser support for it.
+	*/
+	.fake-marquee-container {
+		position: relative;
+		overflow: hidden;
+		padding: 0;
+	}
+
+	/*
+	Y-axis motion.
+	
+	Ashlyn, 24/09/2025:
+	I'll be honest, this was an absolute PAIN to get working correctly. There I was testing in
+	Firefox as I normally do, got it working very quickly. Then I jumped into Chromium, and the Y
+	axis motion was completely broken.
+
+	So I looked into it, and found that using the top property is undefined-behaviour in CSS, when
+	used on a child element of `display: table-cell`. Firefox does what I would see as the sensible
+	choice here - as usual - but Chromium opts to completely ignore the property in this situation.
+
+	I learnt today that `absolute` is not page-absolute, it's actually relative to the closest
+	parent element which isn't `static`ally positioned. By making the table cell itself `relative`,
+	the behaviour is no longer undefined, and `top` works again!
+
+	It seems pretty ironic that during implementing effectively a polyfill for an obsolete element,
+	generally seen on rather old websites, I run into a browser behaviour discrepancy. Rare these
+	days, not so back then!
+	*/
+	.fake-marquee-y {
+		display: block;
+		width: 100%;
+		position: absolute;
+		animation: fake-marquee-scroll-y 2.5s;
+		animation-direction: alternate;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+
+	@keyframes fake-marquee-scroll-y {
+		0% {
+			top: 0;
+		}
+		
+		100% {
+			top: 100%;
+			transform: translateY(-100%);
+		}
+	}
+
+	/*
+	X-axis motion.
+	*/
+	.fake-marquee-x {
+		display: inline-block;
+		position: relative;
+		animation: fake-marquee-scroll-x 2s;
+		animation-direction: alternate;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+
+	@keyframes fake-marquee-scroll-x {
+		0% {
+			left: 0;
+		}
+
+		100% {
+			left: 100%;
+			transform: translateX(-100%);
+		}
+	}
+}
+
+/***********************************************/
+/* #endregion Eye candy                        */
 /***********************************************/
