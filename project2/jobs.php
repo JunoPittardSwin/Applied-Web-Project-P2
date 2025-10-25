@@ -7,7 +7,7 @@
 	<meta name="description" content="Applied Web Project Part 1 - Jobs Page">
 	<meta name="keywords" content="cybersecurity, jobs, hiring">
 	<title>Open Jobs | Watertight Recruitment</title>
-	<link rel="stylesheet" href="./styles/styles.css">
+	<link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
 	<?php require_once(__DIR__ . '/settings.php');

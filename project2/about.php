@@ -7,7 +7,7 @@
 	<meta name="description" content="Applied Web Project Part 1 - About Page">
 	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, team, about, information">
 	<title>About Us | Watertight Recruitment</title>
-	<link rel="stylesheet" href="./styles/styles.css">
+	<link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
 	<?php include(__DIR__ . '/header.inc'); ?>

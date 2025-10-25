@@ -7,7 +7,7 @@
 	<meta name="description" content="Applied Web Project Part 1 - Index Page">
 	<meta name="keywords" content="cybersecurity, company, watertightrecruitment, salespitch">
 	<title>Watertight Recruitment</title>
-	<link rel="stylesheet" href="./styles/styles.css">
+	<link rel="stylesheet" href="./styles/style.css">
 
 </head>
 <body>

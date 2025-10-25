@@ -1,18 +1,18 @@
 /*
-filename: styles.css (COMBINED)
+filename: style.css (COMBINED)
 author: AADIL VINOD
 created: 20/10/2025
 last modified: 22/10/2025
-description: Combined stylesheet that inlines original styles.css, about.css, apply.css, and jobs.css.
+description: Combined stylesheet that inlines original style.css, about.css, apply.css, and jobs.css.
 NOTE: Sections below are included verbatim from their original files. No deletions or edits.
 */
 
 /* =========================================================
-   START: ORIGINAL styles.css (shared site styling)
+   START: ORIGINAL style.css (shared site styling)
    ========================================================= */
 
 /*
-filename: styles.css
+filename: style.css
 author: Ashlyn Randall
 created: 04/09/2025
 last modified: 22/09/2025
@@ -249,7 +249,7 @@ dd { margin: 0; grid-column-start: 2; }
 /***********************************************/
 
 /* =========================================================
-   END: ORIGINAL styles.css
+   END: ORIGINAL style.css
    ========================================================= */
 
 
