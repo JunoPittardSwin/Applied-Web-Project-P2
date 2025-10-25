@@ -353,7 +353,7 @@ a:hover {
 	text-decoration: underline;
 }
 
-#table-link {
+a.table-link {
 	color: var(--col-text);
 }
 

@@ -49,7 +49,7 @@
 						<th>Applicants promoted</th>
 						<th>CEOs made Happy</th>
 						<th>CEOs made Unhappy</th>
-						<th><a id="table-link" href="https://www.youtube.com/watch?v=fu3ETgAvQrw">Times Logo Redesigned</a></th>
+						<th><a class="table-link" href="https://www.youtube.com/watch?v=fu3ETgAvQrw">Times Logo Redesigned</a></th>
 						<th>Table Columns</th>
 					</tr>
 				</thead>
