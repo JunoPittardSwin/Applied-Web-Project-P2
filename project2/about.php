@@ -63,7 +63,7 @@
 								{
 									break;
 								}
-								$teamMemberId = htmlspecialchars($row['student_id']);
+								$teamMemberId = $row['student_id'];
 								?>
 								<h3><?= htmlspecialchars($row['name']) ?> <span class="student-id">(<?= strval($row['student_id']) ?>)</span></h3>
 								<dl>
@@ -72,7 +72,7 @@
 										<?php
 											$contribsResult = $db->execute_query(
 												"SELECT contribution_text FROM contributions
-												WHERE team_member_id = $teamMemberId"
+												WHERE team_member_id = ?", [$row['student_id']]
 											);
 
 											$contributions = [];
