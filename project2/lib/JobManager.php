@@ -6,7 +6,6 @@
  */
 class JobManager
 {
-	private ?mysqli_stmt $getAllJobListings = null;
 	private ?mysqli_stmt $getRequirements = null;
 
 	private ?mysqli_stmt $createJobListing = null;
@@ -21,7 +20,8 @@ class JobManager
 			salaryHighBracket INTEGER NOT NULL,
 			reportingLine VARCHAR(50) NOT NULL,
 			aboutHtml TEXT NOT NULL,
-			asideInfoHtml TEXT
+			asideInfoHtml TEXT,
+			FULLTEXT (title, aboutHtml)
 		);");
 
 		$db->execute_query("CREATE TABLE IF NOT EXISTS job_requirement(
@@ -36,14 +36,23 @@ class JobManager
 	/**
 	 * Get the list of current job listings.
 	 *
+	 * @param ?string $searchQuery an optional search query to filter results by.
 	 * @return JobListing[]
 	 */
-	public function getAllJobListings(): array
+	public function getAllJobListings(?string $searchQuery = null): array
 	{
-		$this->getAllJobListings ??= $this->db->prepare('SELECT * FROM job');
+		/** @var mysqli_result */
+		$result = match ($searchQuery === null)
+		{
+			false => $this->db->execute_query(
+				"SELECT * FROM job
+				 WHERE MATCH(title, aboutHtml)
+				 AGAINST (? IN NATURAL LANGUAGE MODE)",
+				[$searchQuery]
+			),
 
-		$this->getAllJobListings->execute();
-		$result = $this->getAllJobListings->get_result();
+			true => $this->db->execute_query('SELECT * FROM job'),
+		};
 
 		/** @var JobListing[] */
 		$jobListings = [];
@@ -88,7 +97,6 @@ class JobManager
 		}
 
 		$result->close();
-		$this->getAllJobListings->reset();
 
 		return $jobListings;
 	}

@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Req\InputMapFailedException;
+use DB\SortDirection;
 
 use function Templates\document;
 use function Templates\Manage\eoiTable;
