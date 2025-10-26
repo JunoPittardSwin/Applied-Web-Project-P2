@@ -50,6 +50,13 @@ $jobListings = $jobManager->getAllJobListings();
 			<?php foreach ($jobListings as $job): ?>
 				<section>
 					<h2><?= htmlspecialchars($job->title) ?> (REF:<?= htmlspecialchars($job->ref) ?>)</h2>
+
+					<?php if ($job->asideInfoHtml !== null): ?>
+						<aside>
+							<?= $job->asideInfoHtml ?>
+						</aside>
+					<?php endif ?>
+
 					<em>
 						Salary: $<?= number_format($job->salaryLowBracket, 2) ?> - $<?= number_format($job->salaryHighBracket, 2) ?> p/a
 						<br>

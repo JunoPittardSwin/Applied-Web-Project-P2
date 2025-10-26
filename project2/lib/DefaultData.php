@@ -42,6 +42,13 @@ function defaultJobs(JobManager $jobManager)
 			are no current incidents, you will be expected to proactively seek out new or advanced
 			threats, which may evade regular detection.
 		",
+		asideInfoHtml: "
+			<h3>Strike Teams</h3>
+			<p>
+				If you wish to be considered for our strike teams that require security clearance,
+				please <a href=\"mailto:hiring@watertightcybersec.com\">contact us</a>
+			</p>
+		",
 		essentialRequirements: [
 			'Consistent and strong history of field-based cybersecurity response',
 			'Deep understanding of current, deprecated, and potential attack vectors',

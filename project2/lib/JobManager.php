@@ -20,7 +20,8 @@ class JobManager
 			salaryLowBracket INTEGER NOT NULL,
 			salaryHighBracket INTEGER NOT NULL,
 			reportingLine VARCHAR(50) NOT NULL,
-			aboutHtml TEXT NOT NULL
+			aboutHtml TEXT NOT NULL,
+			asideInfoHtml TEXT
 		);");
 
 		$db->execute_query("CREATE TABLE IF NOT EXISTS job_requirement(
@@ -118,9 +119,10 @@ class JobManager
 				salaryLowBracket,
 				salaryHighBracket,
 				reportingLine,
-				aboutHtml
+				aboutHtml,
+				asideInfoHtml
 			)
-			VALUES (?, ?, ?, ?, ?, ?)"
+			VALUES (?, ?, ?, ?, ?, ?, ?)"
 		);
 
 		$this->createJobListing->execute([
@@ -129,7 +131,8 @@ class JobManager
 			$job->salaryLowBracket,
 			$job->salaryHighBracket,
 			$job->reportingLine,
-			$job->aboutHtml
+			$job->aboutHtml,
+			$job->asideInfoHtml,
 		]);
 
 		$this->addRequirement ??= $this->db->prepare(
@@ -168,6 +171,7 @@ readonly class JobListing
 		public string $aboutHtml,
 		public array $essentialRequirements,
 		public array $preferredRequirements,
+		public ?string $asideInfoHtml = null
 	)
 	{}
 }
