@@ -19,6 +19,7 @@
 	if ($contrib->num_rows == 0) {
 		defaultContributions($db);
 	}
+	$contrib->close();
 	?>
 	
 
