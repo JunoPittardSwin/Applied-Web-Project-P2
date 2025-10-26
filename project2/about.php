@@ -129,38 +129,38 @@
 				<tbody>
 					<?php 
 						$result = $db->query('SELECT * FROM team_members');
-							while (true) {
-								$row = $result->fetch_assoc();
-								if (!is_array($row))
-								{
-									break;
-								} 
-								?>
-								<tr>
-									<td><?= htmlspecialchars($row['name'])?></td>
-									<td><?= htmlspecialchars($row['job']) ?></td>
-									<td><?= htmlspecialchars($row['snack'])?></td>
-									<td><?= htmlspecialchars($row['town'])?></td>
-									<td><?= htmlspecialchars($row['study'])?></td>
-									<!-- below block checks for Ashlyn's ID, and applies the unique styling if so. Otherwise, display normally. -->
-									<?php
-									if(htmlspecialchars($row['student_id']) == 105928880) {?>
-										<td class="fake-marquee-container">
-											<div class="fake-marquee-y">
-												<div class="fake-marquee-x">
-													<?= htmlspecialchars($row['element'])?>
-												</div>
-											</div>
-										</td>
-										<?php } else {
-											?><td><?= htmlspecialchars($row['element'])?></td>
-											<?php
-										}
-									?>
-								</tr>
+						while (true) {
+							$row = $result->fetch_assoc();
+							if (!is_array($row))
+							{
+								break;
+							} 
+							?>
+							<tr>
+								<td><?= htmlspecialchars($row['name'])?></td>
+								<td><?= htmlspecialchars($row['job']) ?></td>
+								<td><?= htmlspecialchars($row['snack'])?></td>
+								<td><?= htmlspecialchars($row['town'])?></td>
+								<td><?= htmlspecialchars($row['study'])?></td>
+								<!-- below block checks for Ashlyn's ID, and applies the unique styling if so. Otherwise, display normally. -->
 								<?php
-							}
-						$result->close();
+								if(htmlspecialchars($row['student_id']) == 105928880) {?>
+									<td class="fake-marquee-container">
+										<div class="fake-marquee-y">
+											<div class="fake-marquee-x">
+												<?= htmlspecialchars($row['element'])?>
+											</div>
+										</div>
+									</td>
+									<?php } else {
+										?><td><?= htmlspecialchars($row['element'])?></td>
+										<?php
+									}
+								?>
+							</tr>
+							<?php
+						}
+					$result->close();
 					?>
 				</tbody>
 			</table>
