@@ -1,6 +1,13 @@
 <?php declare(strict_types=1);
 
+use Req\FormContext;
+
+use function Templates\textInput;
+
 require_once(__DIR__ . '/lib/JobManager.php');
+require_once(__DIR__ . '/lib/db/SortDirection.php');
+require_once(__DIR__ . '/lib/Req.php');
+require_once(__DIR__ . '/lib/templates/text-input.php');
 require_once(__DIR__ . '/settings.php');
 
 $jobManager = new JobManager($db);
@@ -11,7 +18,19 @@ if ($jobManager->getJobListingCount() === 0)
 	defaultJobs($jobManager);
 }
 
-$jobListings = $jobManager->getAllJobListings();
+/**
+ * Sorting and filtering options for the job list.
+ */
+$form = new FormContext($_GET);
+
+/** @var ?string A query for searching the job list. */
+$searchQuery = $form->input(
+	readableName: 'Search Query',
+	key: 'q',
+	required: false,
+);
+
+$jobListings = $jobManager->getAllJobListings($searchQuery);
 
 ?>
 <!DOCTYPE html>
@@ -47,6 +66,19 @@ $jobListings = $jobManager->getAllJobListings();
 	<main>
 		<!-- theoretical reference number format: Job, Internal=0 Contractor=1, 1 digit for Team ID, 2 digits for team position.  -->
 		<article id="content" class="listing">
+			<form action="" method="get" class="search" role="search">
+				<div class="search-bar">
+					<input
+						type="search"
+						name="q"
+						id="input-jobTitle"
+						placeholder="Search the job list..."
+						value="<?= ($searchQuery !== null) ? htmlspecialchars($searchQuery, ENT_QUOTES) : '' ?>"
+					>
+					<button type="submit">Search</button>
+				</div>
+			</form>
+
 			<?php foreach ($jobListings as $job): ?>
 				<section>
 					<h2><?= htmlspecialchars($job->title) ?> (REF:<?= htmlspecialchars($job->ref) ?>)</h2>

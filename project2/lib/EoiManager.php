@@ -1,5 +1,9 @@
 <?php declare(strict_types=1);
 
+use DB\SortDirection;
+
+require_once(__DIR__ . '/db/SortDirection.php');
+
 class EoiManager
 {
 	function __construct(private mysqli $db)
@@ -377,15 +381,6 @@ enum EoiSortBy: string
 	
 	/** Alphabetically by the job reference ID. */
 	case JobReferenceId = 'JobReferenceId';
-}
-
-/**
- * A direction to sort results in.
- */
-enum SortDirection: string
-{
-	case Ascending = 'ASC';
-	case Descending = 'DESC';
 }
 
 enum EoiSubmitError

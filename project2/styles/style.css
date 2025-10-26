@@ -576,7 +576,7 @@ form p:has(> #otherSkills) {
 A form for searching a data set, including filters and sorting choices.
 */
 form.search {
-	
+
 }
 
 /*
@@ -609,6 +609,16 @@ form.search .filters-and-sorting .sorting {
 
 form.search .buttons {
 	align-self: flex-end;
+}
+
+form.search .search-bar {
+	display: flex;
+	flex-direction: row;
+	column-gap: 0.5em;
+}
+
+form.search .search-bar input[type="search"] {
+	flex-grow: 1;
 }
 
 /***********************************************/
