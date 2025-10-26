@@ -112,7 +112,7 @@ $jobListings = $jobManager->getAllJobListings($searchQuery);
 						<?php endforeach ?>
 					</ol>
 
-					<a href="./apply.php?reference=<?= htmlspecialchars($job->ref, ENT_QUOTES) ?>" class="button">
+					<a href="./apply.php?reference=<?= urlencode($job->ref) ?>" class="button">
 						Apply for <?= htmlspecialchars($job->ref) ?>
 					</a>
 				</section>
