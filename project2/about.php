@@ -10,7 +10,18 @@
 	<link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-	<?php include(__DIR__ . '/header.inc'); ?>
+	<?php require_once(__DIR__ . '/settings.php');
+	include(__DIR__ . '/lib/DefaultData.php');
+	include(__DIR__ . '/header.inc');
+
+	// if the team_members table is empty, populate it
+	$contrib = $db->execute_query("SELECT * FROM team_members;");
+	if ($contrib->num_rows == 0) {
+		defaultContributions($db);
+	}
+	$contrib->close();
+	?>
+	
 
 	<header id="hero-container" class="hero-background-team">
 		<div id="hero">
@@ -38,50 +49,65 @@
 						<img src="./images/group-photo.jpg" alt="Team Photo">
 					</a>
 					<figcaption>Left to Right: Juno, Ashlyn, Aadil</figcaption>
-				</figure> 
+				</figure>
 
 				<!-- nested list of member details, making use of definition lists -->
 				<ol id="team-list">
 					<li>
-						<h3>Juno Pittard <span class="student-id">(ID: 103983984)</span></h3>
-						<dl>
-							<dt>Contributions</dt>
-							<dd>About, Home and Jobs pages, coordination with stakeholders</dd>
-							<dt>Favourite Quote</dt>
-							<dd><q>Keep on keeping on!</q></dd>
-							<dt>Favourite Language</dt>
-							<dd>French</dd>
-							<dt>Translation</dt>
-							<dd>"Continue comme ça!"</dd>
-						</dl>
-					</li>
+						<?php
+							// cr: Ashlyn's code from PR, tweaked to fit
+							$result = $db->query('SELECT * FROM team_members');
+							while (true) {
+							
+								$row = $result->fetch_assoc();
+								if (!is_array($row))
+								{
+									break;
+								}
+								$teamMemberId = $row['student_id'];
+								?>
+								<h3><?= htmlspecialchars($row['name']) ?> <span class="student-id">(<?= strval($row['student_id']) ?>)</span></h3>
+								<dl>
+									<dt>Contributions</dt>
+									<dd><ol>
+										<?php
+											$contribsResult = $db->execute_query(
+												"SELECT contribution_text FROM contributions
+												WHERE team_member_id = ?", [$row['student_id']]
+											);
 
-					<li>
-						<h3>Ashlyn Randall <span class="student-id">(ID: 105928880)</span></h3>
-						<dl>
-							<dt>Contributions</dt>
-							<dd>Site design and CSS, team management</dd>
-							<dt>Favourite Quote</dt>
-							<dd><q>death by tray it shall be</q></dd>
-							<dt>Favourite Language</dt>
-							<dd>Old Norse</dd>
-							<dt>Translation</dt>
-							<dd>ᛒᚨᚾᚨᛞᚨᚢᚦᛁ ᚨᚠ ᛒᚨᚲᚨ ᛊᚲᚨᛚ ᚦᚨᛏ ᚢᛖᚱᚨ</dd>
-						</dl>
-					</li>
+											$contributions = [];
 
-					<li>
-						<h3>Aadil Vinod <span class="student-id">(ID: 105700716)</span></h3>
-						<dl>
-							<dt>Contributions</dt>
-							<dd>Application page and application form</dd>
-							<dt>Favourite Quote</dt>
-							<dd><q>Not all those who wander are lost</q><dd>
-							<dt>Favourite Language</dt>
-							<dd>Malayalam</dd>
-							<dt>Translation</dt>
-							<dd>മലയാളം ആണ് എന്റെ ഇഷ്ട ഭാഷ.</dd>
-						</dl>
+											while (true)
+											{
+												$contribution = $contribsResult->fetch_column();
+
+												if (!is_string($contribution))
+												{
+													break;
+												}
+												$contributions []= $contribution;
+											}
+
+											foreach($contributions as $c) {
+												echo "<li>" . htmlspecialchars($c) . "</li>";
+											}
+
+											$contribsResult->close();
+										?>
+									</ol></dd>
+									<dt>Favourite Quote</dt>
+									<dd><?= htmlspecialchars($row['quote']) ?></dd>
+									<dt>Favourite Language</dt>
+									<dd><?= htmlspecialchars($row['language'])?></dd>
+									<dt>Translation</dt>
+									<dd><?= htmlspecialchars($row['translation'])?></dd>
+								</dl>
+							<?php
+							}
+
+							$result->close();
+						?>
 					</li>
 				</ol>
 			</div>
@@ -101,38 +127,41 @@
 				</thead>
 
 				<tbody>
-					<tr>
-						<td>Juno</td>
-						<td>Game Developer</td>
-						<td>Soy sauce fish</td>
-						<td>Camberwell</td>
-						<td>Hawthorn library</td>
-						<td>&lt;a&gt;</td>
-					</tr>
-
-					<tr>
-						<td>Ashlyn</td>
-						<td>Reverse Engineering / Software Development</td>
-						<td>Dumplings or Gnocchi</td>
-						<td>Sassafras</td>
-						<td>Latelab, floor 3</td>
-						<td class="fake-marquee-container">
-							<div class="fake-marquee-y">
-								<div class="fake-marquee-x">
-									&lt;marquee&gt;
-								</div>
-							</div>
-						</td>
-					</tr>
-
-					<tr>
-						<td>Aadil</td>
-						<td>Software Engineer</td>
-						<td>Biryani</td>
-						<td>Laverton</td>
-						<td>On campus</td>
-						<td>Void elements</td>
-					</tr>
+					<?php 
+						$result = $db->query('SELECT * FROM team_members');
+						while (true) {
+							$row = $result->fetch_assoc();
+							if (!is_array($row))
+							{
+								break;
+							} 
+							?>
+							<tr>
+								<td><?= htmlspecialchars($row['name'])?></td>
+								<td><?= htmlspecialchars($row['job']) ?></td>
+								<td><?= htmlspecialchars($row['snack'])?></td>
+								<td><?= htmlspecialchars($row['town'])?></td>
+								<td><?= htmlspecialchars($row['study'])?></td>
+								<!-- below block checks for Ashlyn's ID, and applies the unique styling if so. Otherwise, display normally. -->
+								<?php
+								if(htmlspecialchars($row['student_id']) == 105928880) {?>
+									<td class="fake-marquee-container">
+										<div class="fake-marquee-y">
+											<div class="fake-marquee-x">
+												<?= htmlspecialchars($row['element'])?>
+											</div>
+										</div>
+									</td>
+									<?php } else {
+										?><td><?= htmlspecialchars($row['element'])?></td>
+										<?php
+									}
+								?>
+							</tr>
+							<?php
+						}
+					$result->close();
+					?>
 				</tbody>
 			</table>
 		</article>

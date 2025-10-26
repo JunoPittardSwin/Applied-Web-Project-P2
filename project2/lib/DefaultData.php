@@ -1,7 +1,28 @@
 <?php 
 
-function defaultEOI($db) {
-	echo "function incomplete";
+function defaultContributions($db) {
+
+	// populate team_members table with default data
+	$db->execute_query("INSERT INTO team_members (student_id, name, quote, language, translation, job, snack, town, study, element)
+	VALUES (103983984, 'Juno', 'Keep on keeping on!', 'French', 'Continue comme ça!', 'Game Developer', 'Soy sauce fish', 'Camberwell', 'Hawthorn library', '<a>'),
+	(105928880, 'Ashlyn', 'death by tray it shall be', 'Old Norse', 'ᛒᚨᚾᚨᛞᚨᚢᚦᛁ ᚨᚠ ᛒᚨᚲᚨ ᛊᚲᚨᛚ ᚦᚨᛏ ᚢᛖᚱᚨ', 'Reverse Engineering / Software Development', 'Dumplings or Gnocchi', 'Sassafras', 'Latelab, floor 3', '<marquee>'),
+	(105700716, 'Aadil', 'Not all those who wander are lost', 'Malayalam', 'മലയാളം ആണ് എന്റെ ഇഷ്ട ഭാഷ.', 'Software Engineer', 'Biryani', 'Laverton', 'On campus', 'Void elements');
+	");
+
+	// populate contributions table with default data
+	$db->execute_query("INSERT INTO contributions (team_member_id, contribution_text)
+	VALUES (103983984, 'About page, static and dynamic rendering'),
+	(103983984, 'Jobs page, static and dynamic rendering'),
+	(103983984, 'Index page, static HTML'),
+	(103983984, 'Content writing'),
+	(105928880, 'Site design'),
+	(105928880, 'CSS styling'),
+	(105928880, 'Team coordination and management'),
+	(105928880, 'Management page, login, and user queries'),
+	(105700716, 'Application page, static HTML'),
+	(105700716, 'Application form with MySQL integration'),
+	(105700716, 'EOI processing checks');
+	");
 }
 
 function defaultJobs(JobManager $jobManager)

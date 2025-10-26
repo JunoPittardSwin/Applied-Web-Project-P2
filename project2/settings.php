@@ -44,9 +44,25 @@ $db->execute_query("CREATE DATABASE IF NOT EXISTS $DB_NAME");
 $db->select_db($DB_NAME);
 
 // below: creates tables if they do not already exist
-// creates the contributions table
+// creates the team_members table
+$db->execute_query("CREATE TABLE IF NOT EXISTS team_members (
+	student_id INT(9) NOT NULL PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	quote TEXT NOT NULL,
+	language VARCHAR(25) NOT NULL,
+	translation TEXT NOT NULL,
+	job VARCHAR(75) NOT NULL,
+	snack VARCHAR(50) NOT NULL,
+	town VARCHAR(50) NOT NULL,
+	study VARCHAR(50) NOT NULL,
+	element VARCHAR(20) NOT NULL
+);");
+
+// creates the contributions sub-table
 $db->execute_query("CREATE TABLE IF NOT EXISTS contributions (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	team_member ENUM('Ashlyn', 'Juno', 'Aadil') NOT NULL,
-	contribution_text TEXT NOT NULL
+	team_member_id INT NOT NULL,
+	contribution_text TEXT NOT NULL,
+	FOREIGN KEY (team_member_id) REFERENCES team_members(student_id)
 	);");
+	
