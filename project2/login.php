@@ -1,8 +1,11 @@
 <?php declare(strict_types=1);
 
+use function Templates\document;
+
 require_once(__DIR__ . '/lib/UserManager.php');
 require_once(__DIR__ . '/lib/Req.php');
 require_once(__DIR__ . '/lib/Session.php');
+require_once(__DIR__ . '/lib/templates/document.php');
 require_once(__DIR__ . '/settings.php');
 
 $userManager = new UserManager($db);
@@ -10,46 +13,36 @@ $userManager = new UserManager($db);
 switch ($_SERVER['REQUEST_METHOD'])
 {
 	case 'GET':
-		?>
-			<!DOCTYPE html>
-			<html lang="en">
-			<head>
-				<meta charset="UTF-8">
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<title>Admin Login | Watertight Recruitment</title>
-				<link rel="stylesheet" href="./styles/style.css">
-			</head>
-			<body>
-				<?php include(__DIR__ . '/header.inc'); ?>
+		echo document(
+			title: 'Admin Login',
+			description: 'Login for the administration interface.',
+			mainContent: function()
+			{
+				ob_start(); ?>
+				<form action="" method="post">
+					<h1>Site Management Log-in</h1>
+					<p>
+						Not a site manager?
+						<a href="./index.php">Take me back home.</a>
+					</p>
 
-				<main>
-					<form action="./login.php" method="post">
-						<h1>Site Management Log-in</h1>
-						<p>
-							Not a site manager?
-							<a href="./index.php">Take me back home.</a>
-						</p>
+					<p>
+						<label for="name">Name</label>
+						<input type="text" name="name" id="name" required>
+					</p>
 
-						<p>
-							<label for="name">Name</label>
-							<input type="text" name="name" id="name" required>
-						</p>
+					<p>
+						<label for="password">Password</label>
+						<input type="password" name="password" id="password" required>
+					</p>
 
-						<p>
-							<label for="password">Password</label>
-							<input type="password" name="password" id="password" required>
-						</p>
-
-						<div class="action-buttons">
-							<input class="button" type="submit" value="Login">
-						</div>
-					</form>
-				</main>
-
-				<?php include(__DIR__ . '/footer.inc'); ?>
-			</body>
-			</html>
-		<?php
+					<div class="action-buttons">
+						<input class="button" type="submit" value="Login">
+					</div>
+				</form>
+				<?php return ob_get_clean();
+			}
+		);
 	break;
 
 	case 'POST':
