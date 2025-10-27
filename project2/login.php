@@ -19,27 +19,29 @@ switch ($_SERVER['REQUEST_METHOD'])
 			mainContent: function()
 			{
 				ob_start(); ?>
-				<form action="" method="post">
+				<article id="content">
 					<h1>Site Management Log-in</h1>
 					<p>
 						Not a site manager?
 						<a href="./index.php">Take me back home.</a>
 					</p>
 
-					<p>
-						<label for="name">Name</label>
-						<input type="text" name="name" id="name" required>
-					</p>
+					<form action="" method="post">
+						<p>
+							<label for="name">Name</label>
+							<input type="text" name="name" id="name" required>
+						</p>
 
-					<p>
-						<label for="password">Password</label>
-						<input type="password" name="password" id="password" required>
-					</p>
+						<p>
+							<label for="password">Password</label>
+							<input type="password" name="password" id="password" required>
+						</p>
 
-					<div class="action-buttons">
-						<input class="button" type="submit" value="Login">
-					</div>
-				</form>
+						<div class="action-buttons">
+							<input class="button" type="submit" value="Login">
+						</div>
+					</form>
+				</article>
 				<?php return ob_get_clean();
 			}
 		);
