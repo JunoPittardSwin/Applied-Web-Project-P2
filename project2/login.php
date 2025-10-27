@@ -15,7 +15,7 @@ switch ($_SERVER['REQUEST_METHOD'])
 	case 'GET':
 		echo document(
 			title: 'Admin Login',
-			description: 'Login for the administration interface.',
+			description: 'Log in to the administration interface.',
 			mainContent: function()
 			{
 				ob_start(); ?>
