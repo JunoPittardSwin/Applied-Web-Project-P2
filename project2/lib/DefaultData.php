@@ -11,17 +11,17 @@ function defaultContributions($db) {
 
 	// populate contributions table with default data
 	$db->execute_query("INSERT INTO contributions (team_member_id, contribution_text)
-	VALUES (103983984, 'About page, static and dynamic rendering'),
-	(103983984, 'Jobs page, static and dynamic rendering'),
-	(103983984, 'Index page, static HTML'),
+	VALUES (103983984, 'About, Jobs and Index pages, static rendering'),
+	(103983984, 'About page dynamic rendering'),
 	(103983984, 'Content writing'),
-	(105928880, 'Site design'),
-	(105928880, 'CSS styling'),
+	(103983984, 'Database structure, about page tables auto-generation'),
+	(105928880, 'Site design and CSS styling'),
 	(105928880, 'Team coordination and management'),
+	(105928880, 'GitHub oversight and pull request reviews'),
 	(105928880, 'Management page, login, and user queries'),
-	(105700716, 'Application page, static HTML'),
-	(105700716, 'Application form with MySQL integration'),
-	(105700716, 'EOI processing checks');
+	(105700716, 'Application page, static rendering'),
+	(105700716, 'Application form and page integration'),
+	(105700716, 'Project part 1 to 2 consolidation');
 	");
 }
 
