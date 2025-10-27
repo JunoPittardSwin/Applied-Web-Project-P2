@@ -279,6 +279,7 @@ class EoiManager
 		{
 			EoiSortBy::JobReferenceId => 'jobReferenceId',
 			EoiSortBy::Recency => 'submissionTimestamp',
+			EoiSortBy::Status => 'status',
 		};
 		
 		$query .= " ORDER BY $sortFieldName " . $sortDirection->value;
@@ -390,6 +391,9 @@ enum EoiSortBy: string
 	
 	/** Alphabetically by the job reference ID. */
 	case JobReferenceId = 'JobReferenceId';
+
+	/** In order of how "far in" the application is, in being processed. */
+	case Status = 'Status';
 }
 
 enum EoiSubmitError

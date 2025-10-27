@@ -43,6 +43,31 @@ class JobManager
 	{}
 
 	/**
+	 * Retrieve the job listing with the given reference, if it exists.
+	 *
+	 * @param string $ref
+	 * @return JobListing|null
+	 */
+	public function getJobListing(string $ref): ?JobListing
+	{
+		$result = $this->db->execute_query(
+			"SELECT * FROM job
+			 WHERE ref = ?",
+			[$ref]
+		);
+
+		$row = $result->fetch_assoc();
+		$result->close();
+
+		if (!is_array($row))
+		{
+			return null;
+		}
+
+		return $this->mapRowToJobListing($row);
+	}
+
+	/**
 	 * Get the list of current job listings.
 	 *
 	 * @param ?string $searchQuery an optional search query to filter results by.
@@ -68,41 +93,7 @@ class JobManager
 
 		while ($row = $result->fetch_assoc())
 		{
-			/** @var string[] */
-			$essentialRequirements = [];
-
-			/** @var string[] */
-			$preferredRequirements = [];
-
-			$this->getRequirements ??= $this->db->prepare(
-				"SELECT kind, text FROM job_requirement
-				 WHERE jobId = ?"
-			);
-
-			$this->getRequirements->execute([$row['ref']]);
-			$getRequirementsResult = $this->getRequirements->get_result();
-			
-			while ($reqirementRow = $getRequirementsResult->fetch_assoc())
-			{
-				switch (JobRequirementKind::from($reqirementRow['kind']))
-				{
-					case JobRequirementKind::Essential:
-						$essentialRequirements []= $reqirementRow['text'];
-					break;
-
-					case JobRequirementKind::Preferred:
-						$preferredRequirements []= $reqirementRow['text'];
-					break;
-				}
-			}
-
-			$getRequirementsResult->close();
-			$this->getRequirements->reset();
-
-			$jobListings []= new JobListing(...$row,
-				essentialRequirements: $essentialRequirements,
-				preferredRequirements: $preferredRequirements
-			);
+			$jobListings []= $this->mapRowToJobListing($row);
 		}
 
 		$result->close();
@@ -174,6 +165,45 @@ class JobManager
 				$requirementText
 			]);
 		}
+	}
+
+	private function mapRowToJobListing(array $row): JobListing
+	{
+		/** @var string[] */
+		$essentialRequirements = [];
+
+		/** @var string[] */
+		$preferredRequirements = [];
+
+		$this->getRequirements ??= $this->db->prepare(
+			"SELECT kind, text FROM job_requirement
+				WHERE jobId = ?"
+		);
+
+		$this->getRequirements->execute([$row['ref']]);
+		$getRequirementsResult = $this->getRequirements->get_result();
+		
+		while ($reqirementRow = $getRequirementsResult->fetch_assoc())
+		{
+			switch (JobRequirementKind::from($reqirementRow['kind']))
+			{
+				case JobRequirementKind::Essential:
+					$essentialRequirements []= $reqirementRow['text'];
+				break;
+
+				case JobRequirementKind::Preferred:
+					$preferredRequirements []= $reqirementRow['text'];
+				break;
+			}
+		}
+
+		$getRequirementsResult->close();
+		$this->getRequirements->reset();
+
+		return new JobListing(...$row,
+			essentialRequirements: $essentialRequirements,
+			preferredRequirements: $preferredRequirements
+		);
 	}
 }
 

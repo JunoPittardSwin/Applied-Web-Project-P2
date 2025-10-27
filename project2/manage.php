@@ -4,13 +4,14 @@ use Req\InputMapFailedException;
 use DB\SortDirection;
 
 use function Templates\document;
-use function Templates\Manage\eoiTable;
 use function Templates\Manage\viewEoi;
+use function Templates\Manage\viewJobListing;
 use function Templates\selectInput;
 use function Templates\textInput;
 
 require_once(__DIR__ . '/lib/UserManager.php');
 require_once(__DIR__ . '/lib/EoiManager.php');
+require_once(__DIR__ . '/lib/JobManager.php');
 require_once(__DIR__ . '/lib/Req.php');
 require_once(__DIR__ . '/lib/Session.php');
 require_once(__DIR__ . '/settings.php');
@@ -20,61 +21,42 @@ require_once(__DIR__ . '/lib/templates/document.php');
 $userManager = new UserManager($db);
 $user = Session\getUserOrLogin($userManager);
 
-// See if we're viewing a specific application.
-$form = new Req\FormContext($_GET);
+$eoiManager = new EoiManager($db);
+$jobManager = new JobManager($db);
 
-/** @var ?int A specific EOI ID to view fullscreen. */
-$eoiIdToView = $form->input(
+// See if we're viewing a specific application.
+$viewDetailsForm = new Req\FormContext($_GET);
+
+/** @var ?Eoi A specific EOI to view fullscreen. */
+$eoiToView = $viewDetailsForm->input(
 	readableName: 'EOI ID to view',
 	key: 'eoiIdToView',
 	required: false,
 	regex: '/^[0-9]+$/',
-	mapValue: intval(...)
+	mapValue: fn(string $id) => $eoiManager->getEoi(intval($id))
+		?? throw new InputMapFailedException('was not found in the system.')
 );
 
-$eoiManager = new EoiManager($db);
+/** @var ?JobListing A specific job listing to view fullscreen. */
+$jobToView = $viewDetailsForm->input(
+	readableName: 'Job Reference ID to view',
+	key: 'jobRefToView',
+	required: false,
+	regex: '/^J[0-9]{4}$/',
+	mapValue: fn(string $ref) => $jobManager->getJobListing($ref)
+		?? throw new InputMapFailedException('was not found in the system.')
+);
 
-if ($eoiIdToView !== null)
+switch (true)
 {
-	$eoi = $eoiManager->getEoi($eoiIdToView);
+	case ($eoiToView !== null):
+		require_once(__DIR__ . '/lib/templates/manage/view-eoi.php');
+		exit(viewEoi($eoiToView));
 
-	if ($eoi === null)
-	{
-		http_response_code(404);
-
-		echo document(
-			title: 'EOI ' . strval($eoiIdToView) . ' not found',
-			mainContent: function() use ($eoiIdToView)
-			{
-				ob_start();
-				?>
-				<article id="content">
-					<h1>The EOI with ID <?= strval($eoiIdToView) ?> doesn't seem to exist</h1>
-					<a href="?">Back to Overview</a>
-				</article>
-				<?php
-				return ob_get_clean();
-			}
-		);
-
-		exit;
-	}
-
-	echo document(
-		title: 'EOI ' . strval($eoi->id),
-		description: 'EOI submitted by ' . $eoi->firstName,
-		mainContent: function() use ($eoi)
-		{
-			require_once(__DIR__ . '/lib/templates/manage/view-eoi.php');
-			
-			return '<article id="content">' . 
-				viewEoi($eoi) .
-			'</article>';
-		}
-	);
-
-	exit;
-}
+	case ($jobToView !== null):
+		require_once(__DIR__ . '/lib/templates/manage/view-job-listing.php');
+		exit(viewJobListing($jobToView));
+};
 
 function eoiSortByName(EoiSortBy $case): string
 {
@@ -82,6 +64,7 @@ function eoiSortByName(EoiSortBy $case): string
 	{
 		EoiSortBy::JobReferenceId => 'Job Reference ID',
 		EoiSortBy::Recency => 'Recency',
+		EoiSortBy::Status => 'Application Status',
 	};
 }
 
@@ -97,9 +80,8 @@ function sortDirectionName(SortDirection $case): string
 echo document(
 	title: 'Manage Jobs',
 	description: 'Manage job listings and expressions of interest.',
-	mainContent: function() use ($user, $eoiManager)
+	mainContent: function() use ($user, $eoiManager, $jobManager, $viewDetailsForm)
 	{
-		require_once(__DIR__ . '/lib/templates/manage/eoi-table.php');
 		require_once(__DIR__ . '/lib/templates/text-input.php');
 		require_once(__DIR__ . '/lib/templates/select-input.php');
 
@@ -153,13 +135,32 @@ echo document(
 				?? throw new InputMapFailedException('is not a valid sorting direction.')
 		) ?? SortDirection::Descending;
 
+		$submissions = $eoiManager->getSubmissions(
+			forJobRef: $filterJobRef,
+			withFirstName: $filterFirstName,
+			withLastName: $filterLastName,
+			withEmailAddress: $filterEmailAddress,
+			withSkills: [],
+			sortBy: $sortBy,
+			sortDirection: $sortDirection
+		);
+
 		ob_start();
 
 		?>
 		<article id="content">
-			<p>
+			<h1>
 				Welcome to the administration dashboard, <?= htmlspecialchars($user->name) ?>!
-			</p>
+			</h1>
+
+			<?php if ($viewDetailsForm->hasErrors()): ?>
+				<p>You've been taken to the dashboard due to the following issue(s):</p>
+				<ul>
+					<?php foreach ($viewDetailsForm->htmlErrorList as $error): ?>
+						<li><?= $error ?></li>
+					<?php endforeach ?>
+				</ul>
+			<?php endif ?>
 
 			<section>
 				<h2>Expressions of Interest</h2>
@@ -227,6 +228,7 @@ echo document(
 									options: [
 										eoiSortByName(EoiSortBy::JobReferenceId) => EoiSortBy::JobReferenceId->value,
 										eoiSortByName(EoiSortBy::Recency) => EoiSortBy::Recency->value,
+										eoiSortByName(EoiSortBy::Status) => EoiSortBy::Status->value,
 									],
 									initialChoiceName: eoiSortByName($sortBy),
 								) ?>
@@ -251,67 +253,62 @@ echo document(
 					</nav>
 				</form>
 
-				<h3>New</h3>
-				<?= eoiTable(
-					caption: 'Expressions of Interest that haven\'t been categorised yet.',
-					submissions: $eoiManager->getSubmissions(
-						forJobRef: $filterJobRef,
-						withFirstName: $filterFirstName,
-						withLastName: $filterLastName,
-						withEmailAddress: $filterEmailAddress,
-						withStatus: EoiStatus::New,
-						withSkills: [],
-						sortBy: $sortBy,
-						sortDirection: $sortDirection
-					)
-				) ?>
+				<table>
+					<thead>
+						<tr>
+							<th>Ref Num.</th>
+							<th>Job Ref. Num</th>
+							<th>Status</th>
+							<th>Last Name</th>
+							<th>First Name</th>
+							<th>Email Address</th>
+							<th>Ph. Number</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
 
-				<h3>Current</h3>
-				<?= eoiTable(
-					caption: 'Expressions of Interest that are... Current? Whatever that means?',
-					submissions: $eoiManager->getSubmissions(
-						forJobRef: $filterJobRef,
-						withFirstName: $filterFirstName,
-						withLastName: $filterLastName,
-						withEmailAddress: $filterEmailAddress,
-						withStatus: EoiStatus::Current,
-						withSkills: [],
-						sortBy: $sortBy,
-						sortDirection: $sortDirection
-					)
-				) ?>
-
-				<h3>Final</h3>
-				<?= eoiTable(
-					caption: 'Expressions of Interest that made it into the final round (??? I dunno)',
-					submissions: $eoiManager->getSubmissions(
-						forJobRef: $filterJobRef,
-						withFirstName: $filterFirstName,
-						withLastName: $filterLastName,
-						withEmailAddress: $filterEmailAddress,
-						withStatus: EoiStatus::Final,
-						withSkills: [],
-						sortBy: $sortBy,
-						sortDirection: $sortDirection
-					)
-				) ?>
-
+					<tbody>
+						<?php foreach ($submissions as $eoi): ?>
+							<tr>
+								<td><?= strval($eoi->id) ?></td>
+								<td><?= htmlspecialchars($eoi->jobReferenceId) ?></td>
+								<td><?= htmlspecialchars($eoi->status->value) ?></td>
+								<td><?= htmlspecialchars($eoi->lastName) ?></td>
+								<td><?= htmlspecialchars($eoi->firstName) ?></td>
+								<td><?= htmlspecialchars($eoi->emailAddress) ?></td>
+								<td><?= htmlspecialchars($eoi->phoneNumber) ?></td>
+								<td>
+									<a href="?eoiIdToView=<?= strval($eoi->id) ?>">Details</a>
+								</td>
+							</tr>
+						<?php endforeach ?>
+					</tbody>
+				</table>
 			</section>
 
 			<section>
 				<h2>Job Listings</h2>
 
-				<form action="./api/eoi/delete.php" method="post">
-					<h3>Delete all EOIs for a Job</h3>
-
-					<?= textInput(
-						readableName: 'Job Reference ID',
-						key: 'reference',
-						required: true
-					) ?>
-
-					<button type="submit">Delete all EOIs for this Job ID</button>
-				</form>
+				<table>
+					<thead>
+						<tr>
+							<th>Ref Num.</th>
+							<th>Title</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($jobManager->getAllJobListings() as $job): ?>
+							<tr>
+								<td><?= htmlspecialchars($job->ref) ?></td>
+								<td><?= htmlspecialchars($job->title) ?></td>
+								<td>
+									<a href="?jobRefToView=<?= urlencode($job->ref) ?>">Edit</a>
+								</td>
+							</tr>
+						<?php endforeach ?>
+					</tbody>
+				</table>
 			</section>
 		</article>
 		<?php
