@@ -65,4 +65,12 @@ $db->execute_query("CREATE TABLE IF NOT EXISTS contributions (
 	contribution_text TEXT NOT NULL,
 	FOREIGN KEY (team_member_id) REFERENCES team_members(student_id)
 	);");
-	
+
+require_once(__DIR__ . '/lib/JobManager.php');
+JobManager::createSchema($db);
+
+require_once(__DIR__ . '/lib/EoiManager.php');
+EoiManager::createSchema($db);
+
+require_once(__DIR__ . '/lib/UserManager.php');
+UserManager::createSchema($db);

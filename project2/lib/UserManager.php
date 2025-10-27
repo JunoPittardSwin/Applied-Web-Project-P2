@@ -9,15 +9,24 @@ require_once(__DIR__ . '/../settings.php');
  */
 class UserManager
 {
-	function __construct(private mysqli $db)
+	/**
+	 * Set up the database tables for users.
+	 *
+	 * @param mysqli $db
+	 * @return void
+	 */
+	static function createSchema(mysqli $db)
 	{
 		// Ensure the users table exists!
-		$this->db->query("CREATE TABLE IF NOT EXISTS users(
+		$db->query("CREATE TABLE IF NOT EXISTS users(
 			id INTEGER PRIMARY KEY AUTO_INCREMENT,
 			name varchar(32) NOT NULL UNIQUE,
 			passwordHash TEXT NOT NULL
 		)");
+	}
 
+	function __construct(private mysqli $db)
+	{
 		// Create the marker's account if it doesn't exist. (See Requirement 6)
 		if ($this->getUserByName('Admin') === null)
 		{

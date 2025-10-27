@@ -11,7 +11,13 @@ class JobManager
 	private ?mysqli_stmt $createJobListing = null;
 	private ?mysqli_stmt $addRequirement = null;
 
-	function __construct(private mysqli $db)
+	/**
+	 * Set up the database tables for job listings.
+	 *
+	 * @param mysqli $db
+	 * @return void
+	 */
+	static function createSchema(mysqli $db)
 	{
 		$db->execute_query("CREATE TABLE IF NOT EXISTS job(
 			ref CHAR(5) NOT NULL PRIMARY KEY,
@@ -32,6 +38,9 @@ class JobManager
 			FOREIGN KEY (jobId) REFERENCES job(ref) ON DELETE CASCADE
 		);");
 	}
+
+	function __construct(private mysqli $db)
+	{}
 
 	/**
 	 * Get the list of current job listings.

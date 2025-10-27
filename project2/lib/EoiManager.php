@@ -6,9 +6,15 @@ require_once(__DIR__ . '/db/SortDirection.php');
 
 class EoiManager
 {
-	function __construct(private mysqli $db)
+	/**
+	 * Set up the database tables for EOIs.
+	 *
+	 * @param mysqli $db
+	 * @return void
+	 */
+	static function createSchema(mysqli $db)
 	{
-		$this->db->query("CREATE TABLE IF NOT EXISTS eoi(
+		$db->query("CREATE TABLE IF NOT EXISTS eoi(
 			id INTEGER PRIMARY KEY AUTO_INCREMENT,
 
 			-- ID of the job that's being applied for
@@ -64,7 +70,7 @@ class EoiManager
 			FOREIGN KEY (jobReferenceId) REFERENCES job(ref) ON DELETE CASCADE
 		)");
 
-		$this->db->query("CREATE TABLE IF NOT EXISTS eoi_skill(
+		$db->query("CREATE TABLE IF NOT EXISTS eoi_skill(
 			-- ID of the EOI this skill entry belongs to.
 			eoiId INTEGER NOT NULL,
 
@@ -77,6 +83,9 @@ class EoiManager
 			PRIMARY KEY (eoiId, skill)
 		)");
 	}
+
+	function __construct(private mysqli $db)
+	{}
 
 	/**
 	 * Submit an expression of interest from the person with the provided details.
