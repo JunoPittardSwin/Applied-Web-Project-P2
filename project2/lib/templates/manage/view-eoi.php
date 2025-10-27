@@ -51,7 +51,15 @@ function viewEoi(Eoi $eoi): string
 					<dt>Gender</dt>
 					<dd><?= htmlspecialchars(ucfirst($eoi->gender) ?? 'Not specified') ?></dd>
 					<dt>Date Of Birth</dt>
-					<dd><time><?= htmlspecialchars($eoi->dateOfBirth?->format('d/m/Y') ?? 'Not specified') ?></time></dd>
+					<dd>
+						<?php if ($eoi->dateOfBirth !== null): ?>
+							<time datetime="<?= htmlspecialchars($eoi->dateOfBirth->format('c'), ENT_QUOTES) ?>">
+								<?= htmlspecialchars($eoi->dateOfBirth->format('d/m/Y')) ?>
+							</time>
+						<?php else: ?>
+							Not specified
+						<?php endif ?>
+					</dd>
 				</dl>
 	
 				<section>
