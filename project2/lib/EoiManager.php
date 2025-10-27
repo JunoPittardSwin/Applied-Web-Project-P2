@@ -189,6 +189,20 @@ class EoiManager
 	 */
 	public function setStatusOf(int $id, EoiStatus $status): bool
 	{
+		$existsResult = $this->db->execute_query(
+			"SELECT 1 FROM eoi
+			 WHERE id = ?",
+			[$id]
+		);
+
+		$exists = $existsResult->fetch_column();
+		$existsResult->close();
+
+		if (!$exists)
+		{
+			return false;
+		}
+
 		$this->db->execute_query(
 			"UPDATE eoi
 			 SET status = ?
@@ -196,7 +210,7 @@ class EoiManager
 			[$status->value, $id]
 		);
 
-		return ($this->db->affected_rows > 0);
+		return true;
 	}
 
 	/**
