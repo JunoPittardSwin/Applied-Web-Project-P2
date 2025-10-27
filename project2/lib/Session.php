@@ -25,7 +25,7 @@ function getUserOrLogin(\UserManager $userManager): \User
 	{
 		// User is unauthenticated, redirect to the login page.
 		http_response_code(401);
-		header('Location: /login.php');
+		header('Location: ../login.php');
 
 		exit;
 	}
@@ -39,7 +39,7 @@ function getUserOrLogin(\UserManager $userManager): \User
 		setUser(null);
 
 		http_response_code(401);
-		header('Location: /login.php');
+		header('Location: ../login.php');
 
 		exit;
 	}

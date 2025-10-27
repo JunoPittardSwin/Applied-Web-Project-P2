@@ -86,4 +86,4 @@ else
 }
 
 http_response_code(303);
-header('Location: /manage.php');
+header('Location: ../../manage.php');

@@ -73,4 +73,4 @@ if (!$success)
 }
 
 http_response_code(303);
-header('Location: /manage.php?eoiIdToView=' . strval($eoiId));
+header('Location: ../../manage.php?eoiIdToView=' . strval($eoiId));
