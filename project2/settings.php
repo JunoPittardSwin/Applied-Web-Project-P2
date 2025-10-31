@@ -1,5 +1,14 @@
 <?php declare(strict_types=1);
 
+/*
+filename: settings.php
+authors: Ashlyn Randall, Juno Pittard
+created: 11/10/2025
+last modified: 27/10/2025
+description: Database credentials and setup. See the below documentation block comment for further
+information. Designed to support both XAMPP and Docker.
+*/
+
 /**
  * Database Credentials.
  * 

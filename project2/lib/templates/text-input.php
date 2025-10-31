@@ -1,5 +1,13 @@
 <?php declare(strict_types=1);
 
+/*
+filename: text-input.php
+author: Ashlyn Randall
+created: 23/10/2025
+last modified: 25/10/2025
+description: HTML template for a textual input in a form.
+*/
+
 namespace Templates;
 
 /**

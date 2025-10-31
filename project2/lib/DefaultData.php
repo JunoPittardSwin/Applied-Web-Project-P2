@@ -1,5 +1,13 @@
 <?php 
 
+/*
+filename: view-eoi.php
+author: Juno Pittard
+created: 20/10/2025
+last modified: 27/10/2025
+description: Automatic sample data insertion to the database on first site visit.
+*/
+
 function defaultContributions($db) {
 
 	// populate team_members table with default data

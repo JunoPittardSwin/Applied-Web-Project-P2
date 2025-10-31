@@ -1,5 +1,13 @@
 <?php declare(strict_types=1);
 
+/*
+filename: jobs.php
+authors: Juno Pittard, Ashlyn Randall
+created: 23/08/2025
+last modified: 26/10/2025
+description: Job listings that applicants can read about, search through, and apply for.
+*/
+
 use Req\FormContext;
 
 use function Templates\textInput;

@@ -1,5 +1,14 @@
 <?php declare(strict_types=1);
 
+/*
+filename: JobManager.php
+author: Ashlyn Randall
+created: 25/10/2025
+last modified: 27/10/2025
+description: Database interaction for creating, viewing, searching through, and managing job
+listings.
+*/
+
 /**
  * Manager of the job list in the database. Provides access to creating new job listings, and
  * type-safe representations of the job information in the database.

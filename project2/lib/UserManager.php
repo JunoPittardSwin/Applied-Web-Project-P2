@@ -1,5 +1,13 @@
 <?php declare(strict_types=1);
 
+/*
+filename: UserManager.php
+author: Ashlyn Randall
+created: 17/10/2025
+last modified: 27/10/2025
+description: Database interaction for secure user authentication and privileges.
+*/
+
 require_once(__DIR__ . '/../settings.php');
 
 /**

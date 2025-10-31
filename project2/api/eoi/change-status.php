@@ -1,5 +1,13 @@
 <?php declare(strict_types=1);
 
+/*
+filename: change-status.php
+author: Ashlyn Randall
+created: 22/10/2025
+last modified: 27/10/2025
+description: REST API route for updating an EOI's status as a HR manager.
+*/
+
 use Req\FormContext;
 use Req\InputMapFailedException;
 

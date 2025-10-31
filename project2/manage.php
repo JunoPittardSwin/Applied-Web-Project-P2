@@ -1,5 +1,16 @@
 <?php declare(strict_types=1);
 
+/*
+filename: manage.php
+authors: Ashlyn Randall
+created: 17/10/2025
+last modified: 27/10/2025
+description: HR management page. Can show either:
+a) an overview of current EOIs & job listings,
+b) information about a specific EOI (and administrative tools regarding it),
+c) administrative tools for managing a job listing.
+*/
+
 use Req\InputMapFailedException;
 use DB\SortDirection;
 

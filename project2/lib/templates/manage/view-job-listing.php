@@ -1,5 +1,13 @@
 <?php declare(strict_types=1);
 
+/*
+filename: view-job-listing.php
+author: Ashlyn Randall
+created: 27/10/2025
+last modified: 27/10/2025
+description: HTML template for viewing the details about a specific job listing as a HR manager.
+*/
+
 namespace Templates\Manage;
 
 use JobListing;

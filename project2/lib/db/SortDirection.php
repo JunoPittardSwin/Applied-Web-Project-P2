@@ -1,5 +1,13 @@
 <?php declare(strict_types=1);
 
+/*
+filename: SortDirection.php
+author: Ashlyn Randall
+created: 26/10/2025
+last modified: 26/10/2025
+description: Common sorting choices across differing database interactions.
+*/
+
 namespace DB;
 
 /**

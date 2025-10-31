@@ -1,5 +1,13 @@
 <?php declare(strict_types=1);
 
+/*
+filename: Req.php
+author: Ashlyn Randall
+created: 17/10/2025
+last modified: 22/10/2025
+description: Utilities for quick, type-safe parsing of submitted form data in requests.
+*/
+
 /**
  * Utilities for parsing data from requests.
  */

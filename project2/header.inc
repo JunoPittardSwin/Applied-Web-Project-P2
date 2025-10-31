@@ -1,4 +1,14 @@
-<!-- Navigation bar, standard on all pages. -->
+<?php
+
+/*
+filename: header.inc
+author: Juno Pittard
+created: 11/10/2025
+last modified: 21/10/2025
+description: Navigation bar, standard on all pages.
+*/
+
+?>
 <header id="navigation">
 	<a class="company-title" href="./index.php">
 		<img src="./images/logo.png" alt="Watertight Recruitment Logo">

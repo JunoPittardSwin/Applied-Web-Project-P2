@@ -1,3 +1,14 @@
+<?php
+
+/*
+filename: about.php
+author: Juno Pittard
+created: 23/08/2025
+last modified: 26/10/2025
+description: Information about the team. Loads the team list and contributions from the database.
+*/
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

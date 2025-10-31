@@ -1,5 +1,14 @@
 <?php declare(strict_types=1);
 
+/*
+filename: EoiManager.php
+author: Ashlyn Randall
+created: 19/10/2025
+last modified: 27/10/2025
+description: Database interaction for submitting and managing expressions of interest for job
+listings.
+*/
+
 use DB\SortDirection;
 
 require_once(__DIR__ . '/db/SortDirection.php');

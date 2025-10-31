@@ -1,5 +1,14 @@
 <?php declare(strict_types=1);
 
+/*
+filename: document.php
+author: Ashlyn Randall
+created: 23/10/2025
+last modified: 25/10/2025
+description: HTML template for a page on the website. In the future, should be rolled out such that
+the normal pages use it too. Allows us to make changes in one place, and reflect them everywhere.
+*/
+
 namespace Templates;
 
 /**

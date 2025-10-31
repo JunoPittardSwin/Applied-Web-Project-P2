@@ -1,3 +1,14 @@
+<?php
+
+/*
+filename: index.php
+author: Juno Pittard
+created: 23/08/2025
+last modified: 25/10/2025
+description: Landing page for the hiring site, giving an introduction to the company.
+*/
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

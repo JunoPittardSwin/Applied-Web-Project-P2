@@ -1,5 +1,13 @@
 <?php declare(strict_types=1);
 
+/*
+filename: Session.php
+author: Ashlyn Randall
+created: 17/10/2025
+last modified: 27/10/2025
+description: Secure login session tracking for the HR management page.
+*/
+
 /**
  * Session-tracking for user login, used by the management interface.
  */

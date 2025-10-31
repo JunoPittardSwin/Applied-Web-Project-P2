@@ -1,5 +1,18 @@
 <?php declare(strict_types=1);
 
+/*
+filename: process_eoi.php
+author: Ashlyn Randall
+created: 19/10/2025
+last modified: 25/10/2025
+description: REST API endpoint for submitting an expression of interest. When invalid data is
+entered, provides detailed feedback to the applicant.
+
+Note that this file does not match the rest of the site's convention of placing endpoints in `/api`,
+nor does it use kebab-case, as it was required that it be named `process_eoi.php` in the root
+document directory.
+*/
+
 use Req\FormContext;
 use Req\InputMapFailedException;
 

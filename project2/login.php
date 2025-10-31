@@ -1,5 +1,14 @@
 <?php declare(strict_types=1);
 
+/*
+filename: login.php
+author: Ashlyn Randall
+created: 17/10/2025
+last modified: 27/10/2025
+description: Login form protecting the HR management page. Provides both the form, and the API
+endpoint for logging in with a given set of credentials.
+*/
+
 use function Templates\document;
 
 require_once(__DIR__ . '/lib/UserManager.php');

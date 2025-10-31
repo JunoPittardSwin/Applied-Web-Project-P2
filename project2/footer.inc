@@ -1,4 +1,14 @@
-<!-- Footer with additional site information and contact, standard on all pages. -->
+<?php
+
+/*
+filename: footer.inc
+author: Juno Pittard
+created: 11/10/2025
+last modified: 27/10/2025
+description: Footer with additional site information and contact, standard on all pages.
+*/
+
+?>
 <footer>
 	<nav>
 		<a href="https://github.com/JunoPittardSwin/Applied-Web-Project-P2" target="_blank">GitHub Repository</a>
